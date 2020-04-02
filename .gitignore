@@ -1,0 +1,6 @@
+*.[oa]
+*.class
+/.idea/
+/out/
+*.iml
+*.xml
