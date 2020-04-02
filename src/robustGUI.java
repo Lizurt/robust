@@ -13,10 +13,11 @@ public class robustGUI extends JFrame {
 
     public robustGUI() {
         $$$setupUI$$$();
-        this.setTitle("Robust");
-        this.setContentPane(panelMain);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
+        setTitle("Robust");
+        setResizable(false);
+        setContentPane(panelMain);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
     }
 
     /**
