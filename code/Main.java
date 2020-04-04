@@ -9,7 +9,7 @@ public class Main extends Application {
         mainStage.setTitle("Robust");
         mainStage.setResizable(false);
 
-        mainStage.setScene(GlobalVar.adventureScene);
+        mainStage.startAdventureScene();
         mainStage.show();
     }
 
