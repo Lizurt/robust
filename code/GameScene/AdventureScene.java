@@ -20,8 +20,8 @@ public class AdventureScene extends Scene {
     public AdventureScene(GridPane mainGridPane) {
         super(mainGridPane, GlobalVar.windowWidth, GlobalVar.windowHeight);
         /*
-            Output  EnemyIcon   EnemyStats
-            actionMenu.Input   Inventory   PlayerStats
+            textAreaOutput  labelEnemyIcon  labelEnemyStats
+            actionPane      inventoryVBox   playerStatsVBox
          */
         mainGridPane.getColumnConstraints().addAll(
                 new ColumnConstraints(GlobalVar.windowWidth - 250),
