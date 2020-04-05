@@ -1,4 +1,5 @@
 package aom.object;
 
-public interface Object {
+public abstract class Object {
+
 }

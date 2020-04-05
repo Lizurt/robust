@@ -29,7 +29,7 @@ public class MainStage extends Stage {
     public void startAdventureScene() {
         setScene(adventureScene);
         adventureScene.getTextAreaOutput().clear();
-        util.TextUtils.neutralEventText(adventureScene.getTextAreaOutput(), adventureScene.getPlayer().generateIntroductoryStory());
+        util.TextUtils.neutralEventText(adventureScene.getTextAreaOutput(), adventureScene.getPlayer().generateIntroductoryStory().toString());
     }
 
 }

@@ -1,4 +1,7 @@
 package aom.area.types;
 
-public class Corridor {
+import aom.area.Area;
+
+public class Corridor extends Area {
+
 }

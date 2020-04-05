@@ -1,4 +1,5 @@
 package aom.area;
 
-public interface Area {
+public abstract class Area {
+
 }

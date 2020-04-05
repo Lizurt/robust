@@ -1,14 +1,15 @@
 package GameScene;
 
-import aom.mob.player.Player;
+import aom.mob.humanoid.player.Player;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import org.fxmisc.richtext.InlineCssTextArea;
 import util.GlobalVar;
+import util.Random;
 
 public class AdventureScene extends Scene {
-    private Player player = new Player();
+    private Player player = new Player(Random.pick(GlobalVar.allowedMaleHumanRealName));
 
     private InlineCssTextArea textAreaOutput = new InlineCssTextArea();
     private FlowPane actionPane = new FlowPane();
