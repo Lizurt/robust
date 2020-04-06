@@ -5,9 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.InlineCssTextArea;
 import util.GlobalVar;
-import util.Random;
 
 public class AdventureScene extends Scene {
     private Player player;
@@ -43,10 +43,12 @@ public class AdventureScene extends Scene {
         getTextAreaOutput().setWrapText(true);
         getTextAreaOutput().setEditable(false);
 
+        //getTextAreaOutput().addCaret(new CaretNode("caret", getTextAreaOutput(), 0));
+
         mainGridPane.add(getActionPane(), 0, 1);
         getActionPane().setStyle("-fx-background-color: #2A2526");
         Button TodoDeleteThisButton = new Button("Бить себя");
-        TodoDeleteThisButton.setOnAction(e -> player.hurt(10));
+        TodoDeleteThisButton.setOnAction(e -> player.hurt(100));
         getActionPane().getChildren().add(TodoDeleteThisButton);
 
 
