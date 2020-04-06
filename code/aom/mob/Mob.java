@@ -19,6 +19,10 @@ public abstract class Mob extends Aom {
 
     public void hurt(int amount) {
         setHealth(Math.max(getMinHealth(), getHealth() - amount));
+        updateHealth();
+    }
+
+    public void updateHealth() {
         if (getHealth() == getMinHealth()) {
             die();
         }

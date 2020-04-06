@@ -1,12 +1,29 @@
 package aom.mob.humanoid.player;
 
+import GameScene.AdventureScene;
 import aom.Gender;
 import aom.mob.humanoid.Humanoid;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Player extends Humanoid {
 
-    public Player(String newName) {
+    private ImageView healthStatIcon = new ImageView(new Image("file:icons/stats/health/health100.png"));
+
+    public Player(String newName, AdventureScene location) {
         setRealName(newName);
+        setSceneLocation(location);
+        getSceneLocation().getPlayerStatsVBox().getChildren().add(healthStatIcon);
+    }
+
+    @Override
+    public void updateHealth() {
+        updateHealthIcon();
+        super.updateHealth();
+    }
+
+    public void updateHealthIcon() {
+        healthStatIcon.setImage(new Image("file:icons/stats/health/health" + util.Misc.round(getHealth(), 20) +".png"));
     }
 
     public StringBuilder generateIntroductoryStory() {

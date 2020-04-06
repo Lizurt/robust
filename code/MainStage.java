@@ -1,8 +1,11 @@
 import GameScene.AdventureScene;
 import GameScene.MainMenuScene;
 import GameScene.PauseMenuScene;
+import aom.mob.humanoid.player.Player;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import util.GlobalVar;
+import util.Random;
 
 public class MainStage extends Stage {
 
@@ -14,6 +17,7 @@ public class MainStage extends Stage {
     public MainStage(Stage newMainStage) {
         mainStage = newMainStage;
         initScenes();
+        adventureScene.setPlayer(new Player(Random.pick(GlobalVar.allowedMaleHumanRealName), adventureScene));
     }
 
     public Stage getMainStage() {

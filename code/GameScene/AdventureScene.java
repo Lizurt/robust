@@ -2,6 +2,7 @@ package GameScene;
 
 import aom.mob.humanoid.player.Player;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import org.fxmisc.richtext.InlineCssTextArea;
@@ -9,7 +10,7 @@ import util.GlobalVar;
 import util.Random;
 
 public class AdventureScene extends Scene {
-    private Player player = new Player(Random.pick(GlobalVar.allowedMaleHumanRealName));
+    private Player player;
 
     private InlineCssTextArea textAreaOutput = new InlineCssTextArea();
     private FlowPane actionPane = new FlowPane();
@@ -25,9 +26,9 @@ public class AdventureScene extends Scene {
             actionPane      inventoryVBox   playerStatsVBox
          */
         mainGridPane.getColumnConstraints().addAll(
-                new ColumnConstraints(GlobalVar.windowWidth - 250),
-                new ColumnConstraints(200, 200, 200),
-                new ColumnConstraints(50, 50, 50)
+                new ColumnConstraints(GlobalVar.windowWidth - 160),
+                new ColumnConstraints(128, 128, 128),
+                new ColumnConstraints(32, 32, 32)
         );
         mainGridPane.getRowConstraints().addAll(
                 new RowConstraints(Math.round(GlobalVar.windowHeight * 0.5)),
@@ -40,9 +41,14 @@ public class AdventureScene extends Scene {
         mainGridPane.add(getTextAreaOutput(), 0, 0);
         getTextAreaOutput().setStyle("-fx-background-color: #2A2526");
         getTextAreaOutput().setWrapText(true);
+        getTextAreaOutput().setEditable(false);
 
         mainGridPane.add(getActionPane(), 0, 1);
         getActionPane().setStyle("-fx-background-color: #2A2526");
+        Button TodoDeleteThisButton = new Button("Бить себя");
+        TodoDeleteThisButton.setOnAction(e -> player.hurt(10));
+        getActionPane().getChildren().add(TodoDeleteThisButton);
+
 
         mainGridPane.add(getInventoryVBox(), 1, 1);
         getInventoryVBox().setStyle("-fx-background-color: #2A2526");
@@ -81,5 +87,9 @@ public class AdventureScene extends Scene {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

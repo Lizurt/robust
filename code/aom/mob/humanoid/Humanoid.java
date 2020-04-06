@@ -42,6 +42,7 @@ public class Humanoid extends Mob {
                     }
                     break;
                 case IPC:
+                    generatedName = "Робот";
                     break;
                 case SKRELL:
                     generatedName = "Скреллка";
@@ -65,6 +66,7 @@ public class Humanoid extends Mob {
                     }
                     break;
                 case IPC:
+                    generatedName = "Робот";
                     break;
                 case SKRELL:
                     generatedName = "Скрелл";
