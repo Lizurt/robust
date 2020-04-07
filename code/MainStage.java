@@ -17,7 +17,7 @@ public class MainStage extends Stage {
     public MainStage(Stage newMainStage) {
         mainStage = newMainStage;
         initScenes();
-        adventureScene.setPlayer(new Player(Random.pick(GlobalVar.allowedMaleHumanRealName), adventureScene));
+        adventureScene.setPlayer(new Player(adventureScene, Random.pick(GlobalVar.allowedMaleHumanRealName)));
     }
 
     public Stage getMainStage() {

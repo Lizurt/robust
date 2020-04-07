@@ -1,19 +1,22 @@
 package GameScene;
 
+import aom.area.Area;
+import aom.area.types.EngineeringLobby;
+import aom.mob.humanoid.player.ActionMenu;
 import aom.mob.humanoid.player.Player;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.InlineCssTextArea;
 import util.GlobalVar;
 
 public class AdventureScene extends Scene {
     private Player player;
+    private Area currentArea;
 
     private InlineCssTextArea textAreaOutput = new InlineCssTextArea();
-    private FlowPane actionPane = new FlowPane();
+    private ActionMenu actionPane = new ActionMenu();
     private VBox inventoryVBox = new VBox();
     private VBox playerStatsVBox = new VBox();
     private Label labelEnemyIcon = new Label();
@@ -43,8 +46,6 @@ public class AdventureScene extends Scene {
         getTextAreaOutput().setWrapText(true);
         getTextAreaOutput().setEditable(false);
 
-        //getTextAreaOutput().addCaret(new CaretNode("caret", getTextAreaOutput(), 0));
-
         mainGridPane.add(getActionPane(), 0, 1);
         getActionPane().setStyle("-fx-background-color: #2A2526");
         Button TodoDeleteThisButton = new Button("Бить себя");
@@ -61,13 +62,15 @@ public class AdventureScene extends Scene {
         mainGridPane.add(getLabelEnemyIcon(), 1, 0);
 
         mainGridPane.add(getLabelEnemyStats(), 2, 0);
+
+        setCurrentArea(new EngineeringLobby(this));
     }
 
     public InlineCssTextArea getTextAreaOutput() {
         return textAreaOutput;
     }
 
-    public FlowPane getActionPane() {
+    public ActionMenu getActionPane() {
         return actionPane;
     }
 
@@ -93,5 +96,13 @@ public class AdventureScene extends Scene {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public Area getCurrentArea() {
+        return currentArea;
+    }
+
+    public void setCurrentArea(Area currentArea) {
+        this.currentArea = currentArea;
     }
 }

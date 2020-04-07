@@ -1,7 +1,9 @@
 package aom.mob;
 
+import GameScene.AdventureScene;
 import aom.Aom;
 import aom.Gender;
+import aom.area.Area;
 import util.Random;
 
 public abstract class Mob extends Aom {
@@ -12,6 +14,12 @@ public abstract class Mob extends Aom {
     private int health = 100;
     private int maxHealth = 100;
     private int minHealth = 0;
+
+    public Mob(AdventureScene sceneLocation) {
+        super(sceneLocation);
+        setName(generateRandomName());
+        setRealName(generateRandomRealName());
+    }
 
     public void heal(int amount) {
         setHealth(Math.min(getMaxHealth(), getHealth() + amount));

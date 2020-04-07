@@ -6,6 +6,10 @@ public abstract class Aom {
     private AdventureScene sceneLocation;
     private Gender gender = Gender.MALE;
 
+    public Aom(AdventureScene sceneLocation) {
+        setSceneLocation(sceneLocation);
+    }
+
     public AdventureScene getSceneLocation() {
         return sceneLocation;
     }

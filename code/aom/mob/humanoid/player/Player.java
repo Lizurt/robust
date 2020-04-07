@@ -10,9 +10,9 @@ public class Player extends Humanoid {
 
     private ImageView healthStatIcon = new ImageView(new Image("file:icons/stats/health/health100.png"));
 
-    public Player(String newName, AdventureScene location) {
+    public Player(AdventureScene sceneLocation, String newName) {
+        super(sceneLocation);
         setRealName(newName);
-        setSceneLocation(location);
         getSceneLocation().getPlayerStatsVBox().getChildren().add(healthStatIcon);
     }
 

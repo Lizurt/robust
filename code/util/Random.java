@@ -4,12 +4,20 @@ import java.util.List;
 
 public abstract class Random {
 
-    public static double random(double to) {
+    public static int random(int to) {
         return random(0, to);
+    }
+
+    public static double random(double to) {
+        return Math.random() * to;
     }
 
     public static double random(double from, double to) {
         return from + Math.random() * (to - from);
+    }
+
+    public static int random(int from, int to) {
+        return (int) Math.round(from + Math.random() * (to - from));
     }
 
     public static <T> T pick(List<T> list) {
