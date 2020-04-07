@@ -17,8 +17,6 @@ public abstract class Mob extends Aom {
 
     public Mob(AdventureScene sceneLocation) {
         super(sceneLocation);
-        setName(generateRandomName());
-        setRealName(generateRandomRealName());
     }
 
     public void heal(int amount) {
