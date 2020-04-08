@@ -1,18 +1,14 @@
-package aom.mob.humanoid.player;
+package actionVBox;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.TilePane;
 
-public class ActionMenu extends TilePane {
-
-    private int buttonsAmount = 0;
-    private final int maxButtonsAmount = 16;
+public class MovementActionHBox extends TilePane {
 
     public void addNewActionButton(Button button) {
-        if (buttonsAmount >= maxButtonsAmount) {
+        if (getChildren().size() >= 4) {
             return;
         }
         super.getChildren().add(button);
     }
-
 }

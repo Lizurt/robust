@@ -2,18 +2,23 @@ package aom.mob.humanoid.player;
 
 import GameScene.AdventureScene;
 import aom.Gender;
+import aom.area.Area;
 import aom.mob.humanoid.Humanoid;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import util.GlobalVar;
+import util.Random;
+import util.TextUtils;
 
 public class Player extends Humanoid {
 
     private ImageView healthStatIcon = new ImageView(new Image("file:icons/stats/health/health100.png"));
 
-    public Player(AdventureScene sceneLocation, String newName) {
-        super(sceneLocation);
-        setRealName(newName);
-        getSceneLocation().getPlayerStatsVBox().getChildren().add(healthStatIcon);
+    public Player(Area newLocation) {
+        super(newLocation);
+        setRealName(Random.pick(GlobalVar.allowedMaleHumanRealName));
+        AdventureScene.getPlayerStatsVBox().getChildren().add(healthStatIcon);
     }
 
     @Override
@@ -23,7 +28,7 @@ public class Player extends Humanoid {
     }
 
     public void updateHealthIcon() {
-        healthStatIcon.setImage(new Image("file:icons/stats/health/health" + util.Misc.round(getHealth(), 20) +".png"));
+        healthStatIcon.setImage(new Image("file:icons/stats/health/health" + util.Misc.round(getHealth(), 20) + ".png"));
     }
 
     public StringBuilder generateIntroductoryStory() {
@@ -45,6 +50,25 @@ public class Player extends Humanoid {
         coolStory.append("Переполняющие вас чувства страха и одиночества заставляют"); // TODO
         coolStory.append(" вас начать искать спасение самому - вы хотите сбежать, не дожидаясь помощи!\n\nВаша задача - выжить, а самый надежный, на ваш взгляд, способ - сбежать отсюда. Ожидание помощи даже более рискованно, чем спасение самому. Попытайтесь найти способ сбежать. Удачи!");
         return coolStory;
+    }
+
+    @Override
+    public void entered(Area area) {
+        TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), Random.pick("", "Неужели? ", "А это место сильно поменялось! ", "Вау! ", "Ого! ", "Снова? ") + Random.pick("Кажется это ", "Похоже, что это ", "Скорее всего это ", "Однозначно, это ", "Нет сомнений, что это ") + area.getAreaName() + Random.pick("!", "...", "."));
+        area.generateWaysOut();
+        for (Area wayOut : area.getWaysOut()) {
+            Button buttonWayOut = new Button("Войти в шлюз №" + (AdventureScene.getMovementActionHBox().getChildren().size() + 1));
+            buttonWayOut.setOnAction(e -> {
+                AdventureScene.getPlayer().moveToArea(wayOut, getLocation());
+            });
+            AdventureScene.getMovementActionHBox().addNewActionButton(buttonWayOut);
+        }
+    }
+
+    @Override
+    public void exited(Area area) {
+        TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), "========== Вы открываете стальные шлюзы и входите внутрь... ==========");
+        AdventureScene.getMovementActionHBox().getChildren().clear();
     }
 
 }

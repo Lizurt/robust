@@ -15,8 +15,8 @@ public abstract class Mob extends Aom {
     private int maxHealth = 100;
     private int minHealth = 0;
 
-    public Mob(AdventureScene sceneLocation) {
-        super(sceneLocation);
+    public Mob(Area newLocation) {
+        moveToArea(newLocation);
     }
 
     public void heal(int amount) {
@@ -35,7 +35,7 @@ public abstract class Mob extends Aom {
     }
 
     public void die() { // TODO
-        util.TextUtils.neutralEventText(getSceneLocation().getTextAreaOutput(), getName() + " умирает!");
+        util.TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), getName() + " умирает!");
     }
 
     public void generateRandomMob() {
@@ -95,4 +95,23 @@ public abstract class Mob extends Aom {
     public void setRealName(String realName) {
         this.realName = realName;
     }
+
+    public void moveToArea(Area newArea, Area oldArea) {
+        exited(oldArea);
+        moveToArea(newArea);
+    }
+
+    public void moveToArea(Area newArea) {
+        setLocation(newArea);
+        entered(newArea);
+    }
+
+    public void entered(Area area) {
+
+    }
+
+    public void exited(Area area) {
+
+    }
+
 }

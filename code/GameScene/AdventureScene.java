@@ -1,26 +1,25 @@
 package GameScene;
 
-import aom.area.Area;
+import actionVBox.GeneralActionPane;
+import actionVBox.MovementActionHBox;
 import aom.area.types.EngineeringLobby;
-import aom.mob.humanoid.player.ActionMenu;
 import aom.mob.humanoid.player.Player;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import org.fxmisc.richtext.InlineCssTextArea;
 import util.GlobalVar;
 
 public class AdventureScene extends Scene {
-    private Player player;
-    private Area currentArea;
+    private static Player player;
 
-    private InlineCssTextArea textAreaOutput = new InlineCssTextArea();
-    private ActionMenu actionPane = new ActionMenu();
-    private VBox inventoryVBox = new VBox();
-    private VBox playerStatsVBox = new VBox();
-    private Label labelEnemyIcon = new Label();
-    private Label labelEnemyStats = new Label();
+    private static InlineCssTextArea textAreaOutput = new InlineCssTextArea();
+    private static MovementActionHBox movementActionHBox = new MovementActionHBox();
+    private static GeneralActionPane actionPane = new GeneralActionPane();
+    private static VBox inventoryVBox = new VBox();
+    private static VBox playerStatsVBox = new VBox();
+    private static Label labelEnemyIcon = new Label();
+    private static Label labelEnemyStats = new Label();
 
     public AdventureScene(GridPane mainGridPane) {
         super(mainGridPane, GlobalVar.windowWidth, GlobalVar.windowHeight);
@@ -46,12 +45,14 @@ public class AdventureScene extends Scene {
         getTextAreaOutput().setWrapText(true);
         getTextAreaOutput().setEditable(false);
 
-        mainGridPane.add(getActionPane(), 0, 1);
-        getActionPane().setStyle("-fx-background-color: #2A2526");
-        Button TodoDeleteThisButton = new Button("Бить себя");
-        TodoDeleteThisButton.setOnAction(e -> player.hurt(100));
-        getActionPane().getChildren().add(TodoDeleteThisButton);
+        VBox actionVBox = new VBox();
+        movementActionHBox.setStyle("-fx-background-color: #2A2526");
+        actionVBox.getChildren().add(movementActionHBox);
+        actionPane.setStyle("-fx-background-color: #2A2526");
+        actionVBox.getChildren().add(actionPane);
 
+        mainGridPane.add(actionVBox, 0, 1);
+        getMovementActionHBox().setStyle("-fx-background-color: #2A2526");
 
         mainGridPane.add(getInventoryVBox(), 1, 1);
         getInventoryVBox().setStyle("-fx-background-color: #2A2526");
@@ -63,46 +64,38 @@ public class AdventureScene extends Scene {
 
         mainGridPane.add(getLabelEnemyStats(), 2, 0);
 
-        setCurrentArea(new EngineeringLobby(this));
+        player = new Player(new EngineeringLobby());
     }
 
-    public InlineCssTextArea getTextAreaOutput() {
+    public static InlineCssTextArea getTextAreaOutput() {
         return textAreaOutput;
     }
 
-    public ActionMenu getActionPane() {
-        return actionPane;
+    public static MovementActionHBox getMovementActionHBox() {
+        return movementActionHBox;
     }
 
-    public VBox getInventoryVBox() {
+    public static VBox getInventoryVBox() {
         return inventoryVBox;
     }
 
-    public VBox getPlayerStatsVBox() {
+    public static VBox getPlayerStatsVBox() {
         return playerStatsVBox;
     }
 
-    public Label getLabelEnemyIcon() {
+    public static Label getLabelEnemyIcon() {
         return labelEnemyIcon;
     }
 
-    public Label getLabelEnemyStats() {
+    public static Label getLabelEnemyStats() {
         return labelEnemyStats;
     }
 
-    public Player getPlayer() {
+    public static Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Area getCurrentArea() {
-        return currentArea;
-    }
-
-    public void setCurrentArea(Area currentArea) {
-        this.currentArea = currentArea;
+    public static void setPlayer(Player player) {
+        AdventureScene.player = player;
     }
 }

@@ -1,6 +1,6 @@
 package aom.mob.humanoid;
 
-import GameScene.AdventureScene;
+import aom.area.Area;
 import aom.mob.Mob;
 import aom.mob.Species;
 import util.GlobalVar;
@@ -15,8 +15,8 @@ public class Humanoid extends Mob {
     private int age = 35;
     private Species species = HUMAN;
 
-    public Humanoid(AdventureScene sceneLocation) {
-        super(sceneLocation);
+    public Humanoid(Area newLocation) {
+        super(newLocation);
         setGender(pick(MALE, FEMALE));
         setAge(random(GlobalVar.minAge, GlobalVar.maxAge));
         setSpecies(pick(HUMAN, SKRELL, UNATHI, TAJARA, IPC));
@@ -107,4 +107,15 @@ public class Humanoid extends Mob {
     public void setSpecies(Species species) {
         this.species = species;
     }
+
+    @Override
+    public void entered(Area area) {
+
+    }
+
+    @Override
+    public void exited(Area area) {
+
+    }
+
 }

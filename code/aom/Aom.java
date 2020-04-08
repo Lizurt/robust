@@ -1,22 +1,11 @@
 package aom;
 
 import GameScene.AdventureScene;
+import aom.area.Area;
 
 public abstract class Aom {
-    private AdventureScene sceneLocation;
     private Gender gender = Gender.MALE;
-
-    public Aom(AdventureScene sceneLocation) {
-        setSceneLocation(sceneLocation);
-    }
-
-    public AdventureScene getSceneLocation() {
-        return sceneLocation;
-    }
-
-    public void setSceneLocation(AdventureScene sceneLocation) {
-        this.sceneLocation = sceneLocation;
-    }
+    private Area location;
 
     public Gender getGender() {
         return gender;
@@ -24,5 +13,13 @@ public abstract class Aom {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public Area getLocation() {
+        return location;
+    }
+
+    public void setLocation(Area location) {
+        this.location = location;
     }
 }

@@ -1,45 +1,56 @@
 package aom.area;
 
-import GameScene.AdventureScene;
 import aom.Aom;
-import javafx.scene.control.Button;
+import aom.area.types.Corridor;
+import aom.area.types.EngineeringLobby;
+import aom.mob.Mob;
+import aom.obj.Obj;
 import javafx.scene.image.Image;
-import javafx.scene.text.Text;
 import util.Random;
-import util.TextUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Area extends Aom {
     private String areaName = "Неопределенная локация";
     private AtmosphereType atmosphereType = AtmosphereType.NORMAL;
     private LootType lootType = LootType.NONE;
+
     private Image backgroundImage;
 
-    public Area(AdventureScene sceneLocation) {
-        super(sceneLocation);
+    private List<Mob> mobs = new ArrayList<>();
+    private List<Obj> objects = new ArrayList<>();
+    private List<Area> waysOut = new ArrayList<>();
+
+    public Area() {
         generateAtmosphere();
         generateFeature();
         generateLoot();
         generateEnemies();
     }
 
-    public void onPlayerEntered() {
-        TextUtils.neutralEventText(getSceneLocation().getTextAreaOutput(), Random.pick("", "Неужели? ", "А это место сильно поменялось! ") + Random.pick("Кажется это ", "Похоже на ", "Вы давно хотели посетить ") + getAreaName() + Random.pick("!", "...", "."));
-    }
-
-    public void onPlayerExited() {
-        TextUtils.neutralEventText(getSceneLocation().getTextAreaOutput(), "========== Вы открываете стальные шлюзы и входите внутрь... ==========");
-    }
-
     public void generateWaysOut() {
         int waysOutAmount = Random.random(1, 3);
-        Button wayOut;
         for (int i = 0; i < waysOutAmount; i++) {
-            wayOut = new Button("Войти в шлюз № " + (i + 1)); // TODO
+            getWaysOut().add(generateRandomArea());
         }
     }
 
-    public void generateAtmosphere() {
+    public Area generateRandomArea() {
+        // I know this is shitty way, but I don't know how to make it better.
+        // Maybe it's possible somehow to create a list with classes?
+        switch (Random.random(1)) {
+            case 0:
+                return new EngineeringLobby();
+            case 1:
+                return new Corridor();
+        }
+        return null;
+    }
 
+
+    public void generateAtmosphere() {
+        atmosphereType = Random.pick(AtmosphereType.values());
     }
 
     public void generateFeature() {
@@ -47,7 +58,14 @@ public abstract class Area extends Aom {
     }
 
     public void generateLoot() {
-
+        switch (lootType) {
+            case ENGINEERING:
+                break;
+            case SECURITY:
+                break;
+            case MEDICAL:
+                break;
+        }
     }
 
     public void generateEnemies() {
@@ -85,4 +103,17 @@ public abstract class Area extends Aom {
     public void setBackgroundImage(Image backgroundImage) {
         this.backgroundImage = backgroundImage;
     }
+
+    public List<Mob> getMobs() {
+        return mobs;
+    }
+
+    public List<Obj> getObjects() {
+        return objects;
+    }
+
+    public List<Area> getWaysOut() {
+        return waysOut;
+    }
+
 }

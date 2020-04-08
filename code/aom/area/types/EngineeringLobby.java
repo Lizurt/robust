@@ -1,13 +1,14 @@
 package aom.area.types;
 
-import GameScene.AdventureScene;
 import aom.area.Area;
+import aom.area.LootType;
 
 public class EngineeringLobby extends Area {
 
-    public EngineeringLobby(AdventureScene sceneLocation) {
-        super(sceneLocation);
+    public EngineeringLobby() {
+        super();
         setAreaName("Комната отдыха инженерного отдела");
+        setLootType(LootType.ENGINEERING);
     }
 
 }
