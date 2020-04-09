@@ -1,6 +1,7 @@
 package util;
 
 public abstract class GlobalVar {
+    public static Difficulty difficulty = Difficulty.MEDIUM;
     public static int windowWidth = 960;
     public static int windowHeight = 540;
     public static final int minAge =  20;

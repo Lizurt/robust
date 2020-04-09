@@ -6,6 +6,10 @@ public abstract class Amo {
     private Gender gender = Gender.MALE;
     private Area location;
 
+    public void onPlayerAction() {
+
+    }
+
     public Gender getGender() {
         return gender;
     }

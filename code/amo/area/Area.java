@@ -1,20 +1,25 @@
 package amo.area;
 
 import amo.Amo;
-import amo.area.types.Corridor;
-import amo.area.types.EngineeringLobby;
+import amo.area.types.common.Corridor;
+import amo.area.types.engineering.Engineering;
+import amo.area.types.engineering.EngineeringChiefEngineerOffice;
+import amo.area.types.engineering.EngineeringLobby;
+import amo.area.types.engineering.EngineeringStorage;
 import amo.mob.Mob;
+import amo.mob.animal.GiantSpider;
 import amo.obj.Obj;
 import javafx.scene.image.Image;
+import util.GlobalVar;
 import util.Random;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Area extends Amo {
+public class Area extends Amo {
     private String areaName = "Неопределенная локация";
     private AtmosphereType atmosphereType = AtmosphereType.NORMAL;
-    private LootType lootType = LootType.NONE;
+    private LootType lootType = LootType.GENERAL;
 
     private Image backgroundImage;
 
@@ -39,13 +44,18 @@ public abstract class Area extends Amo {
     public Area generateRandomArea() {
         // I know this is shitty way, but I don't know how to make it better.
         // Maybe it's possible somehow to create a list with classes?
-        switch (Random.random(1)) {
+        switch (Random.random(5)) {
             case 0:
                 return new EngineeringLobby();
             case 1:
+                return new Engineering();
+            case 2:
+                return new EngineeringChiefEngineerOffice();
+            case 3:
+                return new EngineeringStorage();
+            default:
                 return new Corridor();
         }
-        return null;
     }
 
 
@@ -69,7 +79,26 @@ public abstract class Area extends Amo {
     }
 
     public void generateEnemies() {
-
+        for (int i = 0; i < 3; i++) {
+            switch (GlobalVar.difficulty) { // TODO: random enemies
+                case EASY:
+                    if (Random.prob(66)) {
+                        return;
+                    }
+                    getMobs().add(new GiantSpider(this));
+                    break;
+                case MEDIUM:
+                    if (Random.prob(40)) {
+                        return;
+                    }
+                    getMobs().add(new GiantSpider(this));
+                case HARD:
+                    if (Random.prob(25)) {
+                        return;
+                    }
+                    getMobs().add(new GiantSpider(this));
+            }
+        }
     }
 
     public String getAreaName() {

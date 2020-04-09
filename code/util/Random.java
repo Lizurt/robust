@@ -4,6 +4,10 @@ import java.util.List;
 
 public abstract class Random {
 
+    public static boolean prob(double probability) {
+        return probability > random(100.);
+    }
+
     public static int random(int to) {
         return random(0, to);
     }

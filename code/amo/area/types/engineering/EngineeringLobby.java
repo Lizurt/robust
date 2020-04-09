@@ -1,4 +1,4 @@
-package amo.area.types;
+package amo.area.types.engineering;
 
 import amo.area.Area;
 import amo.area.LootType;
@@ -9,6 +9,11 @@ public class EngineeringLobby extends Area {
         super();
         setAreaName("Комната отдыха инженерного отдела");
         setLootType(LootType.ENGINEERING);
+    }
+
+    @Override
+    public void generateEnemies() {
+
     }
 
 }

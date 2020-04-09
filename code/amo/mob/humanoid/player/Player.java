@@ -1,5 +1,7 @@
 package amo.mob.humanoid.player;
 
+import amo.mob.Mob;
+import amo.obj.items.undroppable.HumanFists;
 import game_scene.AdventureScene;
 import amo.Gender;
 import amo.area.Area;
@@ -14,11 +16,14 @@ import util.TextUtils;
 public class Player extends Humanoid {
 
     private ImageView healthStatIcon = new ImageView(new Image("file:icons/stats/health/health100.png"));
+    private int level = 1;
 
     public Player(Area newLocation) {
         super(newLocation);
+        setRealNameKnownToPlayer(true);
         setRealName(Random.pick(GlobalVar.allowedMaleHumanRealName));
         AdventureScene.getPlayerStatsVBox().getChildren().add(healthStatIcon);
+        setActiveWeapon(new HumanFists(this));
     }
 
     @Override
@@ -59,7 +64,20 @@ public class Player extends Humanoid {
         for (Area wayOut : area.getWaysOut()) {
             Button buttonWayOut = new Button("Войти в шлюз №" + (AdventureScene.getMovementActionHBox().getChildren().size() + 1));
             buttonWayOut.setOnAction(e -> {
+                for (Mob mob : getLocation().getMobs()) {
+                    mob.onPlayerAction();
+                }
+                for (Mob mob : getLocation().getMobs()) {
+                    if (mob.tryToBlockWayOut()) {
+                        util.TextUtils.badEventText(AdventureScene.getTextAreaOutput(), mob.getName() + Random.pick(" не позволяет вам пройти через шлюз!", " не дает вам сбежать!", " блокирует вам дорогу к шлюзу!"));
+                        return;
+                    }
+                }
                 AdventureScene.getPlayer().moveToArea(wayOut, getLocation());
+                for (Mob mob : wayOut.getMobs()) {
+                    util.TextUtils.badEventText(AdventureScene.getTextAreaOutput(), mob.getName() + Random.pick(" предстает перед вами!", " появляется перед вами", " замечен вами!", " находится здесь!", " обитает здесь!"));
+                    mob.focusOn(this);
+                }
             });
             AdventureScene.getMovementActionHBox().addNewActionButton(buttonWayOut);
         }
@@ -67,8 +85,39 @@ public class Player extends Humanoid {
 
     @Override
     public void exited(Area area) {
+        for (Mob mob : area.getMobs()) {
+            tryToChase();
+        }
         TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), "========== Вы открываете стальные шлюзы и входите внутрь... ==========");
         AdventureScene.getMovementActionHBox().getChildren().clear();
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = Math.max(0, level);
+    }
+
+    @Override
+    public void focusOn(Mob mob) {
+
+    }
+
+    @Override
+    public Mob getFocusedOn() {
+        return null;
+    }
+
+    @Override
+    public void tryToChase() {
+
+    }
+
+    @Override
+    public boolean tryToBlockWayOut() {
+        return false;
     }
 
 }

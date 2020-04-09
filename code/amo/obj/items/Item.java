@@ -1,4 +1,13 @@
 package amo.obj.items;
 
-public class Item {
+import amo.Amo;
+import amo.area.Area;
+import amo.obj.Obj;
+
+public class Item extends Obj {
+
+    public Item(Amo holder) {
+        super(holder);
+    }
+
 }

@@ -2,7 +2,7 @@ package game_scene;
 
 import action_pane.GeneralActionPane;
 import action_pane.MovementActionHBox;
-import amo.area.types.EngineeringLobby;
+import amo.area.types.engineering.EngineeringLobby;
 import amo.mob.humanoid.player.Player;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
