@@ -88,7 +88,7 @@ public class Player extends Humanoid {
         for (Mob mob : area.getMobs()) {
             tryToChase();
         }
-        TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), "========== Вы открываете стальные шлюзы и входите внутрь... ==========");
+        TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), "========== Вы открываете стальной шлюз и входите внутрь... ==========");
         AdventureScene.getMovementActionHBox().getChildren().clear();
     }
 
