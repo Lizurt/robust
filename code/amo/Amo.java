@@ -5,9 +5,12 @@ import amo.area.Area;
 public abstract class Amo {
     private Gender gender = Gender.MALE;
     private Area location;
+    private boolean isDestroyed = false;
 
-    public void onPlayerAction() {
-
+    public void destroy() {
+        gender = null;
+        location = null;
+        isDestroyed = true;
     }
 
     public Gender getGender() {
@@ -24,5 +27,9 @@ public abstract class Amo {
 
     public void setLocation(Area location) {
         this.location = location;
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
     }
 }

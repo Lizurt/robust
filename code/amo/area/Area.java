@@ -9,6 +9,7 @@ import amo.area.types.engineering.EngineeringStorage;
 import amo.mob.Mob;
 import amo.mob.animal.GiantSpider;
 import amo.obj.Obj;
+import game_scene.AdventureScene;
 import javafx.scene.image.Image;
 import util.GlobalVar;
 import util.Random;
@@ -99,6 +100,19 @@ public class Area extends Amo {
                     getMobs().add(new GiantSpider(this));
             }
         }
+    }
+
+    public void onPlayerAction() {
+        for (Mob mob : getMobs()) {
+            if (mob.getFocusedOn() == null) {
+                continue;
+            }
+            mob.attack(mob.getFocusedOn(), mob.getActiveWeapon());
+        }
+    }
+
+    public void setBackground(Image background) {
+
     }
 
     public String getAreaName() {
