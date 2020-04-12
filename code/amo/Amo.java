@@ -1,11 +1,13 @@
 package amo;
 
 import amo.area.Area;
+import javafx.scene.image.Image;
 
 public abstract class Amo {
     private Gender gender = Gender.MALE;
     private Area location;
     private boolean isDestroyed = false;
+    private Image icon;
 
     public void destroy() {
         gender = null;
@@ -31,5 +33,13 @@ public abstract class Amo {
 
     public boolean isDestroyed() {
         return isDestroyed;
+    }
+
+    public Image getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Image icon) {
+        this.icon = icon;
     }
 }

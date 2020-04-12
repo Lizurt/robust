@@ -62,11 +62,18 @@ public class Player extends Humanoid {
     }
 
     @Override
+    public void attack(Mob attacked, Obj weapon) {
+        super.attack(attacked, weapon);
+        getLocation().onPlayerAction();
+    }
+
+    @Override
     public void entered(Area area) {
         TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), Random.pick("", "Неужели? ", "А это место сильно поменялось! ", "Вау! ", "Ого! ", "Снова? ") + Random.pick("Кажется это ", "Похоже, что это ", "Скорее всего это ", "Однозначно, это ", "Нет сомнений, что это ") + area.getAreaName() + Random.pick("!", "...", "."));
         area.generateWaysOut();
         for (Area wayOut : area.getWaysOut()) {
-            Button buttonWayOut = new Button("Войти в шлюз №" + (AdventureScene.getMovementActionHBox().getChildren().size() + 1));
+            Button buttonWayOut = new Button("", new ImageView(wayOut.getWayOutIcon()));
+            buttonWayOut.setBackground(null);
             buttonWayOut.setOnAction(e -> {
                 getLocation().onPlayerAction();
                 for (Mob mob : getLocation().getMobs()) {

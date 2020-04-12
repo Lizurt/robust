@@ -6,6 +6,8 @@ import amo.Amo;
 import amo.Gender;
 import amo.area.Area;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BackgroundFill;
 import util.Random;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public abstract class Mob extends Amo {
     private int maxHealth = 100;
     private int minHealth = 0;
     private boolean isDead = false;
+    private Stat stat = Stat.CONSCIOUS;
 
                         //    ROW  COL  (range: 1-3; 0 - don't have a position)
     private int[] position = { 0,   0 };
@@ -60,7 +63,8 @@ public abstract class Mob extends Amo {
         if (position[0] <= 0 || position[1] <= 0) {
             return;
         }
-        Button focusButton = new Button("null");
+        Button focusButton = new Button("", new ImageView(getIcon()));
+        focusButton.setBackground(null);
         focusButton.setOnAction(focusEvent -> {
             AdventureScene.getPlayer().focusOn(this);
             AdventureScene.getActionPane().getChildren().clear();
@@ -127,6 +131,9 @@ public abstract class Mob extends Amo {
     }
 
     public void attack(Mob attacked, Obj weapon) {
+        if (getStat() != Stat.CONSCIOUS) {
+            return;
+        }
         attacked.hurt(getStrengthLevel() * weapon.getDamage() + Random.random(getStrengthLevel()));
         generateAttackEventText(attacked, weapon);
     }
@@ -148,6 +155,7 @@ public abstract class Mob extends Amo {
 
     public void die() { // TODO
         util.TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), getName() + " умирает!");
+        setStat(Stat.DEAD);
     }
 
     public void generateRandomMob() {
@@ -344,5 +352,13 @@ public abstract class Mob extends Amo {
 
     public void setDead(boolean dead) {
         isDead = dead;
+    }
+
+    public Stat getStat() {
+        return stat;
+    }
+
+    public void setStat(Stat stat) {
+        this.stat = stat;
     }
 }

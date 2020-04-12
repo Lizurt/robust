@@ -111,6 +111,10 @@ public class Area extends Amo {
         }
     }
 
+    public Image getWayOutIcon() {
+        return new Image("file:icons/doors/airlock.png");
+    }
+
     public void setBackground(Image background) {
 
     }

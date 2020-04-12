@@ -4,6 +4,7 @@ import amo.area.Area;
 import amo.mob.Mob;
 import amo.mob.SkillLevel;
 import amo.obj.items.undroppable.SpiderJaw;
+import javafx.scene.image.Image;
 import util.Random;
 
 public class GiantSpider extends Mob {
@@ -13,5 +14,6 @@ public class GiantSpider extends Mob {
         setStrengthLevel(SkillLevel.LOW);
         setActiveWeapon(new SpiderJaw(this));
         setName(Random.pick("Отвратительный", "Мерзкий", "Гигантский", "Большой") + " паук");
+        setIcon(new Image("file:icons/mobs/animals/spiders/spider_1.png"));
     }
 }
