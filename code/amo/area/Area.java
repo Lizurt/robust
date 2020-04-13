@@ -125,7 +125,7 @@ public class Area extends Amo {
             if (mob.getFocusedOn() == null) {
                 continue;
             }
-            mob.attack(mob.getFocusedOn(), mob.getActiveWeapon());
+            mob.attackOrGetCloser(mob.getFocusedOn(), mob.getActiveWeapon());
         }
     }
 

@@ -127,20 +127,21 @@ public abstract class Mob extends Amo {
         }
         // prevents multiple enemies from appearing in the same column
         for (Mob mob : getLocation().getMobs()) {
-            if (mob.getPosition()[1] == col) {
+            if (mob != this && mob.getPosition()[1] == col) {
                 return false;
             }
         }
         setPosition(Math.max(1, row), Math.max(1, col));
+        AdventureScene.updatePaneEnemyIcon();
         return true;
     }
     // \/
     public void goAhead() {
-        moveToPosition(position[0], position[0] + 1);
+        moveToPosition(position[0] + 1, position[1]);
     }
     // /\
     public void goBack() {
-        moveToPosition(position[0], position[0] - 1);
+        moveToPosition(position[0] - 1, position[0]);
     }
     // <<
     public void goLeft() {
@@ -171,6 +172,14 @@ public abstract class Mob extends Amo {
     /////////////////////////////////
     //            COMBAT           //
     /////////////////////////////////
+
+    public void attackOrGetCloser(Mob attacked, Obj weapon) {
+        if (getPosition()[0] < 3) {
+            goAhead();
+            return;
+        }
+        attack(attacked, weapon);
+    }
 
     public void attack(Mob attacked, Obj weapon) {
         if (getStat() != Stat.CONSCIOUS) {
@@ -269,7 +278,7 @@ public abstract class Mob extends Amo {
             AdventureScene.getActionPane().getChildren().clear();
             Button attackButton = new Button("Атаковать " + tryToGetRealName());
             attackButton.setOnAction(attackEvent -> {
-                AdventureScene.getPlayer().attack(this, AdventureScene.getPlayer().getActiveWeapon());
+                AdventureScene.getPlayer().attackOrGetCloser(this, AdventureScene.getPlayer().getActiveWeapon());
             });
             AdventureScene.getActionPane().getChildren().add(attackButton);
         });

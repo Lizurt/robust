@@ -82,6 +82,7 @@ public class Player extends Humanoid {
         AdventureScene.getPaneEnemyIcon().getChildren().clear();
         AdventureScene.getVBoxEnemyStats().getChildren().clear();
         AdventureScene.getMovementActionHBox().getChildren().clear();
+        AdventureScene.getActionPane().getChildren().clear();
         for (Mob mob : area.getMobs()) {
             mob.tryToChase();
         }
@@ -112,6 +113,11 @@ public class Player extends Humanoid {
     /////////////////////////////////
     //            COMBAT           //
     /////////////////////////////////
+
+    @Override
+    public void attackOrGetCloser(Mob attacked, Obj weapon) {
+        attack(attacked, weapon);
+    }
 
     @Override
     public void attack(Mob attacked, Obj weapon) {
