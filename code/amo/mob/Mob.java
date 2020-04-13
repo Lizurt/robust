@@ -7,11 +7,19 @@ import amo.Gender;
 import amo.area.Area;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BackgroundFill;
 import util.Random;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/*  Content:
+
+    MOVEMENT
+    INVENTORY
+    COMBAT
+    MISC
+    GETTERS & SETTERS
+ */
 
 public abstract class Mob extends Amo {
 
@@ -22,7 +30,6 @@ public abstract class Mob extends Amo {
     private int health = 100;
     private int maxHealth = 100;
     private int minHealth = 0;
-    private boolean isDead = false;
     private Stat stat = Stat.CONSCIOUS;
 
                         //    ROW  COL  (range: 1-3; 0 - don't have a position)
@@ -59,22 +66,26 @@ public abstract class Mob extends Amo {
         super.destroy();
     }
 
-    public void generateFocusOnButton() {
-        if (position[0] <= 0 || position[1] <= 0) {
-            return;
-        }
-        Button focusButton = new Button("", new ImageView(getIcon()));
-        focusButton.setBackground(null);
-        focusButton.setOnAction(focusEvent -> {
-            AdventureScene.getPlayer().focusOn(this);
-            AdventureScene.getActionPane().getChildren().clear();
-            Button attackButton = new Button("Атаковать " + tryToGetRealName());
-            attackButton.setOnAction(attackEvent -> {
-                AdventureScene.getPlayer().attack(this, AdventureScene.getPlayer().getActiveWeapon());
-            });
-            AdventureScene.getActionPane().getChildren().add(attackButton);
-        });
-        AdventureScene.getPaneEnemyIcon().add(focusButton, position[1] - 1, position[0] - 1);
+    /////////////////////////////////
+    //           MOVEMENT          //
+    /////////////////////////////////
+
+    public void moveToArea(Area newArea, Area oldArea) {
+        exited(oldArea);
+        moveToArea(newArea);
+    }
+
+    public void moveToArea(Area newArea) {
+        setLocation(newArea);
+        entered(newArea);
+    }
+
+    public void entered(Area area) {
+
+    }
+
+    public void exited(Area area) {
+
     }
 
     public boolean appear(int row, int col) {
@@ -109,6 +120,41 @@ public abstract class Mob extends Amo {
         setPosition(0, 0);
     }
 
+    public boolean moveToPosition(int row, int col) {
+        // prevents the appearance of an enemy on the enemy icons pane
+        if (AdventureScene.getPlayer().getLocation() != getLocation()) {
+            return false;
+        }
+        // prevents multiple enemies from appearing in the same column
+        for (Mob mob : getLocation().getMobs()) {
+            if (mob.getPosition()[1] == col) {
+                return false;
+            }
+        }
+        setPosition(Math.max(1, row), Math.max(1, col));
+        return true;
+    }
+    // \/
+    public void goAhead() {
+        moveToPosition(position[0], position[0] + 1);
+    }
+    // /\
+    public void goBack() {
+        moveToPosition(position[0], position[0] - 1);
+    }
+    // <<
+    public void goLeft() {
+        moveToPosition(position[1], position[1] - 1);
+    }
+    // >>
+    public void goRight() {
+        moveToPosition(position[1], position[1] + 1);
+    }
+
+    /////////////////////////////////
+    //          INVENTORY          //
+    /////////////////////////////////
+
     public void addToInventory(Obj obj) {
         obj.setHolder(this);
         getInventory().add(obj);
@@ -122,13 +168,9 @@ public abstract class Mob extends Amo {
         getInventory().remove(obj);
     }
 
-    public String tryToGetRealName() {
-        return isRealNameKnownToPlayer ? getRealName() : getName();
-    }
-
-    public void generateAttackEventText(Mob attacked, Obj weapon) {
-        util.TextUtils.attackEventText(AdventureScene.getTextAreaOutput(), tryToGetRealName() + " бьет " + attacked.tryToGetRealName() + ", используя " + weapon.getName() + "!");
-    }
+    /////////////////////////////////
+    //            COMBAT           //
+    /////////////////////////////////
 
     public void attack(Mob attacked, Obj weapon) {
         if (getStat() != Stat.CONSCIOUS) {
@@ -156,86 +198,6 @@ public abstract class Mob extends Amo {
     public void die() { // TODO
         util.TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), getName() + " умирает!");
         setStat(Stat.DEAD);
-    }
-
-    public void generateRandomMob() {
-        setGender(Random.pick(Gender.MALE, Gender.FEMALE));
-        setName(generateRandomName());
-        setRealName(generateRandomRealName());
-    }
-
-    public String generateRandomName() {
-        return getGender() == Gender.FEMALE ? "Женственный Моб" : "Мужественный Моб";
-    }
-
-    public String generateRandomRealName() {
-        return getGender() == Gender.FEMALE ? "Моб Аомская" : "Моб Аомский";
-    }
-
-    public String generateNameAdjective() {
-        return getGender() == Gender.FEMALE ? "Неопределенная" : "Неопределенный";
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
-    }
-
-    public int getMinHealth() {
-        return minHealth;
-    }
-
-    public void setMinHealth(int minHealth) {
-        this.minHealth = minHealth;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-
-    public void moveToArea(Area newArea, Area oldArea) {
-        exited(oldArea);
-        moveToArea(newArea);
-    }
-
-    public void moveToArea(Area newArea) {
-        setLocation(newArea);
-        entered(newArea);
-    }
-
-    public void entered(Area area) {
-
-    }
-
-    public void exited(Area area) {
-
-    }
-
-    public void focusOn(Mob mob) {
-        focusedOn = mob;
     }
 
     public void tryToChase() {
@@ -270,94 +232,149 @@ public abstract class Mob extends Amo {
         }
     }
 
+    /////////////////////////////////
+    //             MISC            //
+    /////////////////////////////////
+
+    public void generateRandomMob() {
+        setGender(Random.pick(Gender.MALE, Gender.FEMALE));
+        setName(generateRandomName());
+        setRealName(generateRandomRealName());
+    }
+
+    public String generateRandomName() {
+        return getGender() == Gender.FEMALE ? "Женственный Моб" : "Мужественный Моб";
+    }
+
+    public String generateRandomRealName() {
+        return getGender() == Gender.FEMALE ? "Моб Аомская" : "Моб Аомский";
+    }
+
+    public String generateNameAdjective() {
+        return getGender() == Gender.FEMALE ? "Неопределенная" : "Неопределенный";
+    }
+
+    public void generateAttackEventText(Mob attacked, Obj weapon) {
+        util.TextUtils.attackEventText(AdventureScene.getTextAreaOutput(), tryToGetRealName() + " бьет " + attacked.tryToGetRealName() + ", используя " + weapon.getName() + "!");
+    }
+
+    public void generateFocusOnButton() {
+        if (position[0] <= 0 || position[1] <= 0) {
+            return;
+        }
+        Button focusButton = new Button("", new ImageView(getIcon()));
+        focusButton.setBackground(null);
+        focusButton.setOnAction(focusEvent -> {
+            AdventureScene.getPlayer().focusOn(this);
+            AdventureScene.getActionPane().getChildren().clear();
+            Button attackButton = new Button("Атаковать " + tryToGetRealName());
+            attackButton.setOnAction(attackEvent -> {
+                AdventureScene.getPlayer().attack(this, AdventureScene.getPlayer().getActiveWeapon());
+            });
+            AdventureScene.getActionPane().getChildren().add(attackButton);
+        });
+        AdventureScene.getPaneEnemyIcon().add(focusButton, position[1] - 1, position[0] - 1);
+    }
+
+    /////////////////////////////////
+    //      GETTERS & SETTERS      //
+    /////////////////////////////////
+
+    public int getHealth() {
+        return health;
+    }
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+
+    public int getMinHealth() {
+        return minHealth;
+    }
+    public void setMinHealth(int minHealth) {
+        this.minHealth = minHealth;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public String getRealName() {
+        return realName;
+    }
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+    public String tryToGetRealName() {
+        return isRealNameKnownToPlayer ? getRealName() : getName();
+    }
+
+
     public List<Obj> getInventory() {
         return inventory;
     }
-
     public void setInventory(List<Obj> inventory) {
         this.inventory = inventory;
     }
 
+
+    public void focusOn(Mob mob) {
+        focusedOn = mob;
+    }
     public Mob getFocusedOn() {
         return focusedOn;
     }
 
+
     public Obj getActiveWeapon() {
         return activeWeapon;
     }
-
     public void setActiveWeapon(Obj activeWeapon) {
         this.activeWeapon = activeWeapon;
     }
 
+
     public boolean isRealNameKnownToPlayer() {
         return isRealNameKnownToPlayer;
     }
-
     public void setRealNameKnownToPlayer(boolean realNameKnownToPlayer) {
         isRealNameKnownToPlayer = realNameKnownToPlayer;
     }
 
+
     public int[] getPosition() {
         return position;
     }
-
     public void setPosition(int row, int col) {
         position[0] = Math.max(0, Math.min(3, row));
         position[1] = Math.max(0, Math.min(3, col));
     }
 
-    public boolean moveToPosition(int row, int col) {
-        // prevents the appearance of an enemy on the enemy icons pane
-        if (AdventureScene.getPlayer().getLocation() != getLocation()) {
-            return false;
-        }
-        // prevents multiple enemies from appearing in the same column
-        for (Mob mob : getLocation().getMobs()) {
-            if (mob.getPosition()[1] == col) {
-                return false;
-            }
-        }
-        setPosition(Math.max(1, row), Math.max(1, col));
-        return true;
-    }
-    // \/
-    public void goAhead() {
-        moveToPosition(position[0], position[0] + 1);
-    }
-    // /\
-    public void goBack() {
-        moveToPosition(position[0], position[0] - 1);
-    }
-    // <<
-    public void goLeft() {
-        moveToPosition(position[1], position[1] - 1);
-    }
-    // >>
-    public void goRight() {
-        moveToPosition(position[1], position[1] + 1);
-    }
 
     public Button getMobAsButton() {
         return mobAsButton;
     }
-
     public void setMobAsButton(Button mobAsButton) {
         this.mobAsButton = mobAsButton;
     }
 
-    public boolean isDead() {
-        return isDead;
-    }
-
-    public void setDead(boolean dead) {
-        isDead = dead;
-    }
 
     public Stat getStat() {
         return stat;
     }
-
     public void setStat(Stat stat) {
         this.stat = stat;
     }

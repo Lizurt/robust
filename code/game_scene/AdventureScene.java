@@ -6,7 +6,6 @@ import amo.area.types.engineering.EngineeringLobby;
 import amo.mob.Mob;
 import amo.mob.humanoid.player.Player;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import org.fxmisc.richtext.InlineCssTextArea;
 import util.GlobalVar;
@@ -25,8 +24,10 @@ public class AdventureScene extends Scene {
     public AdventureScene(GridPane mainGridPane) {
         super(mainGridPane, GlobalVar.windowWidth, GlobalVar.windowHeight);
         /*
-            textAreaOutput  labelEnemyIcon  labelEnemyStats
-            actionPane      inventoryVBox   playerStatsVBox
+
+            textAreaOutput    | paneEnemyIcon | VBoxEnemyStats
+            action & movement | inventoryVBox | playerStatsVBox
+
          */
         mainGridPane.getColumnConstraints().addAll(
                 new ColumnConstraints(GlobalVar.windowWidth - 224),
@@ -41,26 +42,30 @@ public class AdventureScene extends Scene {
         mainGridPane.setStyle("-fx-background-color: #2A2526");
         mainGridPane.setGridLinesVisible(true);
 
+        // output text
         mainGridPane.add(getTextAreaOutput(), 0, 0);
         getTextAreaOutput().setStyle("-fx-background-color: #2A2526");
         getTextAreaOutput().setWrapText(true);
         getTextAreaOutput().setEditable(false);
 
+        // movement & action inside the actionVBox
         VBox actionVBox = new VBox();
-        movementActionHBox.setStyle("-fx-background-color: #2A2526");
-        actionVBox.getChildren().add(movementActionHBox);
         getActionPane().setStyle("-fx-background-color: #2A2526");
-        actionVBox.getChildren().add(getActionPane());
-
-        mainGridPane.add(actionVBox, 0, 1);
+        actionVBox.getChildren().add(movementActionHBox);
         getMovementActionHBox().setStyle("-fx-background-color: #2A2526");
+        actionVBox.getChildren().add(getActionPane());
+        getActionPane().setStyle("-fx-background-color: #2A2526");
+        mainGridPane.add(actionVBox, 0, 1);
 
+        // player's inventory
         mainGridPane.add(getInventoryVBox(), 1, 1);
         getInventoryVBox().setStyle("-fx-background-color: #2A2526");
 
+        // player's stats
         mainGridPane.add(getPlayerStatsVBox(), 2, 1);
         getPlayerStatsVBox().setStyle("-fx-background-color: #2A2526");
 
+        // enemy grid
         getPaneEnemyIcon().getColumnConstraints().addAll(
                 new ColumnConstraints(64, 64, 64),
                 new ColumnConstraints(64, 64, 64),
@@ -71,10 +76,12 @@ public class AdventureScene extends Scene {
                 new RowConstraints(64, 64, 64),
                 new RowConstraints(64, 64, 64)
         );
-
         mainGridPane.add(getPaneEnemyIcon(), 1, 0);
+        getPaneEnemyIcon().setStyle("-fx-background-color: #2A2526");
 
+        // enemy stats
         mainGridPane.add(getVBoxEnemyStats(), 2, 0);
+        getVBoxEnemyStats().setStyle("-fx-background-color: #2A2526");
 
         player = new Player(new EngineeringLobby());
     }

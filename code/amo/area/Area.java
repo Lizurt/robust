@@ -9,13 +9,19 @@ import amo.area.types.engineering.EngineeringStorage;
 import amo.mob.Mob;
 import amo.mob.animal.GiantSpider;
 import amo.obj.Obj;
-import game_scene.AdventureScene;
 import javafx.scene.image.Image;
 import util.GlobalVar;
 import util.Random;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/*  Content:
+
+    MISC
+    ACTION
+    GETTERS & SETTERS
+ */
 
 public class Area extends Amo {
     private String areaName = "Неопределенная локация";
@@ -34,6 +40,10 @@ public class Area extends Amo {
         generateLoot();
         generateEnemies();
     }
+
+    /////////////////////////////////
+    //             MISC            //
+    /////////////////////////////////
 
     public void generateWaysOut() {
         int waysOutAmount = Random.random(1, 3);
@@ -102,6 +112,14 @@ public class Area extends Amo {
         }
     }
 
+    public Image getWayOutIcon() {
+        return new Image("file:icons/doors/airlock.png");
+    }
+
+    /////////////////////////////////
+    //            ACTION           //
+    /////////////////////////////////
+
     public void onPlayerAction() {
         for (Mob mob : getMobs()) {
             if (mob.getFocusedOn() == null) {
@@ -111,56 +129,53 @@ public class Area extends Amo {
         }
     }
 
-    public Image getWayOutIcon() {
-        return new Image("file:icons/doors/airlock.png");
-    }
-
-    public void setBackground(Image background) {
-
-    }
+    /////////////////////////////////
+    //      GETTERS & SETTERS      //
+    /////////////////////////////////
 
     public String getAreaName() {
         return areaName;
     }
-
     public void setAreaName(String areaName) {
         this.areaName = areaName;
     }
 
+
     public AtmosphereType getAtmosphereType() {
         return atmosphereType;
     }
-
     public void setAtmosphereType(AtmosphereType atmosphereType) {
         this.atmosphereType = atmosphereType;
     }
 
+
     public LootType getLootType() {
         return lootType;
     }
-
     public void setLootType(LootType lootType) {
         this.lootType = lootType;
     }
 
+
     public Image getBackgroundImage() {
         return backgroundImage;
     }
-
     public void setBackgroundImage(Image backgroundImage) {
         this.backgroundImage = backgroundImage;
     }
+
 
     public List<Mob> getMobs() {
         return mobs;
     }
 
+
     public List<Obj> getObjects() {
         return objects;
     }
 
+
     public List<Area> getWaysOut() {
         return waysOut;
     }
-
 }
