@@ -71,6 +71,10 @@ public class Area extends Amo {
 
 
     public void generateAtmosphere() {
+        if (Random.prob(66)) {
+            setAtmosphereType(AtmosphereType.NORMAL);
+            return;
+        }
         atmosphereType = Random.pick(AtmosphereType.values());
     }
 

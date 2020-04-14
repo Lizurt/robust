@@ -277,7 +277,7 @@ public abstract class Mob extends Amo {
             AdventureScene.getPlayer().focusOn(this);
             AdventureScene.getActionPane().getChildren().clear();
             Button attackButton = new Button("Атаковать " + tryToGetRealName());
-            attackButton.setOnAction(attackEvent -> {
+            AdventureScene.getActionPane().addNewAttackActionButton(attackButton, attackEvent -> {
                 AdventureScene.getPlayer().attackOrGetCloser(this, AdventureScene.getPlayer().getActiveWeapon());
             });
             AdventureScene.getActionPane().getChildren().add(attackButton);

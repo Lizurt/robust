@@ -55,8 +55,8 @@ public class Player extends Humanoid {
         area.generateWaysOut();
         for (Area wayOut : area.getWaysOut()) {
             Button buttonWayOut = new Button("", new ImageView(wayOut.getWayOutIcon()));
-            buttonWayOut.setBackground(null);
-            buttonWayOut.setOnAction(e -> {
+
+            AdventureScene.getMovementActionHBox().addNewActionButton(buttonWayOut, e -> {
                 getLocation().onPlayerAction();
                 for (Mob mob : getLocation().getMobs()) {
                     if (mob.tryToBlockWayOut()) {
@@ -65,14 +65,13 @@ public class Player extends Humanoid {
                     }
                 }
                 AdventureScene.getPlayer().moveToArea(wayOut, getLocation());
-                for (Mob mob :wayOut.getMobs()) {
+                for (Mob mob : wayOut.getMobs()) {
                     if (!mob.appear()) {
                         continue;
                     }
                     mob.focusOn(this);
                 }
-            });
-            AdventureScene.getMovementActionHBox().addNewActionButton(buttonWayOut);
+            }, wayOut);
         }
     }
 
