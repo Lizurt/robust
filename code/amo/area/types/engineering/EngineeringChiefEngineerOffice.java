@@ -6,9 +6,7 @@ import amo.area.LootType;
 public class EngineeringChiefEngineerOffice extends Area {
 
     public EngineeringChiefEngineerOffice() {
-        super();
-        setAreaName("Офис главы инженерного отдела");
-        setLootType(LootType.ENGINEERING);
+        super("Офис главы инженерного отдела", LootType.ENGINEERING);
     }
 
 }

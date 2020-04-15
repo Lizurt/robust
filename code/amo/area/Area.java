@@ -34,7 +34,10 @@ public class Area extends Amo {
     private List<Obj> objects = new ArrayList<>();
     private List<Area> waysOut = new ArrayList<>();
 
-    public Area() {
+    public Area(String newName, LootType newLootType) {
+        setAreaName(newName);
+        lootType = newLootType;
+
         generateAtmosphere();
         generateFeature();
         generateLoot();
@@ -107,11 +110,13 @@ public class Area extends Amo {
                         return;
                     }
                     getMobs().add(new GiantSpider(this));
+                    break;
                 case HARD:
                     if (Random.prob(25)) {
                         return;
                     }
                     getMobs().add(new GiantSpider(this));
+                    break;
             }
         }
     }
@@ -155,9 +160,6 @@ public class Area extends Amo {
 
     public LootType getLootType() {
         return lootType;
-    }
-    public void setLootType(LootType lootType) {
-        this.lootType = lootType;
     }
 
 

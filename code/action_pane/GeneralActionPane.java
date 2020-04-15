@@ -11,15 +11,16 @@ public class GeneralActionPane extends TilePane {
         if (getChildren().size() >= 16) {
             return;
         }
+        button.setOnAction(event);
         button.setStyle(style);
         super.getChildren().add(button);
     }
 
     public void addNewAttackActionButton(Button button, EventHandler<ActionEvent> event) {
-        addNewActionButton(button, event, "-fx-background-color: #003300");
+        addNewActionButton(button, event, "-fx-background-color: #ffdddd");
     }
 
     public void addNewLootActionButton(Button button, EventHandler<ActionEvent> event) {
-        addNewActionButton(button, event, "-fx-background-color: #2b2911");
+        addNewActionButton(button, event, "-fx-background-color: #ddddcc");
     }
 }

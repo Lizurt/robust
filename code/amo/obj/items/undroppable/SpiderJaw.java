@@ -6,10 +6,9 @@ import amo.obj.items.Item;
 public class SpiderJaw extends Item {
 
     public SpiderJaw(Mob holder) {
-        super(holder);
+        super("Паучья челюсть", holder);
         setDroppable(false);
-        setName("паучья челюсть");
-        setDamage(2);
+        setDamage(3);
     }
 
 }

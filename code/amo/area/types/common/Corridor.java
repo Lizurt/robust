@@ -6,9 +6,7 @@ import amo.area.LootType;
 public class Corridor extends Area {
 
     public Corridor() {
-        super();
-        setAreaName("Длинный коридор");
-        setLootType(LootType.NONE);
+        super("Длинный коридор", LootType.NONE);
     }
 
 }

@@ -6,8 +6,8 @@ import amo.obj.Obj;
 
 public class Item extends Obj {
 
-    public Item(Amo holder) {
-        super(holder);
+    public Item(String newName, Amo holder) {
+        super(newName, holder);
     }
 
 }

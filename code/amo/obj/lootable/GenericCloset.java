@@ -10,8 +10,7 @@ import java.util.List;
 public class GenericCloset extends Obj implements Lootable {
 
     public GenericCloset(Area holder) {
-        super(holder);
-        setName(Random.pick("", "непримечательный ", "серый ", "стальной ", "старый ") +  "шкафчик"); // TODO: generateRandomAdjective() or something like this
+        super(Random.pick("", "непримечательный ", "серый ", "стальной ", "старый ") +  "шкафчик", holder);
         setSize(Size.HUGE);
     }
 

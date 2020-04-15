@@ -6,9 +6,8 @@ import amo.obj.items.Item;
 public class HumanFists extends Item {
 
     public HumanFists(Mob holder) {
-        super(holder);
+        super("Кулаки", holder);
         setDroppable(false);
-        setName("кулаки");
     }
 
 }

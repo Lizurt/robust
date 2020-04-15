@@ -15,7 +15,7 @@ public class AdventureScene extends Scene {
 
     private static InlineCssTextArea textAreaOutput = new InlineCssTextArea();
     private static MovementActionHBox movementActionHBox = new MovementActionHBox();
-    private static GeneralActionPane actionPane = new GeneralActionPane();
+    private static GeneralActionPane generalActionPane = new GeneralActionPane();
     private static VBox inventoryVBox = new VBox();
     private static VBox playerStatsVBox = new VBox();
     private static GridPane paneEnemyIcon = new GridPane();
@@ -50,11 +50,11 @@ public class AdventureScene extends Scene {
 
         // movement & action inside the actionVBox
         VBox actionVBox = new VBox();
-        getActionPane().setStyle("-fx-background-color: #2A2526");
+        getGeneralActionPane().setStyle("-fx-background-color: #2A2526");
         actionVBox.getChildren().add(movementActionHBox);
         getMovementActionHBox().setStyle("-fx-background-color: #2A2526");
-        actionVBox.getChildren().add(getActionPane());
-        getActionPane().setStyle("-fx-background-color: #2A2526");
+        actionVBox.getChildren().add(getGeneralActionPane());
+        getGeneralActionPane().setStyle("-fx-background-color: #2A2526");
         mainGridPane.add(actionVBox, 0, 1);
 
         // player's inventory
@@ -121,7 +121,7 @@ public class AdventureScene extends Scene {
         return player;
     }
 
-    public static GeneralActionPane getActionPane() {
-        return actionPane;
+    public static GeneralActionPane getGeneralActionPane() {
+        return generalActionPane;
     }
 }

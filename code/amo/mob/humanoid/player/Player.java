@@ -81,7 +81,7 @@ public class Player extends Humanoid {
         AdventureScene.getPaneEnemyIcon().getChildren().clear();
         AdventureScene.getVBoxEnemyStats().getChildren().clear();
         AdventureScene.getMovementActionHBox().getChildren().clear();
-        AdventureScene.getActionPane().getChildren().clear();
+        AdventureScene.getGeneralActionPane().getChildren().clear();
         for (Mob mob : area.getMobs()) {
             mob.tryToChase();
         }

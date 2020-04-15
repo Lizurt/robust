@@ -6,9 +6,7 @@ import amo.area.LootType;
 public class EngineeringStorage extends Area {
 
     public EngineeringStorage() {
-        super();
-        setAreaName("Склад инженерного отдела");
-        setLootType(LootType.ENGINEERING);
+        super("Склад инженерного отдела", LootType.ENGINEERING);
     }
 
 }
