@@ -4,7 +4,6 @@ import amo.Amo;
 
 public abstract class Obj extends Amo {
     private String name = "неопределенный объект";
-    private Size size = Size.HUGE;
     private int damage = 1;
     private Amo holder = null;
     private boolean droppable = true;
@@ -22,14 +21,6 @@ public abstract class Obj extends Amo {
     }
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    public Size getSize() {
-        return size;
-    }
-    public void setSize(Size size) {
-        this.size = size;
     }
 
 

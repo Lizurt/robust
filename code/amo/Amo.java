@@ -8,6 +8,7 @@ public abstract class Amo {
     private Area location;
     private boolean isDestroyed = false;
     private Image icon;
+    private Size size = Size.NORMAL;
 
     public void destroy() {
         gender = null;
@@ -45,5 +46,13 @@ public abstract class Amo {
     }
     public void setIcon(Image icon) {
         this.icon = icon;
+    }
+
+
+    public Size getSize() {
+        return size;
+    }
+    public void setSize(Size size) {
+        this.size = size;
     }
 }

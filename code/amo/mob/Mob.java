@@ -1,6 +1,7 @@
 package amo.mob;
 
 import amo.obj.Obj;
+import amo.obj.items.tools.Screwdriver;
 import game_scene.AdventureScene;
 import amo.Amo;
 import amo.Gender;

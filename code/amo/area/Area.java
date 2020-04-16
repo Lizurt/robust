@@ -1,6 +1,8 @@
 package amo.area;
 
 import amo.Amo;
+import amo.Size;
+import amo.area.ObjectGenerators.LootGenerator;
 import amo.area.types.common.Corridor;
 import amo.area.types.engineering.Engineering;
 import amo.area.types.engineering.EngineeringChiefEngineerOffice;
@@ -34,8 +36,9 @@ public class Area extends Amo {
     private List<Obj> objects = new ArrayList<>();
     private List<Area> waysOut = new ArrayList<>();
 
-    public Area(String newName, LootType newLootType) {
+    public Area(String newName, LootType newLootType, Size areaSize) {
         setAreaName(newName);
+        setSize(areaSize);
         lootType = newLootType;
 
         generateAtmosphere();
@@ -86,13 +89,10 @@ public class Area extends Amo {
     }
 
     public void generateLoot() {
-        switch (lootType) {
-            case ENGINEERING:
-                break;
-            case SECURITY:
-                break;
-            case MEDICAL:
-                break;
+        try {
+            getObjects().addAll(LootGenerator.getGeneratedLoot(this));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

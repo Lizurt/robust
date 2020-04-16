@@ -1,4 +1,4 @@
-package amo.obj;
+package amo;
 
 public enum Size {
     TINY,

@@ -1,12 +1,19 @@
 package util;
 
+import amo.obj.Obj;
+import amo.obj.items.tools.Lighter;
+import amo.obj.items.tools.Screwdriver;
+import amo.obj.items.tools.Welder;
+import amo.obj.items.weapons.melee.FireAxe;
+import amo.obj.lootable.GenericCloset;
+
 public abstract class GlobalVar {
     public static Difficulty difficulty = Difficulty.MEDIUM;
     public static int windowWidth = 960;
     public static int windowHeight = 540;
-    public static final int minAge =  20;
-    public static final int maxAge = 80;
-    public static final String[] allowedFemaleHumanRealName = new String[]{
+    public final static int minAge =  20;
+    public final static int maxAge = 80;
+    public final static String[] allowedFemaleHumanRealName = new String[]{
             "Dorsey Dorothy",
             "Simon Olivia",
             "Mathews Francine",
@@ -40,7 +47,7 @@ public abstract class GlobalVar {
             "Palmisano Veronica",
             "Pesce Donata"
     };
-    public static String[] allowedMaleHumanRealName = new String[]{
+    public final static String[] allowedMaleHumanRealName = new String[]{
             "Wells Steven",
             "Allison Clinton",
             "Wheeler Allen",
@@ -74,7 +81,7 @@ public abstract class GlobalVar {
             "Randazzo Giacomo",
             "Murgia Amerigo"
     };
-    public static String[] allowedBasicFemaleNameAdjectives = new String[]{
+    public final static String[] allowedBasicFemaleNameAdjectives = new String[]{
             "",
             "",
             "",
@@ -88,7 +95,7 @@ public abstract class GlobalVar {
             "Обычная ",
             "Типичная "
     };
-    public static String[] allowedBasicMaleNameAdjectives = new String[]{
+    public final static String[] allowedBasicMaleNameAdjectives = new String[]{
             "",
             "",
             "",

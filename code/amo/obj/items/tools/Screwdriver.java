@@ -1,7 +1,7 @@
 package amo.obj.items.tools;
 
 import amo.Amo;
-import amo.obj.Size;
+import amo.Size;
 import amo.obj.items.Item;
 
 public class Screwdriver extends Item {

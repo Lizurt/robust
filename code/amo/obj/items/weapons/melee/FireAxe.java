@@ -1,7 +1,8 @@
 package amo.obj.items.weapons.melee;
 
 import amo.Amo;
-import amo.obj.Size;
+import amo.Size;
+import amo.area.LootType;
 import amo.obj.items.Item;
 
 public class FireAxe extends Item {
