@@ -33,7 +33,6 @@ public class Area extends Amo {
     private Image backgroundImage;
 
     private List<Mob> mobs = new ArrayList<>();
-    private List<Obj> objects = new ArrayList<>();
     private List<Area> waysOut = new ArrayList<>();
 
     public Area(String newName, LootType newLootType, Size areaSize) {
@@ -90,7 +89,9 @@ public class Area extends Amo {
 
     public void generateLoot() {
         try {
-            getObjects().addAll(LootGenerator.getGeneratedLoot(this));
+            for (Obj obj : LootGenerator.getGeneratedLoot(this)) {
+                moveObjToInventory(obj);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,10 +132,10 @@ public class Area extends Amo {
 
     public void onPlayerAction() {
         for (Mob mob : getMobs()) {
-            if (mob.getFocusedOn() == null) {
+            if (!(mob.getFocusedOn() instanceof Mob)) {
                 continue;
             }
-            mob.attackOrGetCloser(mob.getFocusedOn(), mob.getActiveWeapon());
+            mob.attackOrGetCloser((Mob) mob.getFocusedOn(), mob.getActiveWeapon());
         }
     }
 
@@ -173,11 +174,6 @@ public class Area extends Amo {
 
     public List<Mob> getMobs() {
         return mobs;
-    }
-
-
-    public List<Obj> getObjects() {
-        return objects;
     }
 
 

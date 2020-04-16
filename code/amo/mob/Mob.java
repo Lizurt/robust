@@ -1,7 +1,6 @@
 package amo.mob;
 
 import amo.obj.Obj;
-import amo.obj.items.tools.Screwdriver;
 import game_scene.AdventureScene;
 import amo.Amo;
 import amo.Gender;
@@ -10,14 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import util.Random;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /*  Content:
 
     MOVEMENT
     INVENTORY
-    COMBAT
+    ACTION
     MISC
     GETTERS & SETTERS
  */
@@ -35,12 +31,10 @@ public abstract class Mob extends Amo {
 
                         //    ROW  COL  (range: 1-3; 0 - don't have a position)
     private int[] position = { 0,   0 };
-    private Mob focusedOn;
+    private Amo focusedOn;
     private Button mobAsButton = null;
 
     private Obj activeWeapon;
-
-    private List<Obj> inventory = new ArrayList<>();
 
     /*
         1 - SkillLevel.NONE(powerless)
@@ -63,7 +57,6 @@ public abstract class Mob extends Amo {
         focusedOn = null;
         mobAsButton = null;
         activeWeapon = null;
-        inventory = null;
         super.destroy();
     }
 
@@ -91,7 +84,7 @@ public abstract class Mob extends Amo {
 
     public boolean appear(int row, int col) {
         if (moveToPosition(row, col)) {
-            util.TextUtils.badEventText(AdventureScene.getTextAreaOutput(), getName() + Random.pick(" предстает перед вами!", " появляется перед вами!", " замечен вами!", " находится здесь!", " обитает здесь!"));
+            util.TextUtils.redBoldText(AdventureScene.getTextAreaOutput(), getName() + Random.pick(" предстает перед вами!", " появляется перед вами!", " замечен вами!", " находится здесь!", " обитает здесь!"));
             generateFocusOnButton();
             return true;
         }
@@ -157,22 +150,19 @@ public abstract class Mob extends Amo {
     //          INVENTORY          //
     /////////////////////////////////
 
-    public void addToInventory(Obj obj) {
-        obj.setHolder(this);
-        getInventory().add(obj);
-    }
-
-    public void removeFromInventory(Obj obj) {
-        if (!obj.isDroppable()) {
-            return;
-        }
-        obj.setHolder(getLocation());
-        getInventory().remove(obj);
-    }
-
     /////////////////////////////////
-    //            COMBAT           //
+    //            ACTION           //
     /////////////////////////////////
+
+    public void focusOn(Mob mob) {
+        focusedOn = mob;
+    }
+    public void focusOn(Obj obj) {
+        focusedOn = obj;
+    }
+    public void focusOn(Area area) {
+        focusedOn = area;
+    }
 
     public void attackOrGetCloser(Mob attacked, Obj weapon) {
         if (getPosition()[0] < 3) {
@@ -206,7 +196,7 @@ public abstract class Mob extends Amo {
     }
 
     public void die() { // TODO
-        util.TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), getName() + " умирает!");
+        util.TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), getName() + " умирает!");
         setStat(Stat.DEAD);
     }
 
@@ -265,7 +255,7 @@ public abstract class Mob extends Amo {
     }
 
     public void generateAttackEventText(Mob attacked, Obj weapon) {
-        util.TextUtils.attackEventText(AdventureScene.getTextAreaOutput(), tryToGetRealName() + " бьет " + attacked.tryToGetRealName() + ", используя " + weapon.getName() + "!");
+        util.TextUtils.redText(AdventureScene.getTextAreaOutput(), tryToGetRealName() + " бьет " + attacked.tryToGetRealName() + ", используя " + weapon.getName() + "!");
     }
 
     public void generateFocusOnButton() {
@@ -275,11 +265,11 @@ public abstract class Mob extends Amo {
         Button focusButton = new Button("", new ImageView(getIcon()));
         focusButton.setBackground(null);
         focusButton.setOnAction(focusEvent -> {
-            AdventureScene.getPlayer().focusOn(this);
-            AdventureScene.getGeneralActionPane().getChildren().clear();
-            AdventureScene.getGeneralActionPane().addNewAttackActionButton(new Button("Атаковать " + tryToGetRealName()), attackEvent -> {
-                AdventureScene.getPlayer().attackOrGetCloser(this, AdventureScene.getPlayer().getActiveWeapon());
-            });
+            if (AdventureScene.getPlayer().getFocusedOn() == this) {
+                AdventureScene.getPlayer().focusOn(AdventureScene.getPlayer().getLocation());
+            } else {
+                AdventureScene.getPlayer().focusOn(this);
+            }
         });
         AdventureScene.getPaneEnemyIcon().add(focusButton, position[1] - 1, position[0] - 1);
     }
@@ -331,18 +321,7 @@ public abstract class Mob extends Amo {
     }
 
 
-    public List<Obj> getInventory() {
-        return inventory;
-    }
-    public void setInventory(List<Obj> inventory) {
-        this.inventory = inventory;
-    }
-
-
-    public void focusOn(Mob mob) {
-        focusedOn = mob;
-    }
-    public Mob getFocusedOn() {
+    public Amo getFocusedOn() {
         return focusedOn;
     }
 

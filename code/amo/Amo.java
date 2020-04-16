@@ -1,7 +1,12 @@
 package amo;
 
 import amo.area.Area;
+import amo.obj.Obj;
+import game_scene.AdventureScene;
 import javafx.scene.image.Image;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Amo {
     private Gender gender = Gender.MALE;
@@ -9,11 +14,22 @@ public abstract class Amo {
     private boolean isDestroyed = false;
     private Image icon;
     private Size size = Size.NORMAL;
+    private List<Obj> inventory = new ArrayList<>();
 
     public void destroy() {
         gender = null;
         location = null;
         isDestroyed = true;
+    }
+
+    public void moveObjToInventory(Obj obj) {
+        obj.getHolder().getInventory().remove(obj);
+        obj.setHolder(this);
+        obj.setLocation(getLocation());
+        getInventory().add(obj);
+        if (obj.getObjAsButton() != null) {
+            AdventureScene.getInventoryVBox().getChildren().remove(obj.getObjAsButton());
+        }
     }
 
     /////////////////////////////////
@@ -54,5 +70,9 @@ public abstract class Amo {
     }
     public void setSize(Size size) {
         this.size = size;
+    }
+
+    public List<Obj> getInventory() {
+        return inventory;
     }
 }

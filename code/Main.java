@@ -14,7 +14,7 @@ public class Main extends Application {
         new game_scene.PauseMenuScene(new GridPane());
         primaryStage.setScene(new game_scene.AdventureScene(new GridPane()));
         AdventureScene.getTextAreaOutput().clear();
-        util.TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), AdventureScene.getPlayer().generateIntroductoryStory().toString());
+        util.TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), AdventureScene.getPlayer().generateIntroductoryStory().toString());
 
         primaryStage.show();
     }

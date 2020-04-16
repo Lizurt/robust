@@ -1,6 +1,7 @@
 package amo.obj;
 
 import amo.Amo;
+import javafx.scene.control.Button;
 
 public abstract class Obj extends Amo {
     private String name = "неопределенный объект";
@@ -8,13 +9,13 @@ public abstract class Obj extends Amo {
     private Amo holder = null;
     private boolean droppable = true;
     private DamageType damageType = DamageType.BRUTE;
+    private Button objAsButton = null;
 
     public Obj(String newName, Amo holder) {
         setName(newName);
         setHolder(holder);
         setLocation(holder.getLocation());
     }
-
 
     public String getName() {
         return name;
@@ -37,7 +38,6 @@ public abstract class Obj extends Amo {
     }
     public void setHolder(Amo holder) {
         this.holder = holder;
-        setLocation(holder.getLocation());
     }
 
 
@@ -54,5 +54,13 @@ public abstract class Obj extends Amo {
     }
     public void setDamageType(DamageType damageType) {
         this.damageType = damageType;
+    }
+
+    public Button getObjAsButton() {
+        return objAsButton;
+    }
+
+    public void setObjAsButton(Button objAsButton) {
+        this.objAsButton = objAsButton;
     }
 }

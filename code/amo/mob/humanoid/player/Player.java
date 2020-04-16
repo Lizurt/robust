@@ -18,7 +18,7 @@ import util.TextUtils;
 
     MOVEMENT
     INVENTORY
-    COMBAT
+    ACTION
     MISC
     GETTERS & SETTERS
  */
@@ -44,6 +44,7 @@ public class Player extends Humanoid {
     public void tryToChase() {
 
     }
+
     @Override
     public boolean tryToBlockWayOut() {
         return false;
@@ -51,7 +52,7 @@ public class Player extends Humanoid {
 
     @Override
     public void entered(Area area) {
-        TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), Random.pick("", "Неужели? ", "А это место сильно поменялось! ", "Вау! ", "Ого! ", "Снова? ") + Random.pick("Кажется это ", "Похоже, что это ", "Скорее всего это ", "Однозначно, это ", "Нет сомнений, что это ") + area.getAreaName() + Random.pick("!", "...", "."));
+        TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), Random.pick("", "Неужели? ", "А это место сильно поменялось! ", "Вау! ", "Ого! ", "Снова? ") + Random.pick("Кажется это ", "Похоже, что это ", "Скорее всего это ", "Однозначно, это ", "Нет сомнений, что это ") + area.getAreaName() + Random.pick("!", "...", "."));
         area.generateWaysOut();
         for (Area wayOut : area.getWaysOut()) {
             Button buttonWayOut = new Button("", new ImageView(wayOut.getWayOutIcon()));
@@ -60,7 +61,7 @@ public class Player extends Humanoid {
                 getLocation().onPlayerAction();
                 for (Mob mob : getLocation().getMobs()) {
                     if (mob.tryToBlockWayOut()) {
-                        util.TextUtils.badEventText(AdventureScene.getTextAreaOutput(), mob.getName() + Random.pick(" не позволяет вам пройти через шлюз!", " не дает вам сбежать!", " блокирует вам дорогу к шлюзу!"));
+                        util.TextUtils.redBoldText(AdventureScene.getTextAreaOutput(), mob.getName() + Random.pick(" не позволяет вам пройти через шлюз!", " не дает вам сбежать!", " блокирует вам дорогу к шлюзу!"));
                         return;
                     }
                 }
@@ -77,7 +78,7 @@ public class Player extends Humanoid {
 
     @Override
     public void exited(Area area) {
-        TextUtils.neutralEventText(AdventureScene.getTextAreaOutput(), "========== Вы открываете стальной шлюз и входите внутрь... ==========");
+        TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), "========== Вы открываете стальной шлюз и входите внутрь... ==========");
         AdventureScene.getPaneEnemyIcon().getChildren().clear();
         AdventureScene.getVBoxEnemyStats().getChildren().clear();
         AdventureScene.getMovementActionHBox().getChildren().clear();
@@ -88,7 +89,7 @@ public class Player extends Humanoid {
         for (Mob mob : area.getMobs()) {
             mob.destroy();
         }
-        for (Obj obj : area.getObjects()) {
+        for (Obj obj : area.getInventory()) {
             obj.destroy();
         }
         for (Area wayOut : area.getWaysOut()) {
@@ -107,11 +108,44 @@ public class Player extends Humanoid {
     //          INVENTORY          //
     /////////////////////////////////
 
-
+    @Override
+    public void moveObjToInventory(Obj obj) {
+        super.moveObjToInventory(obj);
+        Button objInInventoryButton = new Button(obj.getName());
+        obj.setObjAsButton(objInInventoryButton);
+        AdventureScene.getInventoryVBox().getChildren().add(objInInventoryButton);
+    }
 
     /////////////////////////////////
-    //            COMBAT           //
+    //            ACTION           //
     /////////////////////////////////
+
+    @Override
+    public void focusOn(Mob mob) {
+        AdventureScene.getGeneralActionPane().getChildren().clear();
+        AdventureScene.getGeneralActionPane().addNewAttackActionButton(new Button("Атаковать " + tryToGetRealName()), attackEvent -> {
+            AdventureScene.getPlayer().attackOrGetCloser(this, AdventureScene.getPlayer().getActiveWeapon());
+        });
+        super.focusOn(mob);
+    }
+
+    @Override
+    public void focusOn(Obj obj) {
+        AdventureScene.getGeneralActionPane().getChildren().clear();
+        super.focusOn(obj);
+    }
+
+    @Override
+    public void focusOn(Area area) {
+        AdventureScene.getGeneralActionPane().getChildren().clear();
+        AdventureScene.getGeneralActionPane().addNewLootActionButton(new Button("Обыскать " + area.getAreaName()), lootEvent -> {
+            for (Obj loot : area.getInventory()) {
+                util.TextUtils.greenText(AdventureScene.getTextAreaOutput(), Random.pick("", "", "Ага! ", "О! ", "Ну вот. ") + "Вы нашли " + loot.getName() + ".");
+                moveObjToInventory(loot); // fixme: ConcurrentModificationException
+            }
+        });
+        super.focusOn(area);
+    }
 
     @Override
     public void attackOrGetCloser(Mob attacked, Obj weapon) {
@@ -166,17 +200,8 @@ public class Player extends Humanoid {
     public int getLevel() {
         return level;
     }
+
     public void setLevel(int level) {
         this.level = Math.max(0, level);
-    }
-
-
-    @Override
-    public void focusOn(Mob mob) {
-        super.focusOn(mob);
-    }
-    @Override
-    public Mob getFocusedOn() {
-        return super.getFocusedOn();
     }
 }
