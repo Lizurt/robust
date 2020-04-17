@@ -14,6 +14,9 @@ import util.GlobalVar;
 import util.Random;
 import util.TextUtils;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /*  Content:
 
     MOVEMENT
@@ -139,9 +142,16 @@ public class Player extends Humanoid {
     public void focusOn(Area area) {
         AdventureScene.getGeneralActionPane().getChildren().clear();
         AdventureScene.getGeneralActionPane().addNewLootActionButton(new Button("Обыскать " + area.getAreaName()), lootEvent -> {
-            for (Obj loot : area.getInventory()) {
+            // I know this is terrible and inefficient, but ConcurrentModificationException ruins everything!
+            ArrayList<Obj> allLoot = area.getInventory();
+            if (allLoot.size() < 1) {
+                return;
+            }
+            Obj loot =  allLoot.get(0);
+            for (int i = 1; i < allLoot.size(); i++) {
                 util.TextUtils.greenText(AdventureScene.getTextAreaOutput(), Random.pick("", "", "Ага! ", "О! ", "Ну вот. ") + "Вы нашли " + loot.getName() + ".");
-                moveObjToInventory(loot); // fixme: ConcurrentModificationException
+                moveObjToInventory(loot);
+                loot = allLoot.get(i);
             }
         });
         super.focusOn(area);

@@ -6,6 +6,7 @@ import game_scene.AdventureScene;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Amo {
@@ -14,7 +15,7 @@ public abstract class Amo {
     private boolean isDestroyed = false;
     private Image icon;
     private Size size = Size.NORMAL;
-    private List<Obj> inventory = new ArrayList<>();
+    private ArrayList<Obj> inventory = new ArrayList<>();
 
     public void destroy() {
         gender = null;
@@ -72,7 +73,7 @@ public abstract class Amo {
         this.size = size;
     }
 
-    public List<Obj> getInventory() {
+    public ArrayList<Obj> getInventory() {
         return inventory;
     }
 }
