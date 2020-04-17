@@ -147,11 +147,10 @@ public class Player extends Humanoid {
             if (allLoot.size() < 1) {
                 return;
             }
-            Obj loot =  allLoot.get(0);
-            for (int i = 1; i < allLoot.size(); i++) {
+            while (allLoot.size() > 0) {
+                Obj loot = allLoot.get(0);
                 util.TextUtils.greenText(AdventureScene.getTextAreaOutput(), Random.pick("", "", "Ага! ", "О! ", "Ну вот. ") + "Вы нашли " + loot.getName() + ".");
                 moveObjToInventory(loot);
-                loot = allLoot.get(i);
             }
         });
         super.focusOn(area);
