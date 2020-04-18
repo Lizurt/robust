@@ -35,9 +35,10 @@ public class AdventureScene extends Scene {
                 new ColumnConstraints(192, 192, 192),
                 new ColumnConstraints(32, 32, 32)
         );
+        int roundedHalfHeight = util.Misc.round((int) (GlobalVar.windowHeight * 0.5), 64);
         mainGridPane.getRowConstraints().addAll(
-                new RowConstraints(util.Misc.round(GlobalVar.windowHeight * 0.5, 64)),
-                new RowConstraints(util.Misc.round(GlobalVar.windowHeight * 0.5, 64))
+                new RowConstraints(roundedHalfHeight),
+                new RowConstraints(GlobalVar.windowHeight - roundedHalfHeight)
         );
 
         mainGridPane.setStyle("-fx-background-color: #2A2526;");

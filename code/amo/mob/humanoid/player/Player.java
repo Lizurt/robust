@@ -10,7 +10,6 @@ import amo.mob.humanoid.Humanoid;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import util.GlobalVar;
 import util.Random;
 import util.TextUtils;
 
@@ -107,6 +106,11 @@ public class Player extends Humanoid {
         getLocation().setBackgroundImage(null); // TODO
     }
 
+    @Override
+    public boolean appear() {
+        return false;
+    }
+
     /////////////////////////////////
     //          INVENTORY          //
     /////////////////////////////////
@@ -114,7 +118,8 @@ public class Player extends Humanoid {
     @Override
     public void moveObjToInventory(Obj obj) {
         super.moveObjToInventory(obj);
-        Button objInInventoryButton = new Button(obj.getName());
+        Button objInInventoryButton = new Button(obj.getName(), new ImageView(obj.getIcon()));
+        objInInventoryButton.setStyle("-fx-background-color: #2A2526; -fx-text-fill: #FFF; -fx-border-color: #000;");
         obj.setObjAsButton(objInInventoryButton);
         objInInventoryButton.setOnAction(e -> {
             focusOn(obj);
@@ -140,7 +145,7 @@ public class Player extends Humanoid {
     public void focusOn(Mob mob) {
         AdventureScene.getGeneralActionPane().getChildren().clear();
         AdventureScene.getGeneralActionPane().addNewAttackActionButton(new Button("Атаковать " + tryToGetRealName()), attackEvent -> {
-            AdventureScene.getPlayer().attackOrGetCloser(this, AdventureScene.getPlayer().getActiveWeapon());
+            AdventureScene.getPlayer().attackOrGetCloser(mob, AdventureScene.getPlayer().getActiveWeapon());
         });
         super.focusOn(mob);
     }

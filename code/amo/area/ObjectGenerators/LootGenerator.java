@@ -128,6 +128,7 @@ public abstract class LootGenerator {
         for (; generatedLootAmount[3] > 0; generatedLootAmount[3]--) {
             switch (Random.random(0)) {
                 case 0:
+                    generatedLoot.add(new FireAxe(area));
                     break;
             }
         }

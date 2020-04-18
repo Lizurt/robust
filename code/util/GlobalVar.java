@@ -3,7 +3,7 @@ package util;
 public abstract class GlobalVar {
     public static Difficulty difficulty = Difficulty.MEDIUM;
     public static int windowWidth = 960;
-    public static int windowHeight = 576;
+    public static int windowHeight = 560;
     public final static int minAge =  20;
     public final static int maxAge = 80;
     public final static String[] allowedFemaleHumanRealName = new String[]{

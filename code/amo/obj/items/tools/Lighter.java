@@ -4,6 +4,7 @@ import amo.Amo;
 import amo.Size;
 import amo.obj.DamageType;
 import amo.obj.items.Item;
+import javafx.scene.image.Image;
 
 public class Lighter extends Item {
 
@@ -12,5 +13,6 @@ public class Lighter extends Item {
         setDamageType(DamageType.BURN);
         setSize(Size.TINY);
         setDescription("Обычная, дешевая пластиковая зажигалка. В ней, кажется, еще осталось топливо.");
+        setIcon(new Image("file:icons/objects/items/tools/lighter.png"));
     }
 }
