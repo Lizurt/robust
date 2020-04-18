@@ -34,7 +34,9 @@ public abstract class Mob extends Amo {
     private Amo focusedOn;
     private Button mobAsButton = null;
 
+    private Obj weaponAsDefault;
     private Obj activeWeapon;
+    private Obj activeArmor;
 
     /*
         1 - SkillLevel.NONE(powerless)
@@ -149,6 +151,14 @@ public abstract class Mob extends Amo {
     /////////////////////////////////
     //          INVENTORY          //
     /////////////////////////////////
+
+    public void onEquip(Obj obj) {
+
+    }
+
+    public void onUnequip(Obj obj) {
+
+    }
 
     /////////////////////////////////
     //            ACTION           //
@@ -364,5 +374,21 @@ public abstract class Mob extends Amo {
     }
     public void setStat(Stat stat) {
         this.stat = stat;
+    }
+
+
+    public Obj getActiveArmor() {
+        return activeArmor;
+    }
+    public void setActiveArmor(Obj activeArmor) {
+        this.activeArmor = activeArmor;
+    }
+
+
+    public Obj getWeaponAsDefault() {
+        return weaponAsDefault;
+    }
+    public void setWeaponAsDefault(Obj weaponAsDefault) {
+        this.weaponAsDefault = weaponAsDefault;
     }
 }

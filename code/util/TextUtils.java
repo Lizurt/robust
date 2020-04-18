@@ -19,6 +19,11 @@ public abstract class TextUtils {
         area.requestFollowCaret();
     }
 
+    public static void whiteText(InlineCssTextArea area, String text) {
+        area.append(text + "\n", "-fx-fill: white;");
+        area.requestFollowCaret();
+    }
+
     public static void greenText(InlineCssTextArea area, String text) {
         area.append(text + "\n", "-fx-fill: green;");
         area.requestFollowCaret();

@@ -2,7 +2,7 @@ package amo.mob.humanoid.player;
 
 import amo.mob.Mob;
 import amo.obj.Obj;
-import amo.obj.items.undroppable.HumanFists;
+import amo.obj.items.default_weapon.HumanFists;
 import game_scene.AdventureScene;
 import amo.Gender;
 import amo.area.Area;
@@ -15,7 +15,6 @@ import util.Random;
 import util.TextUtils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /*  Content:
 
@@ -36,7 +35,8 @@ public class Player extends Humanoid {
         setRealNameKnownToPlayer(true);
         setRealName(Random.pick(GlobalVar.allowedMaleHumanRealName));
         AdventureScene.getPlayerStatsVBox().getChildren().add(healthStatIcon);
-        setActiveWeapon(new HumanFists(this));
+        setWeaponAsDefault(new HumanFists(this));
+        setActiveWeapon(getWeaponAsDefault());
     }
 
     /////////////////////////////////
@@ -116,7 +116,20 @@ public class Player extends Humanoid {
         super.moveObjToInventory(obj);
         Button objInInventoryButton = new Button(obj.getName());
         obj.setObjAsButton(objInInventoryButton);
+        objInInventoryButton.setOnAction(e -> {
+            focusOn(obj);
+        });
         AdventureScene.getInventoryVBox().getChildren().add(objInInventoryButton);
+    }
+
+    @Override
+    public void onEquip(Obj obj) {
+        util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), "Вы экипировали " + obj.getName() + "!");
+    }
+
+    @Override
+    public void onUnequip(Obj obj) {
+        util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), "Вы сняли " + obj.getName() + "!");
     }
 
     /////////////////////////////////
@@ -135,6 +148,22 @@ public class Player extends Humanoid {
     @Override
     public void focusOn(Obj obj) {
         AdventureScene.getGeneralActionPane().getChildren().clear();
+        AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Осмотреть: " + obj.getName()), examineEvent -> {
+            util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), Random.pick("Да это же ", "Это ", "Похоже, что это ") + obj.getName() + ". " + obj.getDescription());
+        });
+        if (getActiveWeapon() == obj || getActiveArmor() == obj) {
+            if (obj.isDroppable()) {
+                AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Снять"), equipEvent -> {
+                    obj.unequipFrom(this);
+                });
+            }
+        } else {
+            if (obj.isEquippable()) {
+                AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Экипировать"), equipEvent -> {
+                    obj.equipOn(this);
+                });
+            }
+        }
         super.focusOn(obj);
     }
 

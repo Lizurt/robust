@@ -4,10 +4,7 @@ import amo.area.Area;
 import amo.obj.Obj;
 import game_scene.AdventureScene;
 import javafx.scene.image.Image;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public abstract class Amo {
     private Gender gender = Gender.MALE;
@@ -16,6 +13,7 @@ public abstract class Amo {
     private Image icon;
     private Size size = Size.NORMAL;
     private ArrayList<Obj> inventory = new ArrayList<>();
+    private String description = "";
 
     public void destroy() {
         gender = null;
@@ -31,6 +29,10 @@ public abstract class Amo {
         if (obj.getObjAsButton() != null) {
             AdventureScene.getInventoryVBox().getChildren().remove(obj.getObjAsButton());
         }
+    }
+
+    public String getExamineText() {
+        return description;
     }
 
     /////////////////////////////////
@@ -75,5 +77,13 @@ public abstract class Amo {
 
     public ArrayList<Obj> getInventory() {
         return inventory;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

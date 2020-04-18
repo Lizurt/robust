@@ -1,16 +1,9 @@
 package util;
 
-import amo.obj.Obj;
-import amo.obj.items.tools.Lighter;
-import amo.obj.items.tools.Screwdriver;
-import amo.obj.items.tools.Welder;
-import amo.obj.items.weapons.melee.FireAxe;
-import amo.obj.lootable.GenericCloset;
-
 public abstract class GlobalVar {
     public static Difficulty difficulty = Difficulty.MEDIUM;
     public static int windowWidth = 960;
-    public static int windowHeight = 540;
+    public static int windowHeight = 576;
     public final static int minAge =  20;
     public final static int maxAge = 80;
     public final static String[] allowedFemaleHumanRealName = new String[]{

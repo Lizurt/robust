@@ -1,6 +1,7 @@
 package amo.obj;
 
 import amo.Amo;
+import amo.mob.Mob;
 import javafx.scene.control.Button;
 
 public abstract class Obj extends Amo {
@@ -10,11 +11,28 @@ public abstract class Obj extends Amo {
     private boolean droppable = true;
     private DamageType damageType = DamageType.BRUTE;
     private Button objAsButton = null;
+    private boolean isEquippable = false;
 
     public Obj(String newName, Amo holder) {
         setName(newName);
         setHolder(holder);
         setLocation(holder.getLocation());
+    }
+
+    public void equipOn(Mob mob) {
+        if (!isEquippable()) {
+            return;
+        }
+        mob.setActiveWeapon(this);
+        mob.onEquip(this);
+    }
+
+    public void unequipFrom(Mob mob) {
+        if (!isDroppable()) {
+            return;
+        }
+        mob.setActiveWeapon(mob.getWeaponAsDefault());
+        mob.onUnequip(this);
     }
 
     public String getName() {
@@ -62,5 +80,13 @@ public abstract class Obj extends Amo {
 
     public void setObjAsButton(Button objAsButton) {
         this.objAsButton = objAsButton;
+    }
+
+    public boolean isEquippable() {
+        return isEquippable;
+    }
+
+    public void setEquippable(boolean equippable) {
+        isEquippable = equippable;
     }
 }

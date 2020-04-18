@@ -1,4 +1,4 @@
-package amo.obj.items.undroppable;
+package amo.obj.items.default_weapon;
 
 import amo.mob.Mob;
 import amo.obj.items.Item;

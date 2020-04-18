@@ -3,7 +3,7 @@ package amo.mob.animal;
 import amo.area.Area;
 import amo.mob.Mob;
 import amo.mob.SkillLevel;
-import amo.obj.items.undroppable.SpiderJaw;
+import amo.obj.items.default_weapon.SpiderJaw;
 import javafx.scene.image.Image;
 import util.Random;
 
