@@ -12,6 +12,7 @@ public abstract class Obj extends Amo {
     private DamageType damageType = DamageType.BRUTE;
     private Button objAsButton = null;
     private boolean isEquippable = false;
+    private Mob equippedOn;
 
     public Obj(String newName, Amo holder) {
         setName(newName);
@@ -20,17 +21,19 @@ public abstract class Obj extends Amo {
     }
 
     public void equipOn(Mob mob) {
-        if (!isEquippable()) {
+        if (!isEquippable() || getEquippedOn() != null) {
             return;
         }
+        setEquippedOn(mob);
         mob.setActiveWeapon(this);
         mob.onEquip(this);
     }
 
     public void unequipFrom(Mob mob) {
-        if (!isDroppable()) {
+        if (!isDroppable() || getEquippedOn() != mob || getEquippedOn() == null) {
             return;
         }
+        setEquippedOn(null);
         mob.setActiveWeapon(mob.getWeaponAsDefault());
         mob.onUnequip(this);
     }
@@ -88,5 +91,13 @@ public abstract class Obj extends Amo {
 
     public void setEquippable(boolean equippable) {
         isEquippable = equippable;
+    }
+
+    public Mob getEquippedOn() {
+        return equippedOn;
+    }
+
+    public void setEquippedOn(Mob equippedOn) {
+        this.equippedOn = equippedOn;
     }
 }

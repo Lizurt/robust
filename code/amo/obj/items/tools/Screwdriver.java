@@ -9,5 +9,6 @@ public class Screwdriver extends Item {
         super("Отвертка", holder);
         setDamage(2);
         setSize(Size.SMALL);
+        setDescription("Весьма полезный инструмент, если вам нужно что то взломать или открутить.");
     }
 }

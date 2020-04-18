@@ -20,6 +20,8 @@ public class Humanoid extends Mob {
         setGender(pick(MALE, FEMALE));
         setAge(random(GlobalVar.minAge, GlobalVar.maxAge));
         setSpecies(pick(HUMAN, SKRELL, UNATHI, TAJARA, IPC));
+        setName(generateRandomName());
+        setRealName(generateRandomRealName());
     }
 
     @Override

@@ -206,7 +206,7 @@ public abstract class Mob extends Amo {
     }
 
     public void die() { // TODO
-        util.TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), getName() + " умирает!");
+        util.TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), tryToGetRealName() + " умирает!");
         setStat(Stat.DEAD);
     }
 

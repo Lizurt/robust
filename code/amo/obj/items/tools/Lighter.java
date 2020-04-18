@@ -11,5 +11,6 @@ public class Lighter extends Item {
         super("Зажигалка", holder);
         setDamageType(DamageType.BURN);
         setSize(Size.TINY);
+        setDescription("Обычная, дешевая пластиковая зажигалка. В ней, кажется, еще осталось топливо.");
     }
 }

@@ -33,7 +33,6 @@ public class Player extends Humanoid {
     public Player(Area newLocation) {
         super(newLocation);
         setRealNameKnownToPlayer(true);
-        setRealName(Random.pick(GlobalVar.allowedMaleHumanRealName));
         AdventureScene.getPlayerStatsVBox().getChildren().add(healthStatIcon);
         setWeaponAsDefault(new HumanFists(this));
         setActiveWeapon(getWeaponAsDefault());
@@ -77,6 +76,7 @@ public class Player extends Humanoid {
                 }
             }, wayOut);
         }
+        focusOn(area);
     }
 
     @Override
@@ -148,9 +148,11 @@ public class Player extends Humanoid {
     @Override
     public void focusOn(Obj obj) {
         AdventureScene.getGeneralActionPane().getChildren().clear();
+
         AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Осмотреть: " + obj.getName()), examineEvent -> {
             util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), Random.pick("Да это же ", "Это ", "Похоже, что это ") + obj.getName() + ". " + obj.getDescription());
         });
+
         if (getActiveWeapon() == obj || getActiveArmor() == obj) {
             if (obj.isDroppable()) {
                 AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Снять"), equipEvent -> {
@@ -164,6 +166,13 @@ public class Player extends Humanoid {
                 });
             }
         }
+
+        AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Выбросить"), equipEvent -> {
+            getLocation().moveObjToInventory(obj);
+            util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), "Вы выбросили " + obj.getName() + "!");
+            focusOn(getLocation());
+        });
+
         super.focusOn(obj);
     }
 
@@ -214,7 +223,7 @@ public class Player extends Humanoid {
         StringBuilder coolStory = new StringBuilder();
         coolStory.append("Вы, ");
         coolStory.append(getAge()).append(" летн").append(getGender() == Gender.FEMALE ? "яя " : "ий ");
-        coolStory.append(getRealName());
+        coolStory.append(getName()).append(" по имени ").append(getRealName());
         coolStory.append(", - ");
         coolStory.append("обычный ").append("технический ассистент"); // TODO
         coolStory.append(", работающий в месте под названием \"");

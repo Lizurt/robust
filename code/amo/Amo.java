@@ -22,6 +22,7 @@ public abstract class Amo {
     }
 
     public void moveObjToInventory(Obj obj) {
+        obj.unequipFrom(obj.getEquippedOn());
         obj.getHolder().getInventory().remove(obj);
         obj.setHolder(this);
         obj.setLocation(getLocation());
