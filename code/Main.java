@@ -1,20 +1,20 @@
-import game_scene.AdventureScene;
 import javafx.application.Application;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import util.GlobalVar;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        GlobalVar.mainStage = primaryStage;
         primaryStage.setTitle("Robust");
         primaryStage.setResizable(false);
 
-        new game_scene.MainMenuScene(new GridPane());
         new game_scene.PauseMenuScene(new GridPane());
-        primaryStage.setScene(new game_scene.AdventureScene(new GridPane()));
-        AdventureScene.getTextAreaOutput().clear();
-        util.TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), AdventureScene.getPlayer().generateIntroductoryStory().toString());
+        new game_scene.AdventureScene(new GridPane());
+        primaryStage.setScene(new game_scene.MainMenuScene(new VBox()));
 
         primaryStage.show();
     }

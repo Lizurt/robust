@@ -87,6 +87,10 @@ public class AdventureScene extends Scene {
         getVBoxEnemyStats().setStyle("-fx-background-color: #2A2526;");
 
         player = new Player(new EngineeringLobby());
+        getTextAreaOutput().clear();
+        util.TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), AdventureScene.getPlayer().generateIntroductoryStory().toString());
+
+        GlobalVar.adventureScene = this;
     }
 
     public static void updatePaneEnemyIcon() {

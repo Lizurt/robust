@@ -1,9 +1,18 @@
 package util;
 
+import game_scene.AdventureScene;
+import game_scene.MainMenuScene;
+import game_scene.PauseMenuScene;
+import javafx.stage.Stage;
+
 public abstract class GlobalVar {
     public static Difficulty difficulty = Difficulty.MEDIUM;
     public static int windowWidth = 960;
     public static int windowHeight = 560;
+    public static Stage mainStage;
+    public static AdventureScene adventureScene;
+    public static MainMenuScene mainMenuScene;
+    public static PauseMenuScene pauseMenuScene;
     public final static int minAge =  20;
     public final static int maxAge = 80;
     public final static String[] allowedFemaleHumanRealName = new String[]{
