@@ -14,6 +14,6 @@ public class GiantSpider extends Mob {
         setStrengthLevel(SkillLevel.LOW);
         setActiveWeapon(new SpiderJaw(this));
         setName(Random.pick("Отвратительный", "Мерзкий", "Гигантский", "Большой") + " паук");
-        setIcon(new Image("file:icons/mobs/animals/spiders/spider_1.png"));
+        setIcon(new Image(getClass().getResourceAsStream("/icons/mobs/animals/spiders/spider_1.png")));
     }
 }

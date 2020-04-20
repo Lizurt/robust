@@ -123,7 +123,7 @@ public class Area extends Amo {
     }
 
     public Image getWayOutIcon() {
-        return new Image("file:icons/area/doors/airlock.png");
+        return new Image(getClass().getResourceAsStream("/icons/area/doors/airlock.png"));
     }
 
     /////////////////////////////////

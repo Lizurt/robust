@@ -13,6 +13,6 @@ public class Lighter extends Item {
         setDamageType(DamageType.BURN);
         setSize(Size.TINY);
         setDescription("Обычная, дешевая пластиковая зажигалка. В ней, кажется, еще осталось топливо.");
-        setIcon(new Image("file:icons/objects/items/tools/lighter.png"));
+        setIcon(new Image(getClass().getResourceAsStream("/icons/objects/items/tools/lighter.png")));
     }
 }

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class Player extends Humanoid {
 
-    private ImageView healthStatIcon = new ImageView(new Image("file:icons/stats/health/health100.png"));
+    private ImageView healthStatIcon = new ImageView(new Image(getClass().getResourceAsStream("/icons/stats/health/health100.png")));
     private int level = 1;
 
     public Player(Area newLocation) {
@@ -217,7 +217,7 @@ public class Player extends Humanoid {
     }
 
     public void updateHealthIcon() {
-        healthStatIcon.setImage(new Image("file:icons/stats/health/health" + util.Misc.round(getHealth(), 20) + ".png"));
+        healthStatIcon.setImage(new Image(getClass().getResourceAsStream("/icons/stats/health/health" + util.Misc.round(getHealth(), 20) + ".png")));
     }
 
     /////////////////////////////////
