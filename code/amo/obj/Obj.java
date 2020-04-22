@@ -2,22 +2,28 @@ package amo.obj;
 
 import amo.Amo;
 import amo.mob.Mob;
-import javafx.scene.control.Button;
 
 public abstract class Obj extends Amo {
     private String name = "неопределенный объект";
     private int damage = 1;
-    private Amo holder = null;
-    private boolean droppable = true;
     private DamageType damageType = DamageType.BRUTE;
-    private Button objAsButton = null;
+    private boolean isDroppable = true;
     private boolean isEquippable = false;
     private Mob equippedOn;
+    private Amo holder = null;
 
     public Obj(String newName, Amo holder) {
         setName(newName);
         setHolder(holder);
         setLocation(holder.getLocation());
+    }
+
+    public void destroy() {
+        name = null;
+        damageType = null;
+        equippedOn = null;
+        holder = null;
+        super.destroy();
     }
 
     public void equipOn(Mob mob) {
@@ -63,10 +69,10 @@ public abstract class Obj extends Amo {
 
 
     public boolean isDroppable() {
-        return droppable;
+        return isDroppable;
     }
     public void setDroppable(boolean droppable) {
-        this.droppable = droppable;
+        this.isDroppable = droppable;
     }
 
 
@@ -77,26 +83,18 @@ public abstract class Obj extends Amo {
         this.damageType = damageType;
     }
 
-    public Button getObjAsButton() {
-        return objAsButton;
-    }
-
-    public void setObjAsButton(Button objAsButton) {
-        this.objAsButton = objAsButton;
-    }
 
     public boolean isEquippable() {
         return isEquippable;
     }
-
     public void setEquippable(boolean equippable) {
         isEquippable = equippable;
     }
 
+
     public Mob getEquippedOn() {
         return equippedOn;
     }
-
     public void setEquippedOn(Mob equippedOn) {
         this.equippedOn = equippedOn;
     }

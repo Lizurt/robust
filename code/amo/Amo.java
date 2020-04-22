@@ -3,22 +3,30 @@ package amo;
 import amo.area.Area;
 import amo.obj.Obj;
 import game_scene.AdventureScene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import java.util.ArrayList;
 
 public abstract class Amo {
     private Gender gender = Gender.MALE;
-    private Area location;
-    private boolean isDestroyed = false;
-    private Image icon;
-    private Size size = Size.NORMAL;
-    private ArrayList<Obj> inventory = new ArrayList<>();
     private String description = "";
+    private Size size = Size.NORMAL;
+    private Area location;
+
+    private boolean isDestroyed = false;
+
+    private ArrayList<Obj> inventory = new ArrayList<>();
+
+    private Button amoAsButton;
+    private Image icon;
 
     public void destroy() {
         gender = null;
         location = null;
+        amoAsButton = null;
         isDestroyed = true;
+        inventory.clear();
+        inventory = null;
     }
 
     public void moveObjToInventory(Obj obj) {
@@ -27,8 +35,8 @@ public abstract class Amo {
         obj.setHolder(this);
         obj.setLocation(getLocation());
         getInventory().add(obj);
-        if (obj.getObjAsButton() != null) {
-            AdventureScene.getInventoryVBox().getChildren().remove(obj.getObjAsButton());
+        if (obj.getAmoAsButton() != null) {
+            AdventureScene.getInventoryVBox().getChildren().remove(obj.getAmoAsButton());
         }
     }
 
@@ -94,5 +102,13 @@ public abstract class Amo {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    public Button getAmoAsButton() {
+        return amoAsButton;
+    }
+    public void setAmoAsButton(Button amoAsButton) {
+        this.amoAsButton = amoAsButton;
     }
 }

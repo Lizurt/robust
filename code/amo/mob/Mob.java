@@ -33,7 +33,6 @@ public abstract class Mob extends Amo {
                         //    ROW  COL  (range: 1-3; 0 - don't have a position)
     private int[] position = { 0,   0 };
     private Amo focusedOn;
-    private Button mobAsButton = null;
 
     private Obj weaponAsDefault;
     private Obj activeWeapon;
@@ -56,10 +55,15 @@ public abstract class Mob extends Amo {
     public void destroy() {
         name = null;
         realName = null;
+        stat = null;
         position = null;
         focusedOn = null;
-        mobAsButton = null;
+        weaponAsDefault = null;
         activeWeapon = null;
+        activeArmor = null;
+        if (getAmoAsButton() != null) {
+            AdventureScene.getPaneEnemyIcon().getChildren().remove(getAmoAsButton());
+        }
         super.destroy();
     }
 
@@ -70,9 +74,10 @@ public abstract class Mob extends Amo {
     public void moveToArea(Area newArea, Area oldArea) {
         exited(oldArea);
         moveToArea(newArea);
+        oldArea.destroy();
     }
 
-    public void moveToArea(Area newArea) {
+    private void moveToArea(Area newArea) {
         setLocation(newArea);
         entered(newArea);
     }
@@ -212,7 +217,7 @@ public abstract class Mob extends Amo {
     }
 
     public void tryToChase() {
-        destroy();
+
     }
 
     public boolean tryToBlockWayOut() {
@@ -273,16 +278,16 @@ public abstract class Mob extends Amo {
         if (position[0] <= 0 || position[1] <= 0) {
             return;
         }
-        Button focusButton = new Button("", new ImageView(getIcon()));
-        focusButton.setBackground(null);
-        focusButton.setOnAction(focusEvent -> {
+        setAmoAsButton(new Button("", new ImageView(getIcon())));
+        getAmoAsButton().setBackground(null);
+        getAmoAsButton().setOnAction(focusEvent -> {
             if (AdventureScene.getPlayer().getFocusedOn() == this) {
                 AdventureScene.getPlayer().focusOn(AdventureScene.getPlayer().getLocation());
             } else {
                 AdventureScene.getPlayer().focusOn(this);
             }
         });
-        AdventureScene.getPaneEnemyIcon().add(focusButton, position[1] - 1, position[0] - 1);
+        AdventureScene.getPaneEnemyIcon().add(getAmoAsButton(), position[1] - 1, position[0] - 1);
     }
 
     @Override
@@ -364,14 +369,6 @@ public abstract class Mob extends Amo {
     public void setPosition(int row, int col) {
         position[0] = Math.max(0, Math.min(3, row));
         position[1] = Math.max(0, Math.min(3, col));
-    }
-
-
-    public Button getMobAsButton() {
-        return mobAsButton;
-    }
-    public void setMobAsButton(Button mobAsButton) {
-        this.mobAsButton = mobAsButton;
     }
 
 

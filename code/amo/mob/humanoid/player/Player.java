@@ -88,16 +88,6 @@ public class Player extends Humanoid {
         for (Mob mob : area.getMobs()) {
             mob.tryToChase();
         }
-        for (Mob mob : area.getMobs()) {
-            mob.destroy();
-        }
-        for (Obj obj : area.getInventory()) {
-            obj.destroy();
-        }
-        for (Area wayOut : area.getWaysOut()) {
-            wayOut.destroy();
-        }
-        area.getMobs().clear();
     }
 
     @Override
@@ -120,7 +110,7 @@ public class Player extends Humanoid {
         super.moveObjToInventory(obj);
         Button objInInventoryButton = new Button(obj.getName(), new ImageView(obj.getIcon()));
         objInInventoryButton.setStyle("-fx-background-color: #2A2526; -fx-text-fill: #FFF; -fx-border-color: #000;");
-        obj.setObjAsButton(objInInventoryButton);
+        obj.setAmoAsButton(objInInventoryButton);
         objInInventoryButton.setOnAction(e -> {
             focusOn(obj);
         });

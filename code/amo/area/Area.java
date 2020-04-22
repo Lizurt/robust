@@ -11,6 +11,7 @@ import amo.area.types.engineering.EngineeringStorage;
 import amo.mob.Mob;
 import amo.mob.animal.GiantSpider;
 import amo.obj.Obj;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import util.GlobalVar;
 import util.Random;
@@ -44,6 +45,18 @@ public class Area extends Amo {
         generateFeature();
         generateLoot();
         generateEnemies();
+    }
+
+    public void destroy() {
+        areaName = null;
+        atmosphereType = null;
+        lootType = null;
+        backgroundImage = null;
+        mobs.clear();
+        mobs = null;
+        waysOut.clear();
+        waysOut = null;
+        super.destroy();
     }
 
     /////////////////////////////////
@@ -142,6 +155,11 @@ public class Area extends Amo {
     /////////////////////////////////
     //      GETTERS & SETTERS      //
     /////////////////////////////////
+
+    @Override
+    public void setAmoAsButton(Button button) {
+
+    }
 
     public String getAreaName() {
         return areaName;
