@@ -108,13 +108,12 @@ public class Player extends Humanoid {
     @Override
     public void moveObjToInventory(Obj obj) {
         super.moveObjToInventory(obj);
-        Button objInInventoryButton = new Button(obj.getName(), new ImageView(obj.getIcon()));
-        objInInventoryButton.setStyle("-fx-background-color: #2A2526; -fx-text-fill: #FFF; -fx-border-color: #000;");
-        obj.setAmoAsButton(objInInventoryButton);
-        objInInventoryButton.setOnAction(e -> {
+        setAmoAsButton(new Button(obj.getName(), new ImageView(obj.getIcon())));
+        getAmoAsButton().setStyle("-fx-background-color: #2A2526; -fx-text-fill: #FFF; -fx-border-color: #000;");
+        getAmoAsButton().setOnAction(e -> {
             focusOn(obj);
         });
-        AdventureScene.getInventoryVBox().getChildren().add(objInInventoryButton);
+        AdventureScene.getInventoryVBox().getChildren().add(getAmoAsButton());
     }
 
     @Override
