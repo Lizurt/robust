@@ -13,7 +13,7 @@ public class GenericCloset extends Obj implements Lootable {
     public GenericCloset(Area holder) {
         super(Random.pick("", "непримечательный ", "серый ", "стальной ", "старый ") +  "шкафчик", holder);
         setSize(Size.HUGE);
-        setIcon(new Image(getClass().getResourceAsStream("/icons/objects/items/lootable/locker.png")));
+        generateAndSetIcon("/icons/objects/items/lootable/locker.png");
     }
 
     @Override

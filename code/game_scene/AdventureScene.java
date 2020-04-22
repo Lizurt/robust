@@ -5,6 +5,7 @@ import action_pane.MovementActionHBox;
 import amo.area.types.engineering.EngineeringLobby;
 import amo.mob.Mob;
 import amo.mob.humanoid.player.Player;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import org.fxmisc.richtext.InlineCssTextArea;

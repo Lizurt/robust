@@ -6,6 +6,7 @@ import amo.Amo;
 import amo.Gender;
 import amo.area.Area;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import util.Random;
 
@@ -282,6 +283,11 @@ public abstract class Mob extends Amo {
             }
         });
         AdventureScene.getPaneEnemyIcon().add(focusButton, position[1] - 1, position[0] - 1);
+    }
+
+    @Override
+    public void generateAndSetIcon(String pathToIcon) {
+        generateAndSetIcon(pathToIcon, 64, 64);
     }
 
     /////////////////////////////////

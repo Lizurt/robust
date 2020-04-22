@@ -36,6 +36,14 @@ public abstract class Amo {
         return description;
     }
 
+    public void generateAndSetIcon(String pathToIcon) {
+        generateAndSetIcon(pathToIcon, 0, 0);
+    }
+
+    public void generateAndSetIcon(String pathToIcon, int width, int height) {
+        setIcon(new Image(getClass().getResourceAsStream(pathToIcon), width, height, false, false));
+    }
+
     /////////////////////////////////
     //      GETTERS & SETTERS      //
     /////////////////////////////////

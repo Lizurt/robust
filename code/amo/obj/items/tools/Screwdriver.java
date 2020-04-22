@@ -11,6 +11,6 @@ public class Screwdriver extends Item {
         setDamage(2);
         setSize(Size.SMALL);
         setDescription("Весьма полезный инструмент, если вам нужно что то взломать или открутить.");
-        setIcon(new Image(getClass().getResourceAsStream("/icons/objects/items/tools/screwdriver.png")));
+        generateAndSetIcon("/icons/objects/items/tools/screwdriver.png");
     }
 }

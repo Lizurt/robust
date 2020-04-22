@@ -10,6 +10,6 @@ public class Welder extends Item {
         super("Сварочный аппарат", holder);
         setDamageType(DamageType.BURN);
         setDescription("Полный топлива, удобный и мобильный сварочный аппарат сравнительно небольших размеров. Логично, что его используют при сварке, но при желании, может использовать как резак.");
-        setIcon(new Image(getClass().getResourceAsStream("/icons/objects/items/tools/welder.png")));
+        generateAndSetIcon("/icons/objects/items/tools/welder.png");
     }
 }
