@@ -4,7 +4,6 @@ import amo.Amo;
 import amo.mob.Mob;
 
 public abstract class Obj extends Amo {
-    private String name = "неопределенный объект";
     private int damage = 1;
     private DamageType damageType = DamageType.BRUTE;
     private boolean isDroppable = true;
@@ -19,7 +18,6 @@ public abstract class Obj extends Amo {
     }
 
     public void destroy() {
-        name = null;
         damageType = null;
         equippedOn = null;
         holder = null;
@@ -42,13 +40,6 @@ public abstract class Obj extends Amo {
         setEquippedOn(null);
         mob.setActiveWeapon(mob.getWeaponAsDefault());
         mob.onUnequip(this);
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 
 

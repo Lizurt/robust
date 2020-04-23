@@ -27,7 +27,6 @@ import java.util.List;
  */
 
 public class Area extends Amo {
-    private String areaName = "Неопределенная локация";
     private AtmosphereType atmosphereType = AtmosphereType.NORMAL;
     private LootType lootType = LootType.GENERAL;
 
@@ -37,7 +36,7 @@ public class Area extends Amo {
     private List<Area> waysOut = new ArrayList<>();
 
     public Area(String newName, LootType newLootType, Size areaSize) {
-        setAreaName(newName);
+        setName(newName);
         setSize(areaSize);
         lootType = newLootType;
 
@@ -48,7 +47,6 @@ public class Area extends Amo {
     }
 
     public void destroy() {
-        areaName = null;
         atmosphereType = null;
         lootType = null;
         backgroundImage = null;
@@ -159,13 +157,6 @@ public class Area extends Amo {
     @Override
     public void setAmoAsButton(Button button) {
 
-    }
-
-    public String getAreaName() {
-        return areaName;
-    }
-    public void setAreaName(String areaName) {
-        this.areaName = areaName;
     }
 
 

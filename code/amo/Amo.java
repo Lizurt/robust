@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 
 public abstract class Amo {
+    private String name = "Нечто Неопределенное";
     private Gender gender = Gender.MALE;
     private String description = "";
     private Size size = Size.NORMAL;
@@ -110,5 +111,13 @@ public abstract class Amo {
     }
     public void setAmoAsButton(Button amoAsButton) {
         this.amoAsButton = amoAsButton;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -21,7 +21,6 @@ import util.Random;
 
 public abstract class Mob extends Amo {
 
-    private String name = "Mob";
     private String realName = "Real Mob";
     private boolean isRealNameKnownToPlayer = false;
 
@@ -53,7 +52,6 @@ public abstract class Mob extends Amo {
 
     @Override
     public void destroy() {
-        name = null;
         realName = null;
         stat = null;
         position = null;
@@ -320,14 +318,6 @@ public abstract class Mob extends Amo {
     }
     public void setMinHealth(int minHealth) {
         this.minHealth = minHealth;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 
 

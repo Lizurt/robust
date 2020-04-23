@@ -53,7 +53,7 @@ public class Player extends Humanoid {
 
     @Override
     public void entered(Area area) {
-        TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), Random.pick("", "Неужели? ", "А это место сильно поменялось! ", "Вау! ", "Ого! ", "Снова? ") + Random.pick("Кажется это ", "Похоже, что это ", "Скорее всего это ", "Однозначно, это ", "Нет сомнений, что это ") + area.getAreaName() + Random.pick("!", "...", "."));
+        TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), Random.pick("", "Неужели? ", "А это место сильно поменялось! ", "Вау! ", "Ого! ", "Снова? ") + Random.pick("Кажется это ", "Похоже, что это ", "Скорее всего это ", "Однозначно, это ", "Нет сомнений, что это ") + area.getName() + Random.pick("!", "...", "."));
         area.generateWaysOut();
         for (Area wayOut : area.getWaysOut()) {
             Button buttonWayOut = new Button("", new ImageView(wayOut.getWayOutIcon()));
@@ -173,7 +173,7 @@ public class Player extends Humanoid {
     @Override
     public void focusOn(Area area) {
         AdventureScene.getGeneralActionPane().getChildren().clear();
-        AdventureScene.getGeneralActionPane().addNewLootActionButton(new Button("Обыскать " + area.getAreaName()), lootEvent -> {
+        AdventureScene.getGeneralActionPane().addNewLootActionButton(new Button("Обыскать " + area.getName()), lootEvent -> {
             // I know this is terrible and inefficient, but ConcurrentModificationException ruins everything!
             ArrayList<Obj> allLoot = area.getInventory();
             if (allLoot.size() < 1) {
