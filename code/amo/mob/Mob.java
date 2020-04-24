@@ -168,13 +168,20 @@ public abstract class Mob extends Amo {
     //            ACTION           //
     /////////////////////////////////
 
+    public void onFocusOn(Amo amo) {
+
+    }
+
     public void focusOn(Mob mob) {
+        onFocusOn(mob);
         focusedOn = mob;
     }
     public void focusOn(Obj obj) {
+        onFocusOn(obj);
         focusedOn = obj;
     }
     public void focusOn(Area area) {
+        onFocusOn(area);
         focusedOn = area;
     }
 

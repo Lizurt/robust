@@ -1,5 +1,6 @@
 package amo.mob.humanoid.player;
 
+import amo.Amo;
 import amo.mob.Mob;
 import amo.obj.Obj;
 import amo.obj.items.default_weapon.HumanFists;
@@ -131,11 +132,31 @@ public class Player extends Humanoid {
     /////////////////////////////////
 
     @Override
+    public void onFocusOn(Amo amo) {
+        if (getFocusedOn() != null && getFocusedOn().getAmoAsButton() != null) {
+            if (getFocusedOn().getAmoAsButton().getStyle().contains("-fx-border-color:")) {
+                getFocusedOn().getAmoAsButton().setStyle(getFocusedOn().getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #2A2526;"));
+            } else {
+                getFocusedOn().getAmoAsButton().setStyle(getFocusedOn().getAmoAsButton().getStyle() + "-fx-border-color: #2A2526;");
+            }
+        }
+        if (amo.getAmoAsButton() != null) {
+            if (amo.getAmoAsButton().getStyle().contains("-fx-border-color:")) {
+                amo.getAmoAsButton().setStyle(amo.getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #700;"));
+            } else {
+                amo.getAmoAsButton().setStyle(amo.getAmoAsButton().getStyle() + "-fx-border-color: #700;");
+            }
+        }
+        super.onFocusOn(amo);
+    }
+
+    @Override
     public void focusOn(Mob mob) {
         AdventureScene.getGeneralActionPane().getChildren().clear();
         AdventureScene.getGeneralActionPane().addNewAttackActionButton(new Button("Атаковать " + tryToGetRealName()), attackEvent -> {
             AdventureScene.getPlayer().attackOrGetCloser(mob, AdventureScene.getPlayer().getActiveWeapon());
         });
+
         super.focusOn(mob);
     }
 
@@ -185,6 +206,7 @@ public class Player extends Humanoid {
                 moveObjToInventory(loot);
             }
         });
+
         super.focusOn(area);
     }
 
