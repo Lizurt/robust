@@ -5,7 +5,7 @@ import action_pane.MovementActionHBox;
 import amo.area.types.engineering.EngineeringLobby;
 import amo.mob.Mob;
 import amo.mob.humanoid.player.Player;
-import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import org.fxmisc.richtext.InlineCssTextArea;
@@ -94,10 +94,18 @@ public class AdventureScene extends Scene {
         GlobalVar.adventureScene = this;
     }
 
+    public static void updateGeneralActionPane() {
+        getGeneralActionPane().getChildren().clear();
+        getPlayer().focusOn(getPlayer().getFocusedOn());
+    }
+
     public static void updatePaneEnemyIcon() {
         getPaneEnemyIcon().getChildren().clear();
         for (Mob mob : getPlayer().getLocation().getMobs()) {
-            mob.generateFocusOnButton();
+            if (mob.getAmoAsButton() == null) {
+                continue;
+            }
+            getPaneEnemyIcon().add(mob.getAmoAsButton(), mob.getPosition()[1] - 1, mob.getPosition()[0] - 1);
         }
     }
 

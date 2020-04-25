@@ -1,5 +1,6 @@
 package amo.mob;
 
+import amo.mob.humanoid.player.Player;
 import amo.obj.Obj;
 import game_scene.AdventureScene;
 import amo.Amo;
@@ -168,21 +169,31 @@ public abstract class Mob extends Amo {
     //            ACTION           //
     /////////////////////////////////
 
-    public void onFocusOn(Amo amo) {
+    @Override
+    public boolean focusOnPreparationsBy(Amo amo) {
+        Player player = AdventureScene.getPlayer();
+        if (amo == player) {
+            AdventureScene.getGeneralActionPane().getChildren().clear();
+            AdventureScene.getGeneralActionPane().addNewAttackActionButton(new Button("Атаковать " + tryToGetRealName()), attackEvent -> {
+                player.attackOrGetCloser(this, player.getActiveWeapon());
+                AdventureScene.updateGeneralActionPane();
+            });
 
+            if (player.getFocusedOn() != null && player.getFocusedOn().getAmoAsButton() != null) {
+                player.getFocusedOn().getAmoAsButton().setStyle(player.getFocusedOn().getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #000;"));
+            }
+            if (getAmoAsButton() != null) {
+                getAmoAsButton().setStyle(getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #700;"));
+            }
+        }
+
+        return true;
     }
 
-    public void focusOn(Mob mob) {
-        onFocusOn(mob);
-        focusedOn = mob;
-    }
-    public void focusOn(Obj obj) {
-        onFocusOn(obj);
-        focusedOn = obj;
-    }
-    public void focusOn(Area area) {
-        onFocusOn(area);
-        focusedOn = area;
+    public void focusOn(Amo amo) {
+        if (amo.focusOnPreparationsBy(this)) {
+            focusedOn = amo;
+        }
     }
 
     public void attackOrGetCloser(Mob attacked, Obj weapon) {
@@ -284,7 +295,7 @@ public abstract class Mob extends Amo {
             return;
         }
         setAmoAsButton(new Button("", new ImageView(getIcon())));
-        getAmoAsButton().setStyle("-fx-background-color: #2A2526; -fx-padding: 0;");
+        getAmoAsButton().setStyle("-fx-background-color: #2A2526; -fx-padding: 0; -fx-border-color: #000; -fx-border-width: 0 0 4 0;");
         getAmoAsButton().setOnAction(focusEvent -> {
             if (AdventureScene.getPlayer().getFocusedOn() == this) {
                 AdventureScene.getPlayer().focusOn(AdventureScene.getPlayer().getLocation());
@@ -292,7 +303,7 @@ public abstract class Mob extends Amo {
                 AdventureScene.getPlayer().focusOn(this);
             }
         });
-        AdventureScene.getPaneEnemyIcon().add(getAmoAsButton(), position[1] - 1, position[0] - 1);
+        AdventureScene.updatePaneEnemyIcon();
     }
 
     @Override

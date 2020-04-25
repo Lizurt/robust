@@ -20,6 +20,7 @@ public abstract class Amo {
 
     private Button amoAsButton;
     private Image icon;
+    private String amoButtonStyle = "";
 
     public void destroy() {
         gender = null;
@@ -28,6 +29,10 @@ public abstract class Amo {
         isDestroyed = true;
         inventory.clear();
         inventory = null;
+    }
+
+    public boolean focusOnPreparationsBy(Amo amo) {
+        return false;
     }
 
     public void moveObjToInventory(Obj obj) {
@@ -113,11 +118,19 @@ public abstract class Amo {
         this.amoAsButton = amoAsButton;
     }
 
+
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public String getAmoButtonStyle() {
+        return amoButtonStyle;
+    }
+    public void setAmoButtonStyle(String amoButtonStyle) {
+        this.amoButtonStyle = amoButtonStyle;
     }
 }

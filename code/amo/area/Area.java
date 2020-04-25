@@ -10,7 +10,9 @@ import amo.area.types.engineering.EngineeringLobby;
 import amo.area.types.engineering.EngineeringStorage;
 import amo.mob.Mob;
 import amo.mob.animal.GiantSpider;
+import amo.mob.humanoid.player.Player;
 import amo.obj.Obj;
+import game_scene.AdventureScene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import util.GlobalVar;
@@ -148,6 +150,30 @@ public class Area extends Amo {
             }
             mob.attackOrGetCloser((Mob) mob.getFocusedOn(), mob.getActiveWeapon());
         }
+    }
+
+    @Override
+    public boolean focusOnPreparationsBy(Amo amo) {
+        Player player = AdventureScene.getPlayer();
+        if (amo == player) {
+            AdventureScene.getGeneralActionPane().getChildren().clear();
+            AdventureScene.getGeneralActionPane().addNewLootActionButton(new Button("Обыскать " + getName()), lootEvent -> {
+                // I know this is terrible and inefficient, but ConcurrentModificationException ruins everything!
+                ArrayList<Obj> allLoot = getInventory();
+                while (allLoot.size() > 0) {
+                    Obj loot = allLoot.get(0);
+                    util.TextUtils.greenText(AdventureScene.getTextAreaOutput(), Random.pick("", "", "Ага! ", "О! ", "Ну вот. ") + "Вы нашли " + loot.getName() + ".");
+                    player.moveObjToInventory(loot);
+                }
+                AdventureScene.updateGeneralActionPane();
+            });
+
+            if (player.getFocusedOn() != null && player.getFocusedOn().getAmoAsButton() != null) {
+                player.getFocusedOn().getAmoAsButton().setStyle(player.getFocusedOn().getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #000;"));
+            }
+        }
+
+        return true;
     }
 
     /////////////////////////////////
