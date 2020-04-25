@@ -169,31 +169,8 @@ public abstract class Mob extends Amo {
     //            ACTION           //
     /////////////////////////////////
 
-    @Override
-    public boolean focusOnPreparationsBy(Amo amo) {
-        Player player = AdventureScene.getPlayer();
-        if (amo == player) {
-            AdventureScene.getGeneralActionPane().getChildren().clear();
-            AdventureScene.getGeneralActionPane().addNewAttackActionButton(new Button("Атаковать " + tryToGetRealName()), attackEvent -> {
-                player.attackOrGetCloser(this, player.getActiveWeapon());
-                AdventureScene.updateGeneralActionPane();
-            });
-
-            if (player.getFocusedOn() != null && player.getFocusedOn().getAmoAsButton() != null) {
-                player.getFocusedOn().getAmoAsButton().setStyle(player.getFocusedOn().getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #000;"));
-            }
-            if (getAmoAsButton() != null) {
-                getAmoAsButton().setStyle(getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #700;"));
-            }
-        }
-
-        return true;
-    }
-
     public void focusOn(Amo amo) {
-        if (amo.focusOnPreparationsBy(this)) {
-            focusedOn = amo;
-        }
+        focusedOn = amo;
     }
 
     public void attackOrGetCloser(Mob attacked, Obj weapon) {

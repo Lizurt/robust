@@ -131,6 +131,85 @@ public class Player extends Humanoid {
     //            ACTION           //
     /////////////////////////////////
 
+    public void focusOn(Mob mob) {
+        AdventureScene.getGeneralActionPane().getChildren().clear();
+        AdventureScene.getGeneralActionPane().addNewAttackActionButton(new Button("Атаковать " + mob.tryToGetRealName()), attackEvent -> {
+            AdventureScene.getPlayer().attackOrGetCloser(mob, AdventureScene.getPlayer().getActiveWeapon());
+            AdventureScene.updateGeneralActionPane();
+        });
+
+        if (getFocusedOn() != null && getFocusedOn().getAmoAsButton() != null) {
+            getFocusedOn().getAmoAsButton().setStyle(getFocusedOn().getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #000;"));
+        }
+        if (mob.getAmoAsButton() != null) {
+            mob.getAmoAsButton().setStyle(mob.getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #700;"));
+        }
+
+        super.focusOn(mob);
+    }
+
+    public void focusOn(Obj obj) {
+        AdventureScene.getGeneralActionPane().getChildren().clear();
+
+        AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Осмотреть: " + obj.getName()), examineEvent -> {
+            util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), Random.pick("Да это же ", "Это ", "Похоже, что это ") + obj.getName() + ". " + obj.getDescription());
+        });
+
+        if (getActiveWeapon() == obj || getActiveArmor() == obj) {
+            if (obj.isDroppable()) {
+                AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Снять"), equipEvent -> {
+                    obj.unequipFrom(this);
+                    AdventureScene.updateGeneralActionPane();
+                });
+            }
+        } else {
+            if (obj.isEquippable()) {
+                AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Экипировать"), equipEvent -> {
+                    obj.equipOn(this);
+                    AdventureScene.updateGeneralActionPane();
+                });
+            }
+        }
+
+        AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Выбросить"), equipEvent -> {
+            getLocation().moveObjToInventory(obj);
+            util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), "Вы выбросили " + obj.getName() + "!");
+            focusOn(getLocation());
+        });
+
+        if (getFocusedOn() != null && getFocusedOn().getAmoAsButton() != null) {
+            getFocusedOn().getAmoAsButton().setStyle(getFocusedOn().getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #000;"));
+        }
+        if (obj.getAmoAsButton() != null) {
+            obj.getAmoAsButton().setStyle(obj.getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #700;"));
+        }
+
+        super.focusOn(obj);
+    }
+
+    public void focusOn(Area area) {
+        AdventureScene.getGeneralActionPane().getChildren().clear();
+        AdventureScene.getGeneralActionPane().addNewLootActionButton(new Button("Обыскать " + area.getName()), lootEvent -> {
+            // I know this is terrible and inefficient, but ConcurrentModificationException ruins everything!
+            ArrayList<Obj> allLoot = area.getInventory();
+            if (allLoot.size() < 1) {
+                return;
+            }
+            while (allLoot.size() > 0) {
+                Obj loot = allLoot.get(0);
+                util.TextUtils.greenText(AdventureScene.getTextAreaOutput(), Random.pick("", "", "Ага! ", "О! ", "Ну вот. ") + "Вы нашли " + loot.getName() + ".");
+                moveObjToInventory(loot);
+            }
+            AdventureScene.updateGeneralActionPane();
+        });
+
+        if (getFocusedOn() != null && getFocusedOn().getAmoAsButton() != null) {
+            getFocusedOn().getAmoAsButton().setStyle(getFocusedOn().getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #000;"));
+        }
+
+        super.focusOn(area);
+    }
+
     @Override
     public void attackOrGetCloser(Mob attacked, Obj weapon) {
         attack(attacked, weapon);

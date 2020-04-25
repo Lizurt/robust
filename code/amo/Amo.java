@@ -31,10 +31,6 @@ public abstract class Amo {
         inventory = null;
     }
 
-    public boolean focusOnPreparationsBy(Amo amo) {
-        return false;
-    }
-
     public void moveObjToInventory(Obj obj) {
         obj.unequipFrom(obj.getEquippedOn());
         obj.getHolder().getInventory().remove(obj);

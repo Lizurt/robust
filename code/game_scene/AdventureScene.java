@@ -2,9 +2,12 @@ package game_scene;
 
 import action_pane.GeneralActionPane;
 import action_pane.MovementActionHBox;
+import amo.Amo;
+import amo.area.Area;
 import amo.area.types.engineering.EngineeringLobby;
 import amo.mob.Mob;
 import amo.mob.humanoid.player.Player;
+import amo.obj.Obj;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -96,7 +99,18 @@ public class AdventureScene extends Scene {
 
     public static void updateGeneralActionPane() {
         getGeneralActionPane().getChildren().clear();
-        getPlayer().focusOn(getPlayer().getFocusedOn());
+        Amo focusedOn = getPlayer().getFocusedOn();
+        if (focusedOn instanceof  Mob) {
+            getPlayer().focusOn((Mob) getPlayer().getFocusedOn());
+            return;
+        }
+        if (focusedOn instanceof Obj) {
+            getPlayer().focusOn((Obj) getPlayer().getFocusedOn());
+            return;
+        }
+        if (focusedOn instanceof Area) {
+            getPlayer().focusOn((Area) getPlayer().getFocusedOn());
+        }
     }
 
     public static void updatePaneEnemyIcon() {

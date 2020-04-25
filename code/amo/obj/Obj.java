@@ -2,7 +2,6 @@ package amo.obj;
 
 import amo.Amo;
 import amo.mob.Mob;
-import amo.mob.humanoid.player.Player;
 import game_scene.AdventureScene;
 import javafx.scene.control.Button;
 import util.Random;
@@ -45,49 +44,6 @@ public abstract class Obj extends Amo {
         mob.setActiveWeapon(mob.getWeaponAsDefault());
         mob.onUnequip(this);
     }
-
-    @Override
-    public boolean focusOnPreparationsBy(Amo amo) {
-        Player player = AdventureScene.getPlayer();
-        if (amo == player) {
-            AdventureScene.getGeneralActionPane().getChildren().clear();
-            AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Осмотреть: " + getName()), examineEvent -> {
-                util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), Random.pick("Да это же ", "Это ", "Похоже, что это ") + getName() + ". " + getDescription());
-            });
-
-            if (player.getActiveWeapon() == this || player.getActiveArmor() == this) {
-                if (isDroppable()) {
-                    AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Снять"), equipEvent -> {
-                        unequipFrom(player);
-                        AdventureScene.updateGeneralActionPane();
-                    });
-                }
-            } else {
-                if (isEquippable()) {
-                    AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Экипировать"), equipEvent -> {
-                        equipOn(player);
-                        AdventureScene.updateGeneralActionPane();
-                    });
-                }
-            }
-
-            AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Выбросить"), equipEvent -> {
-                player.getLocation().moveObjToInventory(this);
-                util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), "Вы выбросили " + getName() + "!");
-                AdventureScene.updateGeneralActionPane();
-            });
-
-            if (player.getFocusedOn() != null && player.getFocusedOn().getAmoAsButton() != null) {
-                player.getFocusedOn().getAmoAsButton().setStyle(player.getFocusedOn().getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #000;"));
-            }
-            if (getAmoAsButton() != null) {
-                getAmoAsButton().setStyle(getAmoAsButton().getStyle().replaceAll("-fx-border-color: #.{1,6};", "-fx-border-color: #700;"));
-            }
-        }
-
-        return true;
-    }
-
 
     public int getDamage() {
         return damage;
