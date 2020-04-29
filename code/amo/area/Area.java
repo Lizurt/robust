@@ -2,6 +2,7 @@ package amo.area;
 
 import amo.Amo;
 import amo.Size;
+import amo.area.ObjectGenerators.AreaGenerator;
 import amo.area.ObjectGenerators.LootGenerator;
 import amo.area.types.common.Corridor;
 import amo.area.types.engineering.Engineering;
@@ -62,27 +63,7 @@ public class Area extends Amo {
     /////////////////////////////////
 
     public void generateWaysOut() {
-        int waysOutAmount = Random.random(1, 3);
-        for (int i = 0; i < waysOutAmount; i++) {
-            getWaysOut().add(generateRandomArea());
-        }
-    }
-
-    public Area generateRandomArea() {
-        // I know this is shitty way, but I don't know how to make it better.
-        // Maybe it's possible somehow to create a list with classes?
-        switch (Random.random(5)) {
-            case 0:
-                return new EngineeringLobby();
-            case 1:
-                return new Engineering();
-            case 2:
-                return new EngineeringChiefEngineerOffice();
-            case 3:
-                return new EngineeringStorage();
-            default:
-                return new Corridor();
-        }
+        getWaysOut().addAll(AreaGenerator.getGeneratedAreas(Random.random(1, 3)));
     }
 
 
