@@ -29,6 +29,7 @@ public abstract class Amo {
         isDestroyed = true;
         inventory.clear();
         inventory = null;
+        System.gc();
     }
 
     public void moveObjToInventory(Obj obj) {
