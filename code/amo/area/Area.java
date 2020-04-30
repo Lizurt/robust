@@ -12,6 +12,7 @@ import amo.area.types.engineering.EngineeringStorage;
 import amo.mob.Mob;
 import amo.mob.animal.GiantSpider;
 import amo.obj.Obj;
+import game_scene.AdventureScene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import util.GlobalVar;
@@ -123,7 +124,9 @@ public class Area extends Amo {
     /////////////////////////////////
 
     public void onPlayerAction() {
+        AdventureScene.getPlayer().reactToTheAtmosphere();
         for (Mob mob : getMobs()) {
+            mob.reactToTheAtmosphere();
             if (!(mob.getFocusedOn() instanceof Mob)) {
                 continue;
             }

@@ -4,6 +4,5 @@ public enum Species {
     HUMAN,
     SKRELL,
     TAJARA,
-    UNATHI,
-    IPC
+    UNATHI
 }

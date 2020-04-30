@@ -19,7 +19,7 @@ public class Humanoid extends Mob {
         super(newLocation);
         setGender(pick(MALE, FEMALE));
         setAge(random(GlobalVar.minAge, GlobalVar.maxAge));
-        setSpecies(pick(HUMAN, SKRELL, UNATHI, TAJARA, IPC));
+        setSpecies(pick(HUMAN, SKRELL, UNATHI, TAJARA));
         setName(generateRandomName());
         setRealName(generateRandomRealName());
     }
@@ -43,9 +43,6 @@ public class Humanoid extends Mob {
                         generatedName = "Девушка";
                     }
                     break;
-                case IPC:
-                    generatedName = "Робот";
-                    break;
                 case SKRELL:
                     generatedName = "Скреллка";
                     break;
@@ -66,9 +63,6 @@ public class Humanoid extends Mob {
                     } else {
                         generatedName = "Парень";
                     }
-                    break;
-                case IPC:
-                    generatedName = "Робот";
                     break;
                 case SKRELL:
                     generatedName = "Скрелл";

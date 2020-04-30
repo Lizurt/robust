@@ -2,6 +2,7 @@ package amo.mob.humanoid.player;
 
 import amo.Amo;
 import amo.mob.Mob;
+import amo.mob.Species;
 import amo.obj.Obj;
 import amo.obj.items.default_weapon.HumanFists;
 import game_scene.AdventureScene;
@@ -77,6 +78,7 @@ public class Player extends Humanoid {
             }, wayOut);
         }
         focusOn(area);
+
     }
 
     @Override
@@ -234,6 +236,50 @@ public class Player extends Humanoid {
     /////////////////////////////////
     //             MISC            //
     /////////////////////////////////
+
+    @Override
+    public void reactToTheAtmosphere() {
+        switch (getLocation().getAtmosphereType()) {
+            case HOT:
+                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Как здесь жарко-то!");
+                break;
+            case COLD:
+                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Как здесь холодно-то!");
+                break;
+            case PHORON:
+                hurt(5);
+                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Воздух розовенький...");
+                break;
+            case VACUUM:
+                hurt(20);
+                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Все тело колит, я не могу дышать!");
+                break;
+            case OXYGENOUS:
+                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Как здесь легко дышать! Только голова кружится немного...");
+                break;
+            case SLEEP_GAS:
+                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Сегодня был такой сложный день, как же мне хочется отдохнуть...");
+                break;
+            case LOW_PRESSURE:
+                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Как здесь СЛОЖНО дышать, а моя голова просто раскалывается!");
+                break;
+            case UNBREATHABLE:
+                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Здесь же нечем дышать!");
+                hurt(5);
+                break;
+            case EXTREMELY_HOT:
+                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "А-А-А-А-А! МОЯ КОЖА ПРОСТО ГОРИ-И-И-Т!");
+                hurt(20);
+                break;
+            case HIGH_PRESSURE:
+                break;
+            case EXTREMELY_COLD:
+                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "КАК ЖЕ ЗДЕСЬ ХОЛОДНО! ВСЕ МОЕ ТЕЛО ПОКАЛЫВАЕТ!");
+                hurt(15);
+                break;
+        }
+        super.reactToTheAtmosphere();
+    }
 
     public StringBuilder generateIntroductoryStory() {
         StringBuilder coolStory = new StringBuilder();

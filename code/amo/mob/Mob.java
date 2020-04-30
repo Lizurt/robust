@@ -283,6 +283,38 @@ public abstract class Mob extends Amo {
         AdventureScene.updatePaneEnemyIcon();
     }
 
+    public void reactToTheAtmosphere() {
+        switch (getLocation().getAtmosphereType()) {
+            case HOT:
+                break;
+            case COLD:
+                break;
+            case PHORON:
+                hurt(5);
+                break;
+            case VACUUM:
+                hurt(20);
+                break;
+            case OXYGENOUS:
+                break;
+            case SLEEP_GAS:
+                break;
+            case LOW_PRESSURE:
+                break;
+            case UNBREATHABLE:
+                hurt(2);
+                break;
+            case EXTREMELY_HOT:
+                hurt(10);
+                break;
+            case HIGH_PRESSURE:
+                break;
+            case EXTREMELY_COLD:
+                hurt(10);
+                break;
+        }
+    }
+
     @Override
     public void generateAndSetIcon(String pathToIcon) {
         generateAndSetIcon(pathToIcon, 64, 64);
