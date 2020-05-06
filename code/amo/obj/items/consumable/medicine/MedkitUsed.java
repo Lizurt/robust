@@ -1,6 +1,7 @@
 package amo.obj.items.consumable.medicine;
 
 import amo.Amo;
+import amo.Size;
 import amo.obj.Usable;
 import amo.obj.items.Item;
 import game_scene.AdventureScene;
@@ -10,6 +11,7 @@ public class MedkitUsed extends Item implements Usable {
         super("Полупустая аптечка", holder);
         setDescription("Маленькая, оранжевая, пластиковая аптечка. Эту аптечку уже явно использовали. Внутри нее всего две высоких банки с таблетками, в которых самих таблеток почти не осталось. Также вы можете заметить здесь кусочек бинта. Всего этого может быть и хватит на обработку раны или болезни, но только на раз.");
         generateAndSetIcon("/icons/objects/items/medicine/medkit_used.png");
+        setSize(Size.SMALL);
     }
 
     @Override

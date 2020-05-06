@@ -5,6 +5,9 @@ import amo.area.Area;
 import amo.area.LootType;
 import amo.obj.Obj;
 import amo.obj.items.clothing.*;
+import amo.obj.items.consumable.food.Wine;
+import amo.obj.items.consumable.medicine.Medkit;
+import amo.obj.items.consumable.medicine.MedkitUsed;
 import amo.obj.items.tools.*;
 import amo.obj.items.weapons.melee.*;
 import amo.obj.lootable.*;
@@ -116,7 +119,7 @@ public abstract class LootGenerator {
         }
 
         for (; generatedLootAmount[SMALL_SIZED_ITEM] > 0; generatedLootAmount[SMALL_SIZED_ITEM]--) {
-            switch (Random.random(2)) {
+            switch (Random.random(4)) {
                 case 0:
                     generatedLoot.add(new Screwdriver(area));
                     break;
@@ -126,11 +129,17 @@ public abstract class LootGenerator {
                 case 2:
                     generatedLoot.add(new Multitool(area));
                     break;
+                case 3:
+                    generatedLoot.add(new Medkit(area));
+                    break;
+                case 4:
+                    generatedLoot.add(new MedkitUsed(area));
+                    break;
             }
         }
 
         for (; generatedLootAmount[NORMAL_SIZED_ITEM] > 0; generatedLootAmount[NORMAL_SIZED_ITEM]--) {
-            switch (Random.random(3)) {
+            switch (Random.random(4)) {
                 case 0:
                     generatedLoot.add(new Welder(area));
                     break;
@@ -142,6 +151,10 @@ public abstract class LootGenerator {
                     break;
                 case 3:
                     generatedLoot.add(new Wires(area));
+                    break;
+                case 4:
+                    generatedLoot.add(new Wine(area));
+                    break;
             }
         }
 
