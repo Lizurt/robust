@@ -116,25 +116,42 @@ public abstract class LootGenerator {
         }
 
         for (; generatedLootAmount[SMALL_SIZED_ITEM] > 0; generatedLootAmount[SMALL_SIZED_ITEM]--) {
-            switch (Random.random(0)) {
+            switch (Random.random(2)) {
                 case 0:
                     generatedLoot.add(new Screwdriver(area));
+                    break;
+                case 1:
+                    generatedLoot.add(new Wrench(area));
+                    break;
+                case 2:
+                    generatedLoot.add(new Multitool(area));
                     break;
             }
         }
 
         for (; generatedLootAmount[NORMAL_SIZED_ITEM] > 0; generatedLootAmount[NORMAL_SIZED_ITEM]--) {
-            switch (Random.random(0)) {
+            switch (Random.random(3)) {
                 case 0:
                     generatedLoot.add(new Welder(area));
                     break;
+                case 1:
+                    generatedLoot.add(new MetalRod(area));
+                    break;
+                case 2:
+                    generatedLoot.add(new BreathMask(area));
+                    break;
+                case 3:
+                    generatedLoot.add(new Wires(area));
             }
         }
 
         for (; generatedLootAmount[BULKY_SIZED_ITEM] > 0; generatedLootAmount[BULKY_SIZED_ITEM]--) {
-            switch (Random.random(0)) {
+            switch (Random.random(1)) {
                 case 0:
                     generatedLoot.add(new FireAxe(area));
+                    break;
+                case 1:
+                    generatedLoot.add(new BasicSpacesuit(area));
                     break;
             }
         }

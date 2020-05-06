@@ -29,4 +29,19 @@ public abstract class TextUtils {
         area.requestFollowCaret();
     }
 
+    public static void greenBoldText(InlineCssTextArea area, String text) {
+        area.append(text + "\n", "-fx-font-weight: 900; -fx-fill: green;");
+        area.requestFollowCaret();
+    }
+
+    public static void blueText(InlineCssTextArea area, String text) {
+        area.append(text + "\n", "-fx-fill: blue;");
+        area.requestFollowCaret();
+    }
+
+    public static void blueBoldText(InlineCssTextArea area, String text) {
+        area.append(text + "\n", "-fx-font-weight: 900; -fx-fill: blue;");
+        area.requestFollowCaret();
+    }
+
 }

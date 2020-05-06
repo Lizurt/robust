@@ -2,6 +2,8 @@
   <dictionary name="1">
     <words>
       <w>medbay</w>
+      <w>medkit</w>
+      <w>multitool</w>
       <w>unequip</w>
     </words>
   </dictionary>

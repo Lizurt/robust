@@ -188,10 +188,12 @@ public abstract class Mob extends Amo {
         generateAttackEventText(attacked, weapon);
     }
 
+    @Override
     public void heal(int amount) {
         setHealth(Math.min(getMaxHealth(), getHealth() + amount));
     }
 
+    @Override
     public void hurt(int amount) {
         setHealth(Math.max(getMinHealth(), getHealth() - amount));
         updateHealth();

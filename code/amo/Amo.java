@@ -55,6 +55,11 @@ public abstract class Amo {
         setIcon(new Image(getClass().getResourceAsStream(pathToIcon), width, height, false, false));
     }
 
+
+    public void heal(int amount) {}
+
+    public void hurt(int amount) {}
+
     /////////////////////////////////
     //      GETTERS & SETTERS      //
     /////////////////////////////////
