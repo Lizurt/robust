@@ -15,7 +15,7 @@ public class MainMenuScene extends Scene {
     public MainMenuScene(VBox mainVBox) {
         super(mainVBox, GlobalVar.windowWidth, GlobalVar.windowHeight);
         mainVBox.setAlignment(Pos.TOP_CENTER);
-        mainVBox.setStyle("-fx-background-color: #2A2526;");
+        mainVBox.setStyle(GlobalVar.styleBackgroundColorDefault);
 
         Label robustLabel = new Label("ROBUST");
         robustLabel.setStyle("-fx-font-size: 140px; -fx-font-weight: 900; -fx-text-fill: #7f2526");

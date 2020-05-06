@@ -13,9 +13,13 @@ public abstract class GlobalVar {
     public static AdventureScene adventureScene;
     public static MainMenuScene mainMenuScene;
     public static PauseMenuScene pauseMenuScene;
-    public final static int minAge =  20;
-    public final static int maxAge = 80;
-    public final static String[] allowedFemaleHumanRealName = new String[]{
+
+    public static final String regexBorderColor = "-fx-border-color: #.{1,6};";
+    public static final String styleBackgroundColorDefault = "-fx-background-color: #2A2526;";
+
+    public static final int minAge =  20;
+    public static final int maxAge = 80;
+    public static final String[] allowedFemaleHumanRealName = new String[]{
             "Dorsey Dorothy",
             "Simon Olivia",
             "Mathews Francine",
@@ -49,7 +53,7 @@ public abstract class GlobalVar {
             "Palmisano Veronica",
             "Pesce Donata"
     };
-    public final static String[] allowedMaleHumanRealName = new String[]{
+    public static final String[] allowedMaleHumanRealName = new String[]{
             "Wells Steven",
             "Allison Clinton",
             "Wheeler Allen",
@@ -83,7 +87,7 @@ public abstract class GlobalVar {
             "Randazzo Giacomo",
             "Murgia Amerigo"
     };
-    public final static String[] allowedBasicFemaleNameAdjectives = new String[]{
+    public static final String[] allowedBasicFemaleNameAdjectives = new String[]{
             "",
             "",
             "",
@@ -97,7 +101,7 @@ public abstract class GlobalVar {
             "Обычная ",
             "Типичная "
     };
-    public final static String[] allowedBasicMaleNameAdjectives = new String[]{
+    public static final String[] allowedBasicMaleNameAdjectives = new String[]{
             "",
             "",
             "",

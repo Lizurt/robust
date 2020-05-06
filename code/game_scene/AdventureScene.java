@@ -45,19 +45,19 @@ public class AdventureScene extends Scene {
                 new RowConstraints(GlobalVar.windowHeight - roundedHalfHeight)
         );
 
-        mainGridPane.setStyle("-fx-background-color: #2A2526;");
+        mainGridPane.setStyle(GlobalVar.styleBackgroundColorDefault);
 
         // output text
         mainGridPane.add(getTextAreaOutput(), 0, 0);
-        getTextAreaOutput().setStyle("-fx-background-color: #2A2526;");
+        getTextAreaOutput().setStyle(GlobalVar.styleBackgroundColorDefault);
         getTextAreaOutput().setWrapText(true);
         getTextAreaOutput().setEditable(false);
 
         // movement & action inside the actionVBox
         VBox actionVBox = new VBox();
-        getMovementActionHBox().setStyle("-fx-background-color: #2A2526;");
+        getMovementActionHBox().setStyle(GlobalVar.styleBackgroundColorDefault);
         actionVBox.getChildren().add(movementActionHBox);
-        getGeneralActionPane().setStyle("-fx-background-color: #2A2526;");
+        getGeneralActionPane().setStyle(GlobalVar.styleBackgroundColorDefault);
         actionVBox.getChildren().add(getGeneralActionPane());
 
         mainGridPane.add(actionVBox, 0, 1);
@@ -66,11 +66,11 @@ public class AdventureScene extends Scene {
         ScrollPane inventoryScrollPane = new ScrollPane(getInventoryVBox());
         inventoryScrollPane.setStyle("-fx-background: #2A2526; -fx-border-color: #2A2526;");
         mainGridPane.add(inventoryScrollPane, 1, 1);
-        getInventoryVBox().setStyle("-fx-background-color: #2A2526;");
+        getInventoryVBox().setStyle(GlobalVar.styleBackgroundColorDefault);
 
         // player's stats
         mainGridPane.add(getPlayerStatsVBox(), 2, 1);
-        getPlayerStatsVBox().setStyle("-fx-background-color: #2A2526;");
+        getPlayerStatsVBox().setStyle(GlobalVar.styleBackgroundColorDefault);
 
         // enemy grid
         getPaneEnemyIcon().getColumnConstraints().addAll(
@@ -84,11 +84,11 @@ public class AdventureScene extends Scene {
                 new RowConstraints(64, 64, 64)
         );
         mainGridPane.add(getPaneEnemyIcon(), 1, 0);
-        getPaneEnemyIcon().setStyle("-fx-background-color: #2A2526;");
+        getPaneEnemyIcon().setStyle(GlobalVar.styleBackgroundColorDefault);
 
         // enemy stats
         mainGridPane.add(getVBoxEnemyStats(), 2, 0);
-        getVBoxEnemyStats().setStyle("-fx-background-color: #2A2526;");
+        getVBoxEnemyStats().setStyle(GlobalVar.styleBackgroundColorDefault);
 
         player = new Player(new EngineeringLobby());
         getTextAreaOutput().clear();

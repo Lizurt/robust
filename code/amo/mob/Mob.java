@@ -9,6 +9,7 @@ import amo.area.Area;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import util.GlobalVar;
 import util.Random;
 
 /*  Content:
@@ -272,7 +273,7 @@ public abstract class Mob extends Amo {
             return;
         }
         setAmoAsButton(new Button("", new ImageView(getIcon())));
-        getAmoAsButton().setStyle("-fx-background-color: #2A2526; -fx-padding: 0; -fx-border-color: #000; -fx-border-width: 0 0 4 0;");
+        getAmoAsButton().setStyle(GlobalVar.styleBackgroundColorDefault + " -fx-padding: 0; -fx-border-color: #000; -fx-border-width: 0 0 4 0;");
         getAmoAsButton().setOnAction(focusEvent -> {
             if (AdventureScene.getPlayer().getFocusedOn() == this) {
                 AdventureScene.getPlayer().focusOn(AdventureScene.getPlayer().getLocation());
