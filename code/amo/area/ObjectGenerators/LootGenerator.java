@@ -13,6 +13,12 @@ import java.util.ArrayList;
 
 public abstract class LootGenerator {
 
+    private static final int TINY_SIZED_ITEM    = 0;
+    private static final int SMALL_SIZED_ITEM   = 1;
+    private static final int NORMAL_SIZED_ITEM  = 2;
+    private static final int BULKY_SIZED_ITEM   = 3;
+    private static final int HUGE_SIZED_ITEM    = 4;
+
     public static ArrayList<Obj> getGeneratedLoot(Area area) throws Exception {
         if (area.getLootType() == LootType.NONE) {
             return new ArrayList<>();
@@ -48,11 +54,11 @@ public abstract class LootGenerator {
     }
 
     /*
-        [0] - amount of tiny items;     "price" is 1
-        [1] - amount of small items;    "price" is 2
-        [2] - amount of normal items;   "price" is 3
-        [3] - amount of bulky items;    "price" is 4
-        [4] - amount of huge items;     "price" is 5
+        [TINY_SIZED_ITEM]   - amount of tiny items;     "price" is 1
+        [SMALL_SIZED_ITEM]  - amount of small items;    "price" is 2
+        [NORMAL_SIZED_ITEM] - amount of normal items;   "price" is 3
+        [BULKY_SIZED_ITEM]  - amount of bulky items;    "price" is 4
+        [HUGE_SIZED_ITEM]   - amount of huge items;     "price" is 5
      */
     private static int[] generateLootAmount(int lootAmountPoints) {
         int[] generatedLootAmount = new int[5];
@@ -60,37 +66,37 @@ public abstract class LootGenerator {
             switch (Random.pick(Size.values())) {
                 case TINY:
                     lootAmountPoints--;
-                    generatedLootAmount[0]++;
+                    generatedLootAmount[TINY_SIZED_ITEM]++;
                     break;
                 case SMALL:
                     if (lootAmountPoints < 2) {
                         lootAmountPoints--;
-                        generatedLootAmount[0]++;
+                        generatedLootAmount[TINY_SIZED_ITEM]++;
                         break;
                     }
                     lootAmountPoints -= 2;
-                    generatedLootAmount[1]++;
+                    generatedLootAmount[SMALL_SIZED_ITEM]++;
                     break;
                 case NORMAL:
                     if (lootAmountPoints < 3) {
                         break;
                     }
                     lootAmountPoints -= 3;
-                    generatedLootAmount[2]++;
+                    generatedLootAmount[NORMAL_SIZED_ITEM]++;
                     break;
                 case BULKY:
                     if (lootAmountPoints < 4) {
                         break;
                     }
                     lootAmountPoints -= 4;
-                    generatedLootAmount[3]++;
+                    generatedLootAmount[BULKY_SIZED_ITEM]++;
                     break;
                 case HUGE:
                     if (lootAmountPoints < 5) {
                         break;
                     }
                     lootAmountPoints -= 5;
-                    generatedLootAmount[4]++;
+                    generatedLootAmount[HUGE_SIZED_ITEM]++;
                     break;
             }
         }
@@ -101,7 +107,7 @@ public abstract class LootGenerator {
         int[] generatedLootAmount = generateLootAmount(generateLootAmountPoints(area));
         ArrayList<Obj> generatedLoot = new ArrayList<>();
 
-        for (; generatedLootAmount[0] > 0; generatedLootAmount[0]--) {
+        for (; generatedLootAmount[TINY_SIZED_ITEM] > 0; generatedLootAmount[TINY_SIZED_ITEM]--) {
             switch (Random.random(0)) {
                 case 0:
                     generatedLoot.add(new Lighter(area));
@@ -109,7 +115,7 @@ public abstract class LootGenerator {
             }
         }
 
-        for (; generatedLootAmount[1] > 0; generatedLootAmount[1]--) {
+        for (; generatedLootAmount[SMALL_SIZED_ITEM] > 0; generatedLootAmount[SMALL_SIZED_ITEM]--) {
             switch (Random.random(0)) {
                 case 0:
                     generatedLoot.add(new Screwdriver(area));
@@ -117,7 +123,7 @@ public abstract class LootGenerator {
             }
         }
 
-        for (; generatedLootAmount[2] > 0; generatedLootAmount[2]--) {
+        for (; generatedLootAmount[NORMAL_SIZED_ITEM] > 0; generatedLootAmount[NORMAL_SIZED_ITEM]--) {
             switch (Random.random(0)) {
                 case 0:
                     generatedLoot.add(new Welder(area));
@@ -125,7 +131,7 @@ public abstract class LootGenerator {
             }
         }
 
-        for (; generatedLootAmount[3] > 0; generatedLootAmount[3]--) {
+        for (; generatedLootAmount[BULKY_SIZED_ITEM] > 0; generatedLootAmount[BULKY_SIZED_ITEM]--) {
             switch (Random.random(0)) {
                 case 0:
                     generatedLoot.add(new FireAxe(area));
@@ -133,7 +139,7 @@ public abstract class LootGenerator {
             }
         }
 
-        for (; generatedLootAmount[4] > 0; generatedLootAmount[4]--) {
+        for (; generatedLootAmount[HUGE_SIZED_ITEM] > 0; generatedLootAmount[HUGE_SIZED_ITEM]--) {
             switch (Random.random(0)) {
                 case 0:
                     generatedLoot.add(new GenericCloset(area));

@@ -18,7 +18,7 @@ public class Humanoid extends Mob {
     public Humanoid(Area newLocation) {
         super(newLocation);
         setGender(pick(MALE, FEMALE));
-        setAge(random(GlobalVar.minAge, GlobalVar.maxAge));
+        setAge(random(GlobalVar.MIN_AGE, GlobalVar.MAX_AGE));
         setSpecies(pick(HUMAN, SKRELL, UNATHI, TAJARA));
         setName(generateRandomName());
         setRealName(generateRandomRealName());
@@ -26,7 +26,7 @@ public class Humanoid extends Mob {
 
     @Override
     public String generateRandomRealName() {
-        return pick(getGender() == FEMALE ? GlobalVar.allowedFemaleHumanRealName : GlobalVar.allowedMaleHumanRealName);
+        return pick(getGender() == FEMALE ? GlobalVar.ALLOWED_FEMALE_HUMAN_REAL_NAME : GlobalVar.ALLOWED_MALE_HUMAN_REAL_NAME);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class Humanoid extends Mob {
         } else {
 
         }
-        return pick(getGender() == FEMALE ? GlobalVar.allowedBasicFemaleNameAdjectives : GlobalVar.allowedBasicMaleNameAdjectives);
+        return pick(getGender() == FEMALE ? GlobalVar.ALLOWED_BASIC_FEMALE_NAME_ADJECTIVES : GlobalVar.ALLOWED_BASIC_MALE_NAME_ADJECTIVES);
     }
 
     public int getAge() {

@@ -8,7 +8,6 @@ import amo.area.types.engineering.EngineeringLobby;
 import amo.mob.Mob;
 import amo.mob.humanoid.player.Player;
 import amo.obj.Obj;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import org.fxmisc.richtext.InlineCssTextArea;
@@ -45,19 +44,19 @@ public class AdventureScene extends Scene {
                 new RowConstraints(GlobalVar.windowHeight - roundedHalfHeight)
         );
 
-        mainGridPane.setStyle(GlobalVar.styleBackgroundColorDefault);
+        mainGridPane.setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT);
 
         // output text
         mainGridPane.add(getTextAreaOutput(), 0, 0);
-        getTextAreaOutput().setStyle(GlobalVar.styleBackgroundColorDefault);
+        getTextAreaOutput().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT);
         getTextAreaOutput().setWrapText(true);
         getTextAreaOutput().setEditable(false);
 
         // movement & action inside the actionVBox
         VBox actionVBox = new VBox();
-        getMovementActionHBox().setStyle(GlobalVar.styleBackgroundColorDefault);
+        getMovementActionHBox().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT);
         actionVBox.getChildren().add(movementActionHBox);
-        getGeneralActionPane().setStyle(GlobalVar.styleBackgroundColorDefault);
+        getGeneralActionPane().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT);
         actionVBox.getChildren().add(getGeneralActionPane());
 
         mainGridPane.add(actionVBox, 0, 1);
@@ -66,11 +65,11 @@ public class AdventureScene extends Scene {
         ScrollPane inventoryScrollPane = new ScrollPane(getInventoryVBox());
         inventoryScrollPane.setStyle("-fx-background: #2A2526; -fx-border-color: #2A2526;");
         mainGridPane.add(inventoryScrollPane, 1, 1);
-        getInventoryVBox().setStyle(GlobalVar.styleBackgroundColorDefault);
+        getInventoryVBox().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT);
 
         // player's stats
         mainGridPane.add(getPlayerStatsVBox(), 2, 1);
-        getPlayerStatsVBox().setStyle(GlobalVar.styleBackgroundColorDefault);
+        getPlayerStatsVBox().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT);
 
         // enemy grid
         getPaneEnemyIcon().getColumnConstraints().addAll(
@@ -84,11 +83,11 @@ public class AdventureScene extends Scene {
                 new RowConstraints(64, 64, 64)
         );
         mainGridPane.add(getPaneEnemyIcon(), 1, 0);
-        getPaneEnemyIcon().setStyle(GlobalVar.styleBackgroundColorDefault);
+        getPaneEnemyIcon().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT);
 
         // enemy stats
         mainGridPane.add(getVBoxEnemyStats(), 2, 0);
-        getVBoxEnemyStats().setStyle(GlobalVar.styleBackgroundColorDefault);
+        getVBoxEnemyStats().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT);
 
         player = new Player(new EngineeringLobby());
         getTextAreaOutput().clear();

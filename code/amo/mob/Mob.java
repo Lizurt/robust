@@ -1,13 +1,11 @@
 package amo.mob;
 
-import amo.mob.humanoid.player.Player;
 import amo.obj.Obj;
 import game_scene.AdventureScene;
 import amo.Amo;
 import amo.Gender;
 import amo.area.Area;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import util.GlobalVar;
 import util.Random;
@@ -273,7 +271,7 @@ public abstract class Mob extends Amo {
             return;
         }
         setAmoAsButton(new Button("", new ImageView(getIcon())));
-        getAmoAsButton().setStyle(GlobalVar.styleBackgroundColorDefault + " -fx-padding: 0; -fx-border-color: #000; -fx-border-width: 0 0 4 0;");
+        getAmoAsButton().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT + " -fx-padding: 0; -fx-border-color: #000; -fx-border-width: 0 0 4 0;");
         getAmoAsButton().setOnAction(focusEvent -> {
             if (AdventureScene.getPlayer().getFocusedOn() == this) {
                 AdventureScene.getPlayer().focusOn(AdventureScene.getPlayer().getLocation());

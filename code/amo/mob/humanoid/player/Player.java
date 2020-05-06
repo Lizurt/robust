@@ -1,8 +1,6 @@
 package amo.mob.humanoid.player;
 
-import amo.Amo;
 import amo.mob.Mob;
-import amo.mob.Species;
 import amo.obj.Obj;
 import amo.obj.items.default_weapon.HumanFists;
 import game_scene.AdventureScene;
@@ -113,7 +111,7 @@ public class Player extends Humanoid {
     public void moveObjToInventory(Obj obj) {
         super.moveObjToInventory(obj);
         obj.setAmoAsButton(new Button(obj.getName(), new ImageView(obj.getIcon())));
-        obj.getAmoAsButton().setStyle(GlobalVar.styleBackgroundColorDefault + " -fx-text-fill: #FFF; -fx-border-color: #000;");
+        obj.getAmoAsButton().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT + " -fx-text-fill: #FFF; -fx-border-color: #000;");
         obj.getAmoAsButton().setOnAction(e -> {
             focusOn(obj);
         });
@@ -181,10 +179,10 @@ public class Player extends Humanoid {
         });
 
         if (getFocusedOn() != null && getFocusedOn().getAmoAsButton() != null) {
-            getFocusedOn().getAmoAsButton().setStyle(getFocusedOn().getAmoAsButton().getStyle().replaceAll(GlobalVar.regexBorderColor, "-fx-border-color: #000;"));
+            getFocusedOn().getAmoAsButton().setStyle(getFocusedOn().getAmoAsButton().getStyle().replaceAll(GlobalVar.REGEX_BORDER_COLOR, "-fx-border-color: #000;"));
         }
         if (obj.getAmoAsButton() != null) {
-            obj.getAmoAsButton().setStyle(obj.getAmoAsButton().getStyle().replaceAll(GlobalVar.regexBorderColor, "-fx-border-color: #700;"));
+            obj.getAmoAsButton().setStyle(obj.getAmoAsButton().getStyle().replaceAll(GlobalVar.REGEX_BORDER_COLOR, "-fx-border-color: #700;"));
         }
 
         super.focusOn(obj);
@@ -207,7 +205,7 @@ public class Player extends Humanoid {
         });
 
         if (getFocusedOn() != null && getFocusedOn().getAmoAsButton() != null) {
-            getFocusedOn().getAmoAsButton().setStyle(getFocusedOn().getAmoAsButton().getStyle().replaceAll(GlobalVar.regexBorderColor, "-fx-border-color: #000;"));
+            getFocusedOn().getAmoAsButton().setStyle(getFocusedOn().getAmoAsButton().getStyle().replaceAll(GlobalVar.REGEX_BORDER_COLOR, "-fx-border-color: #000;"));
         }
 
         super.focusOn(area);
