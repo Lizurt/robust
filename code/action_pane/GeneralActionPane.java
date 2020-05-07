@@ -17,14 +17,14 @@ public class GeneralActionPane extends TilePane {
     }
 
     public void addNewAttackActionButton(Button button, EventHandler<ActionEvent> event) {
-        addNewActionButton(button, event, "-fx-background-color: #100; -fx-text-fill: #fff");
+        addNewActionButton(button, event, "-fx-background-color: #200; -fx-text-fill: #fff");
     }
 
     public void addNewLootActionButton(Button button, EventHandler<ActionEvent> event) {
-        addNewActionButton(button, event, "-fx-background-color: #110; -fx-text-fill: #fff");
+        addNewActionButton(button, event, "-fx-background-color: #220; -fx-text-fill: #fff");
     }
 
     public void addNewObjInteractionButton(Button button, EventHandler<ActionEvent> event) {
-        addNewActionButton(button, event, "-fx-background-color: #111; -fx-text-fill: #fff");
+        addNewActionButton(button, event, "-fx-background-color: #222; -fx-text-fill: #fff");
     }
 }
