@@ -4,11 +4,6 @@ import amo.Amo;
 import amo.Size;
 import amo.area.ObjectGenerators.AreaGenerator;
 import amo.area.ObjectGenerators.LootGenerator;
-import amo.area.types.common.Corridor;
-import amo.area.types.engineering.Engineering;
-import amo.area.types.engineering.EngineeringChiefEngineerOffice;
-import amo.area.types.engineering.EngineeringLobby;
-import amo.area.types.engineering.EngineeringStorage;
 import amo.mob.Mob;
 import amo.mob.animal.GiantSpider;
 import amo.obj.Obj;
@@ -32,14 +27,13 @@ public class Area extends Amo {
     private AtmosphereType atmosphereType = AtmosphereType.NORMAL;
     private LootType lootType = LootType.GENERAL;
 
-    private Image backgroundImage;
-
     private List<Mob> mobs = new ArrayList<>();
     private List<Area> waysOut = new ArrayList<>();
 
     public Area(String newName, LootType newLootType, Size areaSize) {
         setName(newName);
         setSize(areaSize);
+        generateAndSetIcon("/icons/area/background/basic.png");
         lootType = newLootType;
 
         generateAtmosphere();
@@ -51,7 +45,6 @@ public class Area extends Amo {
     public void destroy() {
         atmosphereType = null;
         lootType = null;
-        backgroundImage = null;
         mobs.clear();
         mobs = null;
         waysOut.clear();
@@ -154,14 +147,6 @@ public class Area extends Amo {
 
     public LootType getLootType() {
         return lootType;
-    }
-
-
-    public Image getBackgroundImage() {
-        return backgroundImage;
-    }
-    public void setBackgroundImage(Image backgroundImage) {
-        this.backgroundImage = backgroundImage;
     }
 
 

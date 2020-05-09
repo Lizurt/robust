@@ -10,6 +10,7 @@ import amo.mob.humanoid.Humanoid;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import util.GlobalVar;
 import util.Random;
 import util.TextUtils;
@@ -77,7 +78,7 @@ public class Player extends Humanoid {
             }, wayOut);
         }
         focusOn(area);
-
+        AdventureScene.getPaneEnemyIcon().setBackground(new Background(new BackgroundImage(area.getIcon(), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
     }
 
     @Override
@@ -95,7 +96,6 @@ public class Player extends Humanoid {
     @Override
     public void moveToArea(Area newArea, Area oldArea) {
         super.moveToArea(newArea, oldArea);
-        getLocation().setBackgroundImage(null); // TODO
     }
 
     @Override

@@ -72,6 +72,10 @@ public class AdventureScene extends Scene {
         getPlayerStatsVBox().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT);
 
         // enemy grid
+        int paneEnemyIconSize = 192;
+        getPaneEnemyIcon().setPrefSize(paneEnemyIconSize, paneEnemyIconSize);
+        getPaneEnemyIcon().setMaxSize(paneEnemyIconSize, paneEnemyIconSize);
+        getPaneEnemyIcon().setMinSize(paneEnemyIconSize, paneEnemyIconSize);
         getPaneEnemyIcon().getColumnConstraints().addAll(
                 new ColumnConstraints(64, 64, 64),
                 new ColumnConstraints(64, 64, 64),
@@ -82,8 +86,8 @@ public class AdventureScene extends Scene {
                 new RowConstraints(64, 64, 64),
                 new RowConstraints(64, 64, 64)
         );
+        getPaneEnemyIcon().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT + " -fx-border-color: #000;");
         mainGridPane.add(getPaneEnemyIcon(), 1, 0);
-        getPaneEnemyIcon().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT);
 
         // enemy stats
         mainGridPane.add(getVBoxEnemyStats(), 2, 0);

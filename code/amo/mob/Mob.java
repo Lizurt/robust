@@ -273,7 +273,8 @@ public abstract class Mob extends Amo {
             return;
         }
         setAmoAsButton(new Button("", new ImageView(getIcon())));
-        getAmoAsButton().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT + " -fx-padding: 0; -fx-border-color: #000; -fx-border-width: 0 0 4 0;");
+        getAmoAsButton().setBackground(null);
+        getAmoAsButton().setStyle("-fx-padding: 0; -fx-border-color: #000; -fx-border-width: 0 0 6 0;");
         getAmoAsButton().setOnAction(focusEvent -> {
             if (AdventureScene.getPlayer().getFocusedOn() == this) {
                 AdventureScene.getPlayer().focusOn(AdventureScene.getPlayer().getLocation());
