@@ -1,5 +1,9 @@
 package game_scene;
 
+import amo.area.Area;
+import amo.area.AtmosphereType;
+import amo.area.types.engineering.EngineeringLobby;
+import amo.mob.humanoid.player.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -23,6 +27,13 @@ public class MainMenuScene extends Scene {
 
         initNewMainMenuButton(mainVBox , "Начать игру", e -> {
             GlobalVar.mainStage.setScene(GlobalVar.adventureScene);
+            Area startArea = new EngineeringLobby();
+            startArea.setAtmosphereType(AtmosphereType.NORMAL);
+            startArea.getMobs().clear();
+            startArea.getInventory().clear();
+            AdventureScene.setPlayer(new Player(startArea));
+            AdventureScene.getTextAreaOutput().clear();
+            util.TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), AdventureScene.getPlayer().generateIntroductoryStory().toString());
         });
 
         initNewMainMenuButton(mainVBox, "Справочник", e -> {

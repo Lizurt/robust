@@ -94,11 +94,6 @@ public class Player extends Humanoid {
     }
 
     @Override
-    public void moveToArea(Area newArea, Area oldArea) {
-        super.moveToArea(newArea, oldArea);
-    }
-
-    @Override
     public boolean appear() {
         return false;
     }
@@ -194,6 +189,7 @@ public class Player extends Humanoid {
             // I know this is terrible and inefficient, but ConcurrentModificationException ruins everything!
             ArrayList<Obj> allLoot = area.getInventory();
             if (allLoot.size() < 1) {
+                util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), "Ничегошеньки тут нет!");
                 return;
             }
             while (allLoot.size() > 0) {

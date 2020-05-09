@@ -93,10 +93,6 @@ public class AdventureScene extends Scene {
         mainGridPane.add(getVBoxEnemyStats(), 2, 0);
         getVBoxEnemyStats().setStyle(GlobalVar.STYLE_BACKGROUND_COLOR_DEFAULT);
 
-        player = new Player(new EngineeringLobby());
-        getTextAreaOutput().clear();
-        util.TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), AdventureScene.getPlayer().generateIntroductoryStory().toString());
-
         GlobalVar.adventureScene = this;
     }
 
@@ -150,6 +146,10 @@ public class AdventureScene extends Scene {
         return VBoxEnemyStats;
     }
 
+    public static void setPlayer(Player player) {
+        AdventureScene.player = player;
+    }
+
     public static Player getPlayer() {
         return player;
     }
@@ -157,4 +157,5 @@ public class AdventureScene extends Scene {
     public static GeneralActionPane getGeneralActionPane() {
         return generalActionPane;
     }
+
 }
