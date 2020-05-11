@@ -1,10 +1,9 @@
-package game_scene;
+package game_scenes.adventure_scene;
 
-import action_pane.GeneralActionPane;
-import action_pane.MovementActionHBox;
+import game_scenes.adventure_scene.action_pane.GeneralActionPane;
+import game_scenes.adventure_scene.action_pane.MovementActionHBox;
 import amo.Amo;
 import amo.area.Area;
-import amo.area.types.engineering.EngineeringLobby;
 import amo.mob.Mob;
 import amo.mob.humanoid.player.Player;
 import amo.obj.Obj;
@@ -15,15 +14,15 @@ import util.GlobalVar;
 import javafx.scene.control.ScrollPane;
 
 public class AdventureScene extends Scene {
-    private static Player player;
+    private Player player;
 
-    private static InlineCssTextArea textAreaOutput = new InlineCssTextArea();
-    private static MovementActionHBox movementActionHBox = new MovementActionHBox();
-    private static GeneralActionPane generalActionPane = new GeneralActionPane();
-    private static VBox inventoryVBox = new VBox();
-    private static VBox playerStatsVBox = new VBox();
-    private static GridPane paneEnemyIcon = new GridPane();
-    private static VBox VBoxEnemyStats = new VBox();
+    private InlineCssTextArea textAreaOutput = new InlineCssTextArea();
+    private MovementActionHBox movementActionHBox = new MovementActionHBox();
+    private GeneralActionPane generalActionPane = new GeneralActionPane();
+    private VBox inventoryVBox = new VBox();
+    private VBox playerStatsVBox = new VBox();
+    private GridPane paneEnemyIcon = new GridPane();
+    private VBox VBoxEnemyStats = new VBox();
 
     public AdventureScene(GridPane mainGridPane) {
         super(mainGridPane, GlobalVar.windowWidth, GlobalVar.windowHeight);
@@ -96,7 +95,7 @@ public class AdventureScene extends Scene {
         GlobalVar.adventureScene = this;
     }
 
-    public static void updateGeneralActionPane() {
+    public void updateGeneralActionPane() {
         getGeneralActionPane().getChildren().clear();
         Amo focusedOn = getPlayer().getFocusedOn();
         if (focusedOn instanceof  Mob) {
@@ -112,7 +111,7 @@ public class AdventureScene extends Scene {
         }
     }
 
-    public static void updatePaneEnemyIcon() {
+    public void updatePaneEnemyIcon() {
         getPaneEnemyIcon().getChildren().clear();
         for (Mob mob : getPlayer().getLocation().getMobs()) {
             if (mob.getAmoAsButton() == null) {
@@ -122,39 +121,39 @@ public class AdventureScene extends Scene {
         }
     }
 
-    public static InlineCssTextArea getTextAreaOutput() {
+    public InlineCssTextArea getTextAreaOutput() {
         return textAreaOutput;
     }
 
-    public static MovementActionHBox getMovementActionHBox() {
+    public MovementActionHBox getMovementActionHBox() {
         return movementActionHBox;
     }
 
-    public static VBox getInventoryVBox() {
+    public VBox getInventoryVBox() {
         return inventoryVBox;
     }
 
-    public static VBox getPlayerStatsVBox() {
+    public VBox getPlayerStatsVBox() {
         return playerStatsVBox;
     }
 
-    public static GridPane getPaneEnemyIcon() {
+    public GridPane getPaneEnemyIcon() {
         return paneEnemyIcon;
     }
 
-    public static VBox getVBoxEnemyStats() {
+    public VBox getVBoxEnemyStats() {
         return VBoxEnemyStats;
     }
 
-    public static void setPlayer(Player player) {
-        AdventureScene.player = player;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
-    public static Player getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
-    public static GeneralActionPane getGeneralActionPane() {
+    public GeneralActionPane getGeneralActionPane() {
         return generalActionPane;
     }
 

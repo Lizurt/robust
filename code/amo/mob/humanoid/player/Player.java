@@ -3,10 +3,12 @@ package amo.mob.humanoid.player;
 import amo.mob.Mob;
 import amo.obj.Obj;
 import amo.obj.items.default_weapon.HumanFists;
-import game_scene.AdventureScene;
+import game_scenes.MainMenuScene;
+import game_scenes.adventure_scene.AdventureScene;
 import amo.Gender;
 import amo.area.Area;
 import amo.mob.humanoid.Humanoid;
+import game_scenes.misc.AlertBox;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,7 +36,7 @@ public class Player extends Humanoid {
     public Player(Area newLocation) {
         super(newLocation);
         setRealNameKnownToPlayer(true);
-        AdventureScene.getPlayerStatsVBox().getChildren().add(healthStatIcon);
+        GlobalVar.adventureScene.getPlayerStatsVBox().getChildren().add(healthStatIcon);
         setWeaponAsDefault(new HumanFists(this));
         setActiveWeapon(getWeaponAsDefault());
     }
@@ -55,20 +57,20 @@ public class Player extends Humanoid {
 
     @Override
     public void entered(Area area) {
-        TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), Random.pick("", "Неужели? ", "А это место сильно поменялось! ", "Вау! ", "Ого! ", "Снова? ") + Random.pick("Кажется это ", "Похоже, что это ", "Скорее всего это ", "Однозначно, это ", "Нет сомнений, что это ") + area.getName() + Random.pick("!", "...", "."));
+        TextUtils.whiteBoldText(Random.pick("", "Неужели? ", "А это место сильно поменялось! ", "Вау! ", "Ого! ", "Снова? ") + Random.pick("Кажется это ", "Похоже, что это ", "Скорее всего это ", "Однозначно, это ", "Нет сомнений, что это ") + area.getName() + Random.pick("!", "...", "."));
         area.generateWaysOut();
         for (Area wayOut : area.getWaysOut()) {
             Button buttonWayOut = new Button("", new ImageView(wayOut.getWayOutIcon()));
 
-            AdventureScene.getMovementActionHBox().addNewActionButton(buttonWayOut, e -> {
+            GlobalVar.adventureScene.getMovementActionHBox().addNewActionButton(buttonWayOut, e -> {
                 getLocation().onPlayerAction();
                 for (Mob mob : getLocation().getMobs()) {
                     if (mob.tryToBlockWayOut()) {
-                        util.TextUtils.redBoldText(AdventureScene.getTextAreaOutput(), mob.getName() + Random.pick(" не позволяет вам пройти через шлюз!", " не дает вам сбежать!", " блокирует вам дорогу к шлюзу!"));
+                        util.TextUtils.redBoldText(mob.getName() + Random.pick(" не позволяет вам пройти через шлюз!", " не дает вам сбежать!", " блокирует вам дорогу к шлюзу!"));
                         return;
                     }
                 }
-                AdventureScene.getPlayer().moveToArea(wayOut, getLocation());
+                GlobalVar.adventureScene.getPlayer().moveToArea(wayOut, getLocation());
                 for (Mob mob : wayOut.getMobs()) {
                     if (!mob.appear()) {
                         continue;
@@ -78,16 +80,16 @@ public class Player extends Humanoid {
             }, wayOut);
         }
         focusOn(area);
-        AdventureScene.getPaneEnemyIcon().setBackground(new Background(new BackgroundImage(area.getIcon(), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        GlobalVar.adventureScene.getPaneEnemyIcon().setBackground(new Background(new BackgroundImage(area.getIcon(), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
     }
 
     @Override
     public void exited(Area area) {
-        TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), "========== Вы открываете стальной шлюз и входите внутрь... ==========");
-        AdventureScene.getPaneEnemyIcon().getChildren().clear();
-        AdventureScene.getVBoxEnemyStats().getChildren().clear();
-        AdventureScene.getMovementActionHBox().getChildren().clear();
-        AdventureScene.getGeneralActionPane().getChildren().clear();
+        TextUtils.whiteBoldText("========== Вы открываете стальной шлюз и входите внутрь... ==========");
+        GlobalVar.adventureScene.getPaneEnemyIcon().getChildren().clear();
+        GlobalVar.adventureScene.getVBoxEnemyStats().getChildren().clear();
+        GlobalVar.adventureScene.getMovementActionHBox().getChildren().clear();
+        GlobalVar.adventureScene.getGeneralActionPane().getChildren().clear();
         for (Mob mob : area.getMobs()) {
             mob.tryToChase();
         }
@@ -110,17 +112,17 @@ public class Player extends Humanoid {
         obj.getAmoAsButton().setOnAction(e -> {
             focusOn(obj);
         });
-        AdventureScene.getInventoryVBox().getChildren().add(obj.getAmoAsButton());
+        GlobalVar.adventureScene.getInventoryVBox().getChildren().add(obj.getAmoAsButton());
     }
 
     @Override
     public void onEquip(Obj obj) {
-        util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), "Вы экипировали " + obj.getName() + "!");
+        util.TextUtils.whiteText("Вы экипировали " + obj.getName() + "!");
     }
 
     @Override
     public void onUnequip(Obj obj) {
-        util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), "Вы сняли " + obj.getName() + "!");
+        util.TextUtils.whiteText("Вы сняли " + obj.getName() + "!");
     }
 
     /////////////////////////////////
@@ -128,10 +130,10 @@ public class Player extends Humanoid {
     /////////////////////////////////
 
     public void focusOn(Mob mob) {
-        AdventureScene.getGeneralActionPane().getChildren().clear();
-        AdventureScene.getGeneralActionPane().addNewAttackActionButton(new Button("Атаковать " + mob.tryToGetRealName()), attackEvent -> {
-            AdventureScene.getPlayer().attackOrGetCloser(mob, AdventureScene.getPlayer().getActiveWeapon());
-            AdventureScene.updateGeneralActionPane();
+        GlobalVar.adventureScene.getGeneralActionPane().getChildren().clear();
+        GlobalVar.adventureScene.getGeneralActionPane().addNewAttackActionButton(new Button("Атаковать " + mob.tryToGetRealName()), attackEvent -> {
+            GlobalVar.adventureScene.getPlayer().attackOrGetCloser(mob, GlobalVar.adventureScene.getPlayer().getActiveWeapon());
+            GlobalVar.adventureScene.updateGeneralActionPane();
         });
 
         if (getFocusedOn() != null && getFocusedOn().getAmoAsButton() != null) {
@@ -145,31 +147,31 @@ public class Player extends Humanoid {
     }
 
     public void focusOn(Obj obj) {
-        AdventureScene.getGeneralActionPane().getChildren().clear();
+        GlobalVar.adventureScene.getGeneralActionPane().getChildren().clear();
 
-        AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Осмотреть: " + obj.getName()), examineEvent -> {
-            util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), Random.pick("Да это же ", "Это ", "Похоже, что это ") + obj.getName() + ". " + obj.getDescription());
+        GlobalVar.adventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Осмотреть: " + obj.getName()), examineEvent -> {
+            util.TextUtils.whiteText(Random.pick("Да это же ", "Это ", "Похоже, что это ") + obj.getName() + ". " + obj.getDescription());
         });
 
         if (getActiveWeapon() == obj || getActiveArmor() == obj) {
             if (obj.isDroppable()) {
-                AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Снять"), equipEvent -> {
+                GlobalVar.adventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Снять"), equipEvent -> {
                     obj.unequipFrom(this);
-                    AdventureScene.updateGeneralActionPane();
+                    GlobalVar.adventureScene.updateGeneralActionPane();
                 });
             }
         } else {
             if (obj.isEquippable()) {
-                AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Экипировать"), equipEvent -> {
+                GlobalVar.adventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Экипировать"), equipEvent -> {
                     obj.equipOn(this);
-                    AdventureScene.updateGeneralActionPane();
+                    GlobalVar.adventureScene.updateGeneralActionPane();
                 });
             }
         }
 
-        AdventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Выбросить"), equipEvent -> {
+        GlobalVar.adventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Выбросить"), equipEvent -> {
             getLocation().moveObjToInventory(obj);
-            util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), "Вы выбросили " + obj.getName() + "!");
+            util.TextUtils.whiteText("Вы выбросили " + obj.getName() + "!");
             focusOn(getLocation());
         });
 
@@ -184,20 +186,20 @@ public class Player extends Humanoid {
     }
 
     public void focusOn(Area area) {
-        AdventureScene.getGeneralActionPane().getChildren().clear();
-        AdventureScene.getGeneralActionPane().addNewLootActionButton(new Button("Обыскать " + area.getName()), lootEvent -> {
+        GlobalVar.adventureScene.getGeneralActionPane().getChildren().clear();
+        GlobalVar.adventureScene.getGeneralActionPane().addNewLootActionButton(new Button("Обыскать " + area.getName()), lootEvent -> {
             // I know this is terrible and inefficient, but ConcurrentModificationException ruins everything!
             ArrayList<Obj> allLoot = area.getInventory();
             if (allLoot.size() < 1) {
-                util.TextUtils.whiteText(AdventureScene.getTextAreaOutput(), "Ничегошеньки тут нет!");
+                util.TextUtils.whiteText("Ничегошеньки тут нет!");
                 return;
             }
             while (allLoot.size() > 0) {
                 Obj loot = allLoot.get(0);
-                util.TextUtils.greenText(AdventureScene.getTextAreaOutput(), Random.pick("", "", "Ага! ", "О! ", "Ну вот. ") + "Вы нашли " + loot.getName() + ".");
+                util.TextUtils.greenText(Random.pick("", "", "Ага! ", "О! ", "Ну вот. ") + "Вы нашли " + loot.getName() + ".");
                 moveObjToInventory(loot);
             }
-            AdventureScene.updateGeneralActionPane();
+            GlobalVar.adventureScene.updateGeneralActionPane();
         });
 
         if (getFocusedOn() != null && getFocusedOn().getAmoAsButton() != null) {
@@ -224,6 +226,19 @@ public class Player extends Humanoid {
         super.updateHealth();
     }
 
+    @Override
+    public boolean die() {
+        if (!super.die()) {
+            return false;
+        }
+        AlertBox alertBox = new AlertBox();
+        alertBox.display("Ой!", "Вы проиграли!", "Выйти в главное меню.", 300, 200, actionEvent -> {
+            GlobalVar.mainStage.setScene(GlobalVar.mainMenuScene);
+            alertBox.close();
+        });
+        return true;
+    }
+
     public void updateHealthIcon() {
         healthStatIcon.setImage(new Image(getClass().getResourceAsStream("/icons/stats/health/health" + util.Misc.round(getHealth(), 20) + ".png")));
     }
@@ -236,40 +251,40 @@ public class Player extends Humanoid {
     public void reactToTheAtmosphere() {
         switch (getLocation().getAtmosphereType()) {
             case HOT:
-                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Как здесь жарко-то!");
+                util.TextUtils.redText("Как здесь жарко-то!");
                 break;
             case COLD:
-                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Как здесь холодно-то!");
+                util.TextUtils.redText("Как здесь холодно-то!");
                 break;
             case PHORON:
                 hurt(5);
-                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Воздух розовенький...");
+                util.TextUtils.redText("Воздух розовенький...");
                 break;
             case VACUUM:
                 hurt(20);
-                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Все тело колит, я не могу дышать!");
+                util.TextUtils.redText("Все тело колит, я не могу дышать!");
                 break;
             case OXYGENOUS:
-                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Как здесь легко дышать! Только голова кружится немного...");
+                util.TextUtils.redText("Как здесь легко дышать! Только голова кружится немного...");
                 break;
             case SLEEP_GAS:
-                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Сегодня был такой сложный день, как же мне хочется отдохнуть...");
+                util.TextUtils.redText("Сегодня был такой сложный день, как же мне хочется отдохнуть...");
                 break;
             case LOW_PRESSURE:
-                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Как здесь СЛОЖНО дышать, а моя голова просто раскалывается!");
+                util.TextUtils.redText("Как здесь СЛОЖНО дышать, а моя голова просто раскалывается!");
                 break;
             case UNBREATHABLE:
-                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "Здесь же нечем дышать!");
+                util.TextUtils.redText("Здесь же нечем дышать!");
                 hurt(5);
                 break;
             case EXTREMELY_HOT:
-                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "А-А-А-А-А! МОЯ КОЖА ПРОСТО ГОРИ-И-И-Т!");
+                util.TextUtils.redText("А-А-А-А-А! МОЯ КОЖА ПРОСТО ГОРИ-И-И-Т!");
                 hurt(20);
                 break;
             case HIGH_PRESSURE:
                 break;
             case EXTREMELY_COLD:
-                util.TextUtils.redText(AdventureScene.getTextAreaOutput(), "КАК ЖЕ ЗДЕСЬ ХОЛОДНО! ВСЕ МОЕ ТЕЛО ПОКАЛЫВАЕТ!");
+                util.TextUtils.redText("КАК ЖЕ ЗДЕСЬ ХОЛОДНО! ВСЕ МОЕ ТЕЛО ПОКАЛЫВАЕТ!");
                 hurt(15);
                 break;
         }

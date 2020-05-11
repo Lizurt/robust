@@ -1,15 +1,19 @@
-package game_scene;
+package game_scenes;
 
 import amo.area.Area;
 import amo.area.AtmosphereType;
 import amo.area.types.engineering.EngineeringLobby;
+import amo.mob.Mob;
 import amo.mob.humanoid.player.Player;
+import amo.obj.Obj;
+import game_scenes.adventure_scene.AdventureScene;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import util.GlobalVar;
@@ -25,15 +29,16 @@ public class MainMenuScene extends Scene {
         robustLabel.setStyle("-fx-font-size: 140px; -fx-font-weight: 900; -fx-text-fill: #7f2526");
         mainVBox.getChildren().add(robustLabel);
 
-        initNewMainMenuButton(mainVBox , "Начать игру", e -> {
+        initNewMainMenuButton(mainVBox, "Начать игру", e -> {
+            GlobalVar.adventureScene = new AdventureScene(new GridPane());
             GlobalVar.mainStage.setScene(GlobalVar.adventureScene);
             Area startArea = new EngineeringLobby();
             startArea.setAtmosphereType(AtmosphereType.NORMAL);
-            startArea.getMobs().clear();
             startArea.getInventory().clear();
-            AdventureScene.setPlayer(new Player(startArea));
-            AdventureScene.getTextAreaOutput().clear();
-            util.TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), AdventureScene.getPlayer().generateIntroductoryStory().toString());
+            startArea.getMobs().clear();
+            GlobalVar.adventureScene.setPlayer(new Player(startArea));
+            GlobalVar.adventureScene.getTextAreaOutput().clear();
+            util.TextUtils.whiteBoldText(GlobalVar.adventureScene.getPlayer().generateIntroductoryStory().toString());
         });
 
         initNewMainMenuButton(mainVBox, "Справочник", e -> {

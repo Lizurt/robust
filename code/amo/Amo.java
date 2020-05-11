@@ -2,9 +2,11 @@ package amo;
 
 import amo.area.Area;
 import amo.obj.Obj;
-import game_scene.AdventureScene;
+import game_scenes.adventure_scene.AdventureScene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import util.GlobalVar;
+
 import java.util.ArrayList;
 
 public abstract class Amo {
@@ -39,7 +41,7 @@ public abstract class Amo {
         obj.setLocation(getLocation());
         getInventory().add(obj);
         if (obj.getAmoAsButton() != null) {
-            AdventureScene.getInventoryVBox().getChildren().remove(obj.getAmoAsButton());
+            GlobalVar.adventureScene.getInventoryVBox().getChildren().remove(obj.getAmoAsButton());
         }
     }
 

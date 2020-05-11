@@ -4,7 +4,7 @@ import amo.Amo;
 import amo.Size;
 import amo.obj.Usable;
 import amo.obj.items.Item;
-import game_scene.AdventureScene;
+import game_scenes.adventure_scene.AdventureScene;
 
 public class MedkitUsed extends Item implements Usable {
     public MedkitUsed(Amo holder) {
@@ -16,7 +16,7 @@ public class MedkitUsed extends Item implements Usable {
 
     @Override
     public void use() {
-        util.TextUtils.blueText(AdventureScene.getTextAreaOutput(), getHolder().getName() + " открыл(-а) " + getName() + " и начал(-а) копошиться внутри. Найдя нужные медицинские средства, он(-а) обработал(-а) свои раны и выпил(-а) пару таблеток. Ничегошеньки в аптечке больше не осталось, поэтому он(-а) выбросил(-а) пустую аптечку куда подальше.");
+        util.TextUtils.blueText(getHolder().getName() + " открыл(-а) " + getName() + " и начал(-а) копошиться внутри. Найдя нужные медицинские средства, он(-а) обработал(-а) свои раны и выпил(-а) пару таблеток. Ничегошеньки в аптечке больше не осталось, поэтому он(-а) выбросил(-а) пустую аптечку куда подальше.");
         getHolder().heal(20);
         destroy();
     }

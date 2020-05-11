@@ -3,7 +3,6 @@ package amo.obj.items.consumable.food;
 import amo.Amo;
 import amo.obj.items.Item;
 import amo.obj.Usable;
-import game_scene.AdventureScene;
 
 public class Wine extends Item implements Usable {
     public Wine(Amo holder) {
@@ -15,7 +14,7 @@ public class Wine extends Item implements Usable {
 
     @Override
     public void use() {
-        util.TextUtils.blueText(AdventureScene.getTextAreaOutput(), "Вы выпили " + getName() + "!");
+        util.TextUtils.blueText("Вы выпили " + getName() + "!");
         getHolder().heal(5);
     }
 }

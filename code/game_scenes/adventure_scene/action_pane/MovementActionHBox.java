@@ -1,4 +1,4 @@
-package action_pane;
+package game_scenes.adventure_scene.action_pane;
 
 import amo.area.Area;
 import javafx.event.ActionEvent;

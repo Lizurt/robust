@@ -2,9 +2,6 @@ package amo.obj;
 
 import amo.Amo;
 import amo.mob.Mob;
-import game_scene.AdventureScene;
-import javafx.scene.control.Button;
-import util.Random;
 
 public abstract class Obj extends Amo {
     private int damage = 1;
@@ -24,6 +21,9 @@ public abstract class Obj extends Amo {
         damageType = null;
         equippedOn = null;
         holder = null;
+        if (getLocation() != null) {
+            getLocation().getInventory().remove(this);
+        }
         super.destroy();
     }
 

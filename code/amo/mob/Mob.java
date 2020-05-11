@@ -1,7 +1,7 @@
 package amo.mob;
 
 import amo.obj.Obj;
-import game_scene.AdventureScene;
+import game_scenes.adventure_scene.AdventureScene;
 import amo.Amo;
 import amo.Gender;
 import amo.area.Area;
@@ -60,7 +60,10 @@ public abstract class Mob extends Amo {
         activeWeapon = null;
         activeArmor = null;
         if (getAmoAsButton() != null) {
-            AdventureScene.getPaneEnemyIcon().getChildren().remove(getAmoAsButton());
+            GlobalVar.adventureScene.getPaneEnemyIcon().getChildren().remove(getAmoAsButton());
+        }
+        if (getLocation() != null) {
+            getLocation().getMobs().remove(this);
         }
         super.destroy();
     }
@@ -90,7 +93,7 @@ public abstract class Mob extends Amo {
 
     public boolean appear(int row, int col) {
         if (moveToPosition(row, col)) {
-            util.TextUtils.redBoldText(AdventureScene.getTextAreaOutput(), getName() + Random.pick(" предстает перед вами!", " появляется перед вами!", " замечен вами!", " находится здесь!", " обитает здесь!"));
+            util.TextUtils.redBoldText(tryToGetRealName() + Random.pick(" предстает перед вами!", " появляется перед вами!", " замечен вами!", " находится здесь!", " обитает здесь!"));
             generateFocusOnButton();
             return true;
         }
@@ -122,7 +125,7 @@ public abstract class Mob extends Amo {
 
     public boolean moveToPosition(int row, int col) {
         // prevents the appearance of an enemy on the enemy icons pane
-        if (AdventureScene.getPlayer().getLocation() != getLocation()) {
+        if (GlobalVar.adventureScene.getPlayer().getLocation() != getLocation()) {
             return false;
         }
         // prevents multiple enemies from appearing in the same column
@@ -132,7 +135,7 @@ public abstract class Mob extends Amo {
             }
         }
         setPosition(Math.max(1, row), Math.max(1, col));
-        AdventureScene.updatePaneEnemyIcon();
+        GlobalVar.adventureScene.updatePaneEnemyIcon();
         return true;
     }
     // \/
@@ -205,9 +208,13 @@ public abstract class Mob extends Amo {
         }
     }
 
-    public void die() { // TODO
-        util.TextUtils.whiteBoldText(AdventureScene.getTextAreaOutput(), tryToGetRealName() + " умирает!");
+    public boolean die() {
+        if (getStat() == Stat.DEAD) {
+            return false;
+        }
+        util.TextUtils.whiteBoldText(tryToGetRealName() + " умирает!");
         setStat(Stat.DEAD);
+        return true;
     }
 
     public void tryToChase() {
@@ -265,7 +272,7 @@ public abstract class Mob extends Amo {
     }
 
     public void generateAttackEventText(Mob attacked, Obj weapon) {
-        util.TextUtils.redText(AdventureScene.getTextAreaOutput(), tryToGetRealName() + " бьет " + attacked.tryToGetRealName() + ", используя " + weapon.getName() + "!");
+        util.TextUtils.redText(tryToGetRealName() + " бьет " + attacked.tryToGetRealName() + ", используя " + weapon.getName() + "!");
     }
 
     public void generateFocusOnButton() {
@@ -276,13 +283,13 @@ public abstract class Mob extends Amo {
         getAmoAsButton().setBackground(null);
         getAmoAsButton().setStyle("-fx-padding: 0; -fx-border-color: #000; -fx-border-width: 0 0 6 0;");
         getAmoAsButton().setOnAction(focusEvent -> {
-            if (AdventureScene.getPlayer().getFocusedOn() == this) {
-                AdventureScene.getPlayer().focusOn(AdventureScene.getPlayer().getLocation());
+            if (GlobalVar.adventureScene.getPlayer().getFocusedOn() == this) {
+                GlobalVar.adventureScene.getPlayer().focusOn(GlobalVar.adventureScene.getPlayer().getLocation());
             } else {
-                AdventureScene.getPlayer().focusOn(this);
+                GlobalVar.adventureScene.getPlayer().focusOn(this);
             }
         });
-        AdventureScene.updatePaneEnemyIcon();
+        GlobalVar.adventureScene.updatePaneEnemyIcon();
     }
 
     public void reactToTheAtmosphere() {

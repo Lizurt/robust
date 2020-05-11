@@ -1,4 +1,4 @@
-package action_pane;
+package game_scenes.adventure_scene.action_pane;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
