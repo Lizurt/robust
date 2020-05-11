@@ -1,13 +1,11 @@
 package amo.mob.humanoid.player;
 
-import amo.mob.Mob;
-import amo.obj.Obj;
-import amo.obj.items.default_weapon.HumanFists;
-import game_scenes.MainMenuScene;
-import game_scenes.adventure_scene.AdventureScene;
 import amo.Gender;
 import amo.area.Area;
+import amo.mob.Mob;
 import amo.mob.humanoid.Humanoid;
+import amo.obj.Obj;
+import amo.obj.items.default_weapon.HumanFists;
 import game_scenes.misc.AlertBox;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;

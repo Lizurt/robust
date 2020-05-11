@@ -3,7 +3,6 @@ package amo.obj.items.weapons.melee;
 import amo.Amo;
 import amo.Size;
 import amo.obj.items.Item;
-import javafx.scene.image.Image;
 
 public class FireAxe extends Item {
     public FireAxe(Amo holder) {

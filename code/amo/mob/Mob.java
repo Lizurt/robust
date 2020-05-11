@@ -1,10 +1,9 @@
 package amo.mob;
 
-import amo.obj.Obj;
-import game_scenes.adventure_scene.AdventureScene;
 import amo.Amo;
 import amo.Gender;
 import amo.area.Area;
+import amo.obj.Obj;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import util.GlobalVar;

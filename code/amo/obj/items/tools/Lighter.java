@@ -4,7 +4,6 @@ import amo.Amo;
 import amo.Size;
 import amo.obj.DamageType;
 import amo.obj.items.Item;
-import javafx.scene.image.Image;
 
 public class Lighter extends Item {
 

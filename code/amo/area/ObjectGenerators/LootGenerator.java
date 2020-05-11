@@ -4,14 +4,17 @@ import amo.Size;
 import amo.area.Area;
 import amo.area.LootType;
 import amo.obj.Obj;
-import amo.obj.items.clothing.*;
+import amo.obj.items.clothing.BasicSpacesuit;
+import amo.obj.items.clothing.BreathMask;
 import amo.obj.items.consumable.food.Wine;
 import amo.obj.items.consumable.medicine.Medkit;
 import amo.obj.items.consumable.medicine.MedkitUsed;
 import amo.obj.items.tools.*;
-import amo.obj.items.weapons.melee.*;
-import amo.obj.lootable.*;
+import amo.obj.items.weapons.melee.FireAxe;
+import amo.obj.items.weapons.melee.MetalRod;
+import amo.obj.lootable.GenericCloset;
 import util.Random;
+
 import java.util.ArrayList;
 
 public abstract class LootGenerator {

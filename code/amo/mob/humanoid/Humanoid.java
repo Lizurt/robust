@@ -5,9 +5,11 @@ import amo.mob.Mob;
 import amo.mob.Species;
 import util.GlobalVar;
 
-import static util.Random.*;
-import static amo.Gender.*;
+import static amo.Gender.FEMALE;
+import static amo.Gender.MALE;
 import static amo.mob.Species.*;
+import static util.Random.pick;
+import static util.Random.random;
 
 
 public class Humanoid extends Mob {

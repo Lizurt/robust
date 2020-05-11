@@ -4,7 +4,6 @@ import amo.Amo;
 import amo.Size;
 import amo.obj.Usable;
 import amo.obj.items.Item;
-import game_scenes.adventure_scene.AdventureScene;
 
 public class MedkitUsed extends Item implements Usable {
     public MedkitUsed(Amo holder) {

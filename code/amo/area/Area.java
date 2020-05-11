@@ -7,7 +7,6 @@ import amo.area.ObjectGenerators.LootGenerator;
 import amo.mob.Mob;
 import amo.mob.animal.GiantSpider;
 import amo.obj.Obj;
-import game_scenes.adventure_scene.AdventureScene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import util.GlobalVar;

@@ -1,8 +1,8 @@
 package amo.obj.items.consumable.food;
 
 import amo.Amo;
-import amo.obj.items.Item;
 import amo.obj.Usable;
+import amo.obj.items.Item;
 
 public class Wine extends Item implements Usable {
     public Wine(Amo holder) {

@@ -1,17 +1,20 @@
 package game_scenes.adventure_scene;
 
-import game_scenes.adventure_scene.action_pane.GeneralActionPane;
-import game_scenes.adventure_scene.action_pane.MovementActionHBox;
 import amo.Amo;
 import amo.area.Area;
 import amo.mob.Mob;
 import amo.mob.humanoid.player.Player;
 import amo.obj.Obj;
+import game_scenes.adventure_scene.action_pane.GeneralActionPane;
+import game_scenes.adventure_scene.action_pane.MovementActionHBox;
 import javafx.scene.Scene;
-import javafx.scene.layout.*;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import org.fxmisc.richtext.InlineCssTextArea;
 import util.GlobalVar;
-import javafx.scene.control.ScrollPane;
 
 public class AdventureScene extends Scene {
     private Player player;

@@ -3,7 +3,6 @@ package amo.obj.items.tools;
 import amo.Amo;
 import amo.obj.DamageType;
 import amo.obj.items.Item;
-import javafx.scene.image.Image;
 
 public class Welder extends Item {
     public Welder(Amo holder) {

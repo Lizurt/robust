@@ -1,8 +1,8 @@
 package util;
 
-import game_scenes.adventure_scene.AdventureScene;
 import game_scenes.MainMenuScene;
 import game_scenes.PauseMenuScene;
+import game_scenes.adventure_scene.AdventureScene;
 import javafx.stage.Stage;
 
 public abstract class GlobalVar {

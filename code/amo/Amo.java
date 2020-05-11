@@ -2,7 +2,6 @@ package amo;
 
 import amo.area.Area;
 import amo.obj.Obj;
-import game_scenes.adventure_scene.AdventureScene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import util.GlobalVar;

@@ -1,9 +1,8 @@
 package amo.obj.lootable;
 
+import amo.Size;
 import amo.area.Area;
 import amo.obj.Obj;
-import amo.Size;
-import javafx.scene.image.Image;
 import util.Random;
 
 import java.util.List;
