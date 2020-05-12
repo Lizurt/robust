@@ -54,12 +54,16 @@ public class MainMenuScene extends Scene {
         GlobalVar.mainMenuScene = this;
     }
 
-    private void initNewMainMenuButton(Pane pane, String name, EventHandler<ActionEvent> event) {
+    private void initNewMainMenuButton(Pane pane, String name, EventHandler<ActionEvent> clickEvent) {
         Button button = new Button(name);
         button.setPrefWidth((int) (GlobalVar.windowWidth * 0.9));
         button.setPrefHeight((int) (GlobalVar.windowHeight * 0.1));
         button.setStyle("-fx-background-color: #223; -fx-text-fill: #FFF; -fx-border-color: #000; -fx-font-size: 30px;");
-        button.setOnAction(event);
+
+        button.setOnAction(clickEvent);
+        button.setOnMouseEntered(mouseEnteredEvent -> button.setStyle(button.getStyle().replaceAll(GlobalVar.REGEX_BACKGROUND_COLOR, "-fx-background-color: #112;")));
+        button.setOnMouseExited(mouseExitedEvent -> button.setStyle(button.getStyle().replaceAll(GlobalVar.REGEX_BACKGROUND_COLOR, "-fx-background-color: #223;")));
+
         pane.getChildren().add(button);
     }
 

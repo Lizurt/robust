@@ -15,6 +15,7 @@ public abstract class GlobalVar {
     public static PauseMenuScene pauseMenuScene;
 
     public static final String REGEX_BORDER_COLOR = "-fx-border-color: #.{1,6};";
+    public static final String REGEX_BACKGROUND_COLOR = "-fx-background-color: #.{1,6};";
     public static final String STYLE_BACKGROUND_COLOR_DEFAULT = "-fx-background-color: #2A2526;";
 
     public static final int MIN_AGE =  20;
