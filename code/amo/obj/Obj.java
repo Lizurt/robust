@@ -35,7 +35,9 @@ public abstract class Obj extends Amo {
             return;
         }
         setEquippedOn(mob);
-        mob.setActiveWeapon(this);
+        if (mob.getActiveClothing() != this) {
+            mob.setActiveWeapon(this);
+        }
         mob.onEquip(this);
     }
 

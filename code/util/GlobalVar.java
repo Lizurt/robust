@@ -18,6 +18,15 @@ public abstract class GlobalVar {
     public static final String REGEX_BACKGROUND_COLOR = "-fx-background-color: #.{1,6};";
     public static final String STYLE_BACKGROUND_COLOR_DEFAULT = "-fx-background-color: #2A2526;";
 
+    public static final int ENV_PROT_THRESHOLD_NONE    = 0;
+    public static final int ENV_PROT_THRESHOLD_GAS     = 25;
+    public static final int ENV_PROT_THRESHOLD_VACUUM  = 50;
+    public static final int ENV_PROT_THRESHOLD_EXTREME = 75;
+    public static final int ENV_PROT_NONE    = 0;
+    public static final int ENV_PROT_GAS     = 49;
+    public static final int ENV_PROT_VACUUM  = 74;
+    public static final int ENV_PROT_EXTREME = 100;
+
     public static final int MIN_AGE =  20;
     public static final int MAX_AGE = 80;
     public static final String[] ALLOWED_FEMALE_HUMAN_REAL_NAME = new String[]{

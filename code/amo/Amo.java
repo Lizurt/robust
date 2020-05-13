@@ -1,6 +1,7 @@
 package amo;
 
 import amo.area.Area;
+import amo.mob.Mob;
 import amo.obj.Obj;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -26,6 +27,9 @@ public abstract class Amo {
     private String amoButtonStyle = "";
 
     public void destroy() {
+        if (GlobalVar.adventureScene.getPlayer().getFocusedOn() == this) {
+            GlobalVar.adventureScene.getPlayer().focusOn((GlobalVar.adventureScene.getPlayer().getLocation()));
+        }
         name = null;
         realName = null;
         gender = null;

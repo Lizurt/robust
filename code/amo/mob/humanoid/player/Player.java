@@ -6,6 +6,7 @@ import amo.mob.Mob;
 import amo.mob.humanoid.Humanoid;
 import amo.obj.Obj;
 import amo.obj.Usable;
+import amo.obj.items.clothing.default_clothing.Skin;
 import amo.obj.items.default_weapon.HumanFists;
 import game_scenes.misc.AlertBox;
 import javafx.scene.control.Button;
@@ -37,7 +38,7 @@ public class Player extends Humanoid {
         setRealNameKnownToPlayer(true);
         GlobalVar.adventureScene.getPlayerStatsVBox().getChildren().add(healthStatIcon);
         setWeaponAsDefault(new HumanFists(this));
-        setActiveWeapon(getWeaponAsDefault());
+        setClothingAsDefault(new Skin(this));
     }
 
     /////////////////////////////////
@@ -152,7 +153,7 @@ public class Player extends Humanoid {
             util.TextUtils.whiteText(Random.pick("Да это же ", "Это ", "Похоже, что это ") + obj.getName() + ". " + obj.getDescription());
         });
 
-        if (getActiveWeapon() == obj || getActiveArmor() == obj && obj.isDroppable()) {
+        if (getActiveWeapon() == obj || getActiveClothing() == obj && obj.isDroppable()) {
             GlobalVar.adventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Снять"), equipEvent -> {
                 obj.unequipFrom(this);
                 GlobalVar.adventureScene.updateGeneralActionPane();
@@ -189,6 +190,7 @@ public class Player extends Humanoid {
     public void focusOn(Area area) {
         GlobalVar.adventureScene.getGeneralActionPane().getChildren().clear();
         GlobalVar.adventureScene.getGeneralActionPane().addNewLootActionButton(new Button("Обыскать " + area.getName()), lootEvent -> {
+            getLocation().onPlayerAction();
             // I know this is terrible and inefficient, but ConcurrentModificationException ruins everything!
             ArrayList<Obj> allLoot = area.getInventory();
             if (allLoot.size() < 1) {
@@ -252,41 +254,51 @@ public class Player extends Humanoid {
     public void reactToTheAtmosphere() {
         switch (getLocation().getAtmosphereType()) {
             case HOT:
-                util.TextUtils.redText("Как здесь жарко-то!");
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                    util.TextUtils.redText("Как здесь жарко-то!");
+                }
                 break;
             case COLD:
-                util.TextUtils.redText("Как здесь холодно-то!");
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                    util.TextUtils.redText("Как здесь холодно-то!");
+                }
                 break;
             case PHORON:
-                hurt(5);
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+
+                }
                 util.TextUtils.redText("Воздух розовенький...");
                 break;
             case VACUUM:
-                hurt(20);
-                util.TextUtils.redText("Все тело колит, я не могу дышать!");
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                    util.TextUtils.redText("Все тело колит, я не могу дышать!");
+                }
                 break;
             case OXYGENOUS:
-                util.TextUtils.redText("Как здесь легко дышать! Только голова кружится немного...");
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                    util.TextUtils.redText("Как здесь легко дышать! Только голова кружится немного...");
+                }
                 break;
             case SLEEP_GAS:
-                util.TextUtils.redText("Сегодня был такой сложный день, как же мне хочется отдохнуть...");
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                    util.TextUtils.redText("Сегодня был такой сложный день, как же мне хочется отдохнуть...");
+                }
                 break;
             case LOW_PRESSURE:
-                util.TextUtils.redText("Как здесь СЛОЖНО дышать, а моя голова просто раскалывается!");
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                    util.TextUtils.redText("Как здесь СЛОЖНО дышать, а моя голова просто раскалывается!");
+                }
                 break;
             case UNBREATHABLE:
                 util.TextUtils.redText("Здесь же нечем дышать!");
-                hurt(5);
                 break;
             case EXTREMELY_HOT:
                 util.TextUtils.redText("А-А-А-А-А! МОЯ КОЖА ПРОСТО ГОРИ-И-И-Т!");
-                hurt(20);
                 break;
             case HIGH_PRESSURE:
                 break;
             case EXTREMELY_COLD:
                 util.TextUtils.redText("КАК ЖЕ ЗДЕСЬ ХОЛОДНО! ВСЕ МОЕ ТЕЛО ПОКАЛЫВАЕТ!");
-                hurt(15);
                 break;
         }
         super.reactToTheAtmosphere();

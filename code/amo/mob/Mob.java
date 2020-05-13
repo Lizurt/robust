@@ -4,6 +4,7 @@ import amo.Amo;
 import amo.Gender;
 import amo.area.Area;
 import amo.obj.Obj;
+import amo.obj.items.clothing.Clothing;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import util.GlobalVar;
@@ -30,8 +31,9 @@ public abstract class Mob extends Amo {
     private Amo focusedOn;
 
     private Obj weaponAsDefault;
+    private Clothing clothingAsDefault;
     private Obj activeWeapon;
-    private Obj activeArmor;
+    private Clothing activeArmor;
 
     /*
         1 - SkillLevel.NONE(powerless)
@@ -291,31 +293,57 @@ public abstract class Mob extends Amo {
     public void reactToTheAtmosphere() {
         switch (getLocation().getAtmosphereType()) {
             case HOT:
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+
+                }
                 break;
             case COLD:
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+
+                }
                 break;
             case PHORON:
-                hurt(5);
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                    hurt(5);
+                }
                 break;
             case VACUUM:
-                hurt(20);
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                    hurt(20);
+                }
                 break;
             case OXYGENOUS:
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                }
                 break;
             case SLEEP_GAS:
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+
+                }
                 break;
             case LOW_PRESSURE:
-                break;
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                    break;
+                }
             case UNBREATHABLE:
-                hurt(2);
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                    hurt(5);
+                }
                 break;
             case EXTREMELY_HOT:
-                hurt(10);
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                    hurt(20);
+                }
                 break;
             case HIGH_PRESSURE:
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+
+                }
                 break;
             case EXTREMELY_COLD:
-                hurt(10);
+                if (!getActiveClothing().protectsFrom(getLocation().getAtmosphereType())) {
+                    hurt(15);
+                }
                 break;
         }
     }
@@ -386,10 +414,10 @@ public abstract class Mob extends Amo {
     }
 
 
-    public Obj getActiveArmor() {
+    public Clothing getActiveClothing() {
         return activeArmor;
     }
-    public void setActiveArmor(Obj activeArmor) {
+    public void setActiveClothing(Clothing activeArmor) {
         this.activeArmor = activeArmor;
     }
 
@@ -399,5 +427,14 @@ public abstract class Mob extends Amo {
     }
     public void setWeaponAsDefault(Obj weaponAsDefault) {
         this.weaponAsDefault = weaponAsDefault;
+        setActiveWeapon(weaponAsDefault);
+    }
+
+    public Clothing getClothingAsDefault() {
+        return clothingAsDefault;
+    }
+    public void setClothingAsDefault(Clothing clothingAsDefault) {
+        this.clothingAsDefault = clothingAsDefault;
+        setActiveClothing(clothingAsDefault);
     }
 }
