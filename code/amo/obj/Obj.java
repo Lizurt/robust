@@ -18,12 +18,15 @@ public abstract class Obj extends Amo {
     }
 
     public void destroy() {
+        if (getLocation() != null) {
+            getLocation().removeObjFromInventory(this);
+            if (getHolder() != null) {
+                getHolder().removeObjFromInventory(this);
+            }
+        }
         damageType = null;
         equippedOn = null;
         holder = null;
-        if (getLocation() != null) {
-            getLocation().getInventory().remove(this);
-        }
         super.destroy();
     }
 

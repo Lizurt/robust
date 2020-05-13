@@ -75,12 +75,12 @@ public abstract class TextUtils {
     }
 
     public static void blueText(InlineCssTextArea area, String text) {
-        area.append(text + "\n", "-fx-fill: blue;");
+        area.append(text + "\n", "-fx-fill: cyan;");
         area.requestFollowCaret();
     }
 
     public static void blueBoldText(InlineCssTextArea area, String text) {
-        area.append(text + "\n", "-fx-font-weight: 900; -fx-fill: blue;");
+        area.append(text + "\n", "-fx-font-weight: 900; -fx-fill: cyan;");
         area.requestFollowCaret();
     }
 }

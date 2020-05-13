@@ -20,9 +20,6 @@ import util.Random;
 
 public abstract class Mob extends Amo {
 
-    private String realName = "Real Mob";
-    private boolean isRealNameKnownToPlayer = false;
-
     private int health = 100;
     private int maxHealth = 100;
     private int minHealth = 0;
@@ -51,7 +48,6 @@ public abstract class Mob extends Amo {
 
     @Override
     public void destroy() {
-        realName = null;
         stat = null;
         position = null;
         focusedOn = null;
@@ -193,6 +189,7 @@ public abstract class Mob extends Amo {
     @Override
     public void heal(int amount) {
         setHealth(Math.min(getMaxHealth(), getHealth() + amount));
+        updateHealth();
     }
 
     @Override
@@ -356,15 +353,7 @@ public abstract class Mob extends Amo {
     }
 
 
-    public String getRealName() {
-        return realName;
-    }
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-    public String tryToGetRealName() {
-        return isRealNameKnownToPlayer ? getRealName() : getName();
-    }
+
 
 
     public Amo getFocusedOn() {
@@ -377,14 +366,6 @@ public abstract class Mob extends Amo {
     }
     public void setActiveWeapon(Obj activeWeapon) {
         this.activeWeapon = activeWeapon;
-    }
-
-
-    public boolean isRealNameKnownToPlayer() {
-        return isRealNameKnownToPlayer;
-    }
-    public void setRealNameKnownToPlayer(boolean realNameKnownToPlayer) {
-        isRealNameKnownToPlayer = realNameKnownToPlayer;
     }
 
 

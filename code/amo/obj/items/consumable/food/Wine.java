@@ -14,7 +14,8 @@ public class Wine extends Item implements Usable {
 
     @Override
     public void use() {
-        util.TextUtils.blueText("Вы выпили " + getName() + "!");
+        util.TextUtils.blueText(getHolder().tryToGetRealName() + " выпил(-а) " + getName() + "!");
         getHolder().heal(5);
+        destroy();
     }
 }

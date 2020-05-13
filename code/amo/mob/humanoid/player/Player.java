@@ -5,6 +5,7 @@ import amo.area.Area;
 import amo.mob.Mob;
 import amo.mob.humanoid.Humanoid;
 import amo.obj.Obj;
+import amo.obj.Usable;
 import amo.obj.items.default_weapon.HumanFists;
 import game_scenes.misc.AlertBox;
 import javafx.scene.control.Button;
@@ -151,20 +152,22 @@ public class Player extends Humanoid {
             util.TextUtils.whiteText(Random.pick("Да это же ", "Это ", "Похоже, что это ") + obj.getName() + ". " + obj.getDescription());
         });
 
-        if (getActiveWeapon() == obj || getActiveArmor() == obj) {
-            if (obj.isDroppable()) {
-                GlobalVar.adventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Снять"), equipEvent -> {
-                    obj.unequipFrom(this);
-                    GlobalVar.adventureScene.updateGeneralActionPane();
-                });
-            }
-        } else {
-            if (obj.isEquippable()) {
-                GlobalVar.adventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Экипировать"), equipEvent -> {
-                    obj.equipOn(this);
-                    GlobalVar.adventureScene.updateGeneralActionPane();
-                });
-            }
+        if (getActiveWeapon() == obj || getActiveArmor() == obj && obj.isDroppable()) {
+            GlobalVar.adventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Снять"), equipEvent -> {
+                obj.unequipFrom(this);
+                GlobalVar.adventureScene.updateGeneralActionPane();
+            });
+        } else if (obj.isEquippable()) {
+            GlobalVar.adventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Экипировать"), equipEvent -> {
+                obj.equipOn(this);
+                GlobalVar.adventureScene.updateGeneralActionPane();
+            });
+        }
+        if (obj instanceof Usable) {
+            GlobalVar.adventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Использовать"), equipEvent -> {
+                ((Usable) obj).use();
+                GlobalVar.adventureScene.updateGeneralActionPane();
+            });
         }
 
         GlobalVar.adventureScene.getGeneralActionPane().addNewObjInteractionButton(new Button("Выбросить"), equipEvent -> {
@@ -238,7 +241,7 @@ public class Player extends Humanoid {
     }
 
     public void updateHealthIcon() {
-        healthStatIcon.setImage(new Image(getClass().getResourceAsStream("/icons/stats/health/health" + util.Misc.round(getHealth(), 20) + ".png")));
+        healthStatIcon.setImage(new Image(getClass().getResourceAsStream("/icons/stats/health/health" + util.Misc.round(getHealth() + 9, 20) + ".png")));
     }
 
     /////////////////////////////////

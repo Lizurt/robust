@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public abstract class Amo {
     private String name = "Нечто Неопределенное";
+    private String realName = "Real Mob";
+    private boolean isRealNameKnownToPlayer = false;
     private Gender gender = Gender.MALE;
     private String description = "";
     private Size size = Size.NORMAL;
@@ -24,6 +26,8 @@ public abstract class Amo {
     private String amoButtonStyle = "";
 
     public void destroy() {
+        name = null;
+        realName = null;
         gender = null;
         location = null;
         amoAsButton = null;
@@ -33,15 +37,19 @@ public abstract class Amo {
         System.gc();
     }
 
-    public void moveObjToInventory(Obj obj) {
+    public void removeObjFromInventory(Obj obj) {
         obj.unequipFrom(obj.getEquippedOn());
         obj.getHolder().getInventory().remove(obj);
-        obj.setHolder(this);
-        obj.setLocation(getLocation());
-        getInventory().add(obj);
         if (obj.getAmoAsButton() != null) {
             GlobalVar.adventureScene.getInventoryVBox().getChildren().remove(obj.getAmoAsButton());
         }
+    }
+
+    public void moveObjToInventory(Obj obj) {
+        removeObjFromInventory(obj);
+        obj.setHolder(this);
+        obj.setLocation(getLocation());
+        getInventory().add(obj);
     }
 
     public String getExamineText() {
@@ -135,5 +143,22 @@ public abstract class Amo {
     }
     public void setAmoButtonStyle(String amoButtonStyle) {
         this.amoButtonStyle = amoButtonStyle;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+    public String tryToGetRealName() {
+        return isRealNameKnownToPlayer ? getRealName() : getName();
+    }
+
+    public boolean isRealNameKnownToPlayer() {
+        return isRealNameKnownToPlayer;
+    }
+    public void setRealNameKnownToPlayer(boolean realNameKnownToPlayer) {
+        isRealNameKnownToPlayer = realNameKnownToPlayer;
     }
 }

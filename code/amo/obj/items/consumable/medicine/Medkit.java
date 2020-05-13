@@ -15,9 +15,9 @@ public class Medkit extends Item implements Usable {
 
     @Override
     public void use() {
-        util.TextUtils.blueText(" открыл(-а) " + getName() + " и начал(-а) копошиться внутри. Найдя нужные медицинские средства, он(-а) обработал(-а) свои раны и выпил(-а) пару таблеток. Кажется, в аптечке осталось на следующий раз!");
+        util.TextUtils.blueText(getHolder().tryToGetRealName() + " открыл(-а) " + getName() + " и начал(-а) копошиться внутри. Найдя нужные медицинские средства, он(-а) обработал(-а) свои раны и выпил(-а) пару таблеток. Кажется, в аптечке осталось на следующий раз!");
         getHolder().heal(20);
-        new MedkitUsed(getHolder());
+        getHolder().moveObjToInventory(new MedkitUsed(getHolder()));
         destroy();
     }
 }
